@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ExternalLink, Filter } from "lucide-react";
 import { Link } from "react-router-dom";
+import { normalizeImageUrl } from "@/lib/utils";
 
 interface Case {
   id: number;
@@ -44,7 +45,7 @@ export const Portfolio = () => {
     slug: caseItem.slug,
     title: caseItem.title,
     description: caseItem.excerpt,
-    image: caseItem.coverImage,
+    image: normalizeImageUrl(caseItem.coverImage),
     tags: caseItem.tags,
     results: caseItem.metrics[0]?.value || "Ver resultados"
   }));
@@ -107,7 +108,7 @@ export const Portfolio = () => {
                   {/* Project Image */}
                   <div className="relative h-48 overflow-hidden">
                     <img
-                      src={`https://images.unsplash.com/${project.image}?w=600&h=400&fit=crop`}
+                      src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />

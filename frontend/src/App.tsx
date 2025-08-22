@@ -14,6 +14,8 @@ import TemplateDetail from "./pages/TemplateDetail";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCanceled from "./pages/PaymentCanceled";
 import EmailCorporativo from "./pages/EmailCorporativo";
+import ChatWhatsapp from "./pages/ChatWhatsapp";
+import CentralAtendimento from "./pages/CentralAtendimento";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +35,8 @@ const App = () => (
           <Route path="/templates" element={<Templates />} />
           <Route path="/templates/:slug" element={<TemplateDetail />} />
           <Route path="/email-corporativo" element={<EmailCorporativo />} />
+          <Route path="/chat-whatsapp" element={<ChatWhatsapp />} />
+          <Route path="/central-atendimento" element={<CentralAtendimento />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/payment-canceled" element={<PaymentCanceled />} />
           <Route path="/admin" element={<Admin />} />

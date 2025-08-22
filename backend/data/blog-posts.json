@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "titulo": "Bem-vindo ao Blog",
+    "slug": "bem-vindo-ao-blog",
+    "resumo": "Post inaugural dando boas vindas ao blog.",
+    "conteudo": "<p>Este é o nosso primeiro post no blog!</p>",
+    "imagem_destacada": "https://exemplo.com/post1.jpg",
+    "data_publicacao": "2025-07-31 16:20:27",
+    "autor": "Admin"
+  },
+  {
+    "id": 2,
+    "titulo": "Novidades da Plataforma",
+    "slug": "novidades-da-plataforma",
+    "resumo": "Veja o que mudou na última atualização.",
+    "conteudo": "<p>Muitas melhorias implementadas.</p>",
+    "imagem_destacada": "https://exemplo.com/post2.jpg",
+    "data_publicacao": "2025-07-31 16:20:27",
+    "autor": "Admin"
+  },
+  {
+    "id": 3,
+    "titulo": "Dicas de Produtividade",
+    "slug": "dicas-de-produtividade",
+    "resumo": "Pequenas ações para melhorar seu dia a dia.",
+    "conteudo": "<p>Confira nossas dicas valiosas.</p>",
+    "imagem_destacada": "https://exemplo.com/post3.jpg",
+    "data_publicacao": "2025-07-31 16:20:27",
+    "autor": "Equipe Winove"
+  }
+]

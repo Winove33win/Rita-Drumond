@@ -1,0 +1,3 @@
+<IfModule mod_headers.c>
+  Header set Content-Security-Policy "default-src 'self'; img-src 'self' data: blob: https://winove.com.br https://images.unsplash.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://js.stripe.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://api.stripe.com; object-src 'none'; base-uri 'self'; form-action 'self';"
+</IfModule>

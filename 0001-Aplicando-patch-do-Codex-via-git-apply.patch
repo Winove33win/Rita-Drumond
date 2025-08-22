@@ -1,0 +1,121 @@
+From 9cee89ae2b67d2129c9c7308ee840fb6b6d7dae5 Mon Sep 17 00:00:00 2001
+From: Winove <fernando@winove.com.br>
+Date: Thu, 31 Jul 2025 22:06:34 -0300
+Subject: [PATCH] Aplicando patch do Codex via git apply
+
+---
+ conectar-banco-winove.bat | 15 +++++++++++++++
+ package-lock.json         |  8 ++++----
+ package.json              |  2 +-
+ testConnection.js         |  2 +-
+ testFullConnection.js     |  2 +-
+ winove                    |  1 +
+ winove-2                  |  1 +
+ 7 files changed, 24 insertions(+), 7 deletions(-)
+ create mode 100644 conectar-banco-winove.bat
+ create mode 160000 winove
+ create mode 160000 winove-2
+
+diff --git a/conectar-banco-winove.bat b/conectar-banco-winove.bat
+new file mode 100644
+index 0000000..bb0922a
+--- /dev/null
++++ b/conectar-banco-winove.bat
+@@ -0,0 +1,15 @@
++@echo off
++title Conectar ao banco Winove (Plesk)
++echo.
++echo 🔄 Testando conexão com o servidor...
++ping 150.230.81.36 -n 2 > nul
++
++IF ERRORLEVEL 1 (
++    echo ❌ Não foi possível alcançar o host 150.230.81.36.
++    pause
++    exit /b
++)
++
++echo ✅ Host acessível. Iniciando MySQL...
++echo ----------------------------------------
++mysql -h 150.230.81.36 -P 3306 -u fernandowinove -p
+diff --git a/package-lock.json b/package-lock.json
+index 5393d15..8cbefd2 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -48,7 +48,7 @@
+         "express": "^4.19.2",
+         "input-otp": "^1.2.4",
+         "lucide-react": "^0.462.0",
+-        "mysql2": "^3.9.7",
++        "mysql2": "^3.14.3",
+         "next-themes": "^0.3.0",
+         "react": "^18.3.1",
+         "react-day-picker": "^8.10.1",
+@@ -6166,9 +6166,9 @@
+       "license": "MIT"
+     },
+     "node_modules/mysql2": {
+-      "version": "3.14.2",
+-      "resolved": "https://registry.npmjs.org/mysql2/-/mysql2-3.14.2.tgz",
+-      "integrity": "sha512-YD6mZMeoypmheHT6b2BrVmQFvouEpRICuvPIREulx2OvP1xAxxeqkMQqZSTBefv0PiOBKGYFa2zQtY+gf/4eQw==",
++      "version": "3.14.3",
++      "resolved": "https://registry.npmjs.org/mysql2/-/mysql2-3.14.3.tgz",
++      "integrity": "sha512-fD6MLV8XJ1KiNFIF0bS7Msl8eZyhlTDCDl75ajU5SJtpdx9ZPEACulJcqJWr1Y8OYyxsFc4j3+nflpmhxCU5aQ==",
+       "license": "MIT",
+       "dependencies": {
+         "aws-ssl-profiles": "^1.1.1",
+diff --git a/package.json b/package.json
+index a07f461..d83c604 100644
+--- a/package.json
++++ b/package.json
+@@ -52,7 +52,7 @@
+     "express": "^4.19.2",
+     "input-otp": "^1.2.4",
+     "lucide-react": "^0.462.0",
+-    "mysql2": "^3.9.7",
++    "mysql2": "^3.14.3",
+     "next-themes": "^0.3.0",
+     "react": "^18.3.1",
+     "react-day-picker": "^8.10.1",
+diff --git a/testConnection.js b/testConnection.js
+index 2c8dc2a..51d9e8d 100644
+--- a/testConnection.js
++++ b/testConnection.js
+@@ -7,7 +7,7 @@ async function testConnection() {
+       port: 3306,
+       user: 'Winove',
+       password: 'amilase1234', // 
+-      database: 'fernando_winove_com_br'
++      database: 'fernando_winove_com_br_'
+     });
+ 
+     console.log('✅ Conectado com sucesso ao banco de dados!');
+diff --git a/testFullConnection.js b/testFullConnection.js
+index d713e5f..fdf48a1 100644
+--- a/testFullConnection.js
++++ b/testFullConnection.js
+@@ -10,7 +10,7 @@ const PORT = Number(process.env.DB_PORT) || 3306;
+ const USER = process.env.DB_USER || 'Winove';
+ // the default password includes a trailing @
+ const PASSWORD = process.env.DB_PASSWORD || 'amilase1234';
+-const DATABASE = process.env.DB_NAME || 'fernando_winove_com_br';
++const DATABASE = process.env.DB_NAME || 'fernando_winove_com_br_';
+ 
+ async function diagnosticoRede() {
+   console.log('\n🔎 Iniciando diagnóstico de rede...\n');
+diff --git a/winove b/winove
+new file mode 160000
+index 0000000..ce09c40
+--- /dev/null
++++ b/winove
+@@ -0,0 +1 @@
++Subproject commit ce09c40ec9fa70f3dfd262f9643e3f58537b38dd
+diff --git a/winove-2 b/winove-2
+new file mode 160000
+index 0000000..5ad073b
+--- /dev/null
++++ b/winove-2
+@@ -0,0 +1 @@
++Subproject commit 5ad073b229cae442db1d2f108cb9a97d31745072
+-- 
+2.50.1.windows.1
+

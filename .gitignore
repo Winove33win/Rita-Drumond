@@ -1,0 +1,37 @@
+# Node / Geral
+node_modules/
+npm-debug.log*
+yarn.lock
+pnpm-lock.yaml
+.DS_Store
+.env
+.env.*
+*.log
+dist/
+build/
+.tmp/
+temp/
+coverage/
+
+# Frontend (Vite/React)
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+*.local
+
+# Backend (Express)
+backend/node_modules/
+backend/logs/
+backend/tmp/
+backend/*.sqlite
+backend/coverage/
+
+# Plesk / Arquivos grandes
+*.zip
+*.tar
+*.tar.gz
+
+# IDE
+.vscode/
+.idea/
+*.iml

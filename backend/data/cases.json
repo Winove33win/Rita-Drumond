@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "title": "E-commerce Moderno para Moda",
+    "slug": "ecommerce-moderno-moda",
+    "excerpt": "Desenvolvimento de plataforma e-commerce completa com foco em conversão e experiência do usuário.",
+    "coverImage": "/assets/cases/ecommerce-moda-cover.jpg",
+    "tags": ["E-commerce", "UX/UI", "Desenvolvimento"],
+    "metrics": { "conversao": "+250%", "vendas": "+180%", "usuarios": "50k+" },
+    "gallery": [
+      "/assets/cases/ecommerce-moda-1.jpg",
+      "/assets/cases/ecommerce-moda-2.jpg"
+    ],
+    "content": "<p>Projeto completo de e-commerce para marca de moda...</p>",
+    "client": "FashionBrand",
+    "category": "E-commerce",
+    "created_at": "2025-07-31 23:39:36"
+  },
+  {
+    "id": 2,
+    "title": "App Mobile para Delivery",
+    "slug": "app-mobile-delivery",
+    "excerpt": "Aplicativo mobile nativo para delivery de comida com sistema de rastreamento em tempo real.",
+    "coverImage": "/assets/cases/delivery-cover.jpg",
+    "tags": ["Mobile", "React Native", "Backend"],
+    "metrics": { "downloads": "100k+", "rating": "4.8", "pedidos": "10k+" },
+    "gallery": [
+      "/assets/cases/delivery-1.jpg",
+      "/assets/cases/delivery-2.jpg"
+    ],
+    "content": "<p>Desenvolvimento de aplicativo mobile completo...</p>",
+    "client": "DeliveryApp",
+    "category": "Mobile",
+    "created_at": "2025-07-31 23:39:36"
+  },
+  {
+    "id": 3,
+    "title": "Sistema SaaS para Gestão",
+    "slug": "sistema-saas-gestao",
+    "excerpt": "Plataforma SaaS completa para gestão empresarial com dashboard em tempo real e relatórios avançados.",
+    "coverImage": "/assets/cases/saas-gestao-cover.jpg",
+    "tags": ["SaaS", "Dashboard", "Analytics"],
+    "metrics": { "usuarios": "5k+", "uptime": "99.9%", "satisfacao": "95%" },
+    "gallery": [
+      "/assets/cases/saas-gestao-1.jpg",
+      "/assets/cases/saas-gestao-2.jpg"
+    ],
+    "content": "<p>Sistema SaaS completo para gestão empresarial...</p>",
+    "client": "GestãoPro",
+    "category": "SaaS",
+    "created_at": "2025-07-31 23:39:36"
+  }
+]

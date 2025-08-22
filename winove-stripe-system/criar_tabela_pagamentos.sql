@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS pagamentos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255),
+  valor DECIMAL(10,2),
+  status VARCHAR(50),
+  stripe_id VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

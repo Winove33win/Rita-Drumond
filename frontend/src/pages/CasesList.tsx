@@ -3,21 +3,7 @@ import { ArrowRight, ExternalLink, TrendingUp } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useEffect, useState } from "react";
-
-interface CaseItem {
-  slug: string;
-  title: string;
-  client: string;
-  date: string;
-  coverImage: string;
-  excerpt: string;
-  challenge: string;
-  solution: string;
-  results: string;
-  gallery: string[];
-  tags: string[];
-  metrics: { label: string; value: string; description: string }[];
-}
+import { CaseItem, Metric, safeArray } from "@/lib/caseUtils";
 
 export const CasesList = () => {
   const [items, setItems] = useState<CaseItem[]>([]);
@@ -30,8 +16,14 @@ export const CasesList = () => {
         if (res.ok) {
           const text = await res.text();
           if (!text) throw new Error("Resposta vazia do servidor");
-          const data = JSON.parse(text);
-          setItems(data);
+          const data = JSON.parse(text) as Array<Record<string, unknown>>;
+          const parsed: CaseItem[] = data.map((item) => ({
+            ...(item as Omit<CaseItem, "tags" | "gallery" | "metrics">),
+            tags: safeArray<string>(item.tags as string[] | string | null | undefined),
+            gallery: safeArray<string>(item.gallery as string[] | string | null | undefined),
+            metrics: safeArray<Metric>(item.metrics as Metric[] | string | null | undefined),
+          }));
+          setItems(parsed);
         }
       } catch (err) {
         console.error('fetch cases', err);
@@ -108,7 +100,7 @@ export const CasesList = () => {
                   {/* Case Image */}
                   <div className="relative h-64 overflow-hidden">
                     <img
-                      src={`https://images.unsplash.com/${caseItem.coverImage}?w=800&h=400&fit=crop`}
+                      src={caseItem.coverImage}
                       alt={caseItem.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />

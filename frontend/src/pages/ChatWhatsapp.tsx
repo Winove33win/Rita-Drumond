@@ -1,81 +1,165 @@
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Users, QrCode, Plug } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { MessagesSquare, CalendarClock, QrCode, Cpu, ShieldCheck, Users, Bot, Webhook, Settings, Zap, PhoneCall, Clock8, BarChart3, Server, Link as LinkIcon } from "lucide-react";
 
-const ChatWhatsapp = () => {
+export default function ChatWhatsapp() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Header />
-
+    <main className="min-h-screen">
       {/* Hero */}
-      <section className="pt-24 pb-16 px-4 bg-gradient-to-br from-primary/5 via-background to-primary/5 text-center">
-        <div className="container mx-auto">
-          <Badge className="mb-4 px-4 py-2">Chat Whatsapp</Badge>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-            Atendimento no Whatsapp
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            Conecte seu negócio ao Whatsapp e distribua conversas para diversos usuários com um único número.
-          </p>
-        </div>
-      </section>
-
-      {/* Connection Options */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Formas de Conexão</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Plug className="w-6 h-6 text-primary" />
-                  API Oficial
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-muted-foreground">
-                <p>Integração indicada para operações que exigem estabilidade e alto volume.</p>
-                <ul className="list-disc list-inside text-sm">
-                  <li>Sem limite prático de contas conectadas.</li>
-                  <li>Tempo de resposta otimizado.</li>
-                  <li>Recomendado para empresas em crescimento.</li>
-                </ul>
-              </CardContent>
-            </Card>
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <QrCode className="w-6 h-6 text-primary" />
-                  Conexão via QR Code
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2 text-muted-foreground">
-                <p>Opção simples para iniciar rapidamente sem necessidade de homologação.</p>
-                <ul className="list-disc list-inside text-sm">
-                  <li>Suporta no máximo 3 contas.</li>
-                  <li>Tempo de resposta pode variar conforme o dispositivo.</li>
-                  <li>Ideal para testes ou pequenas equipes.</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-          <div className="mt-12 text-center text-muted-foreground max-w-2xl mx-auto">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Users className="w-5 h-5 text-primary" />
-              <span className="font-medium text-foreground">Um número geral, vários usuários</span>
-            </div>
-            <p>
-              Independentemente da forma de conexão, todas as mensagens chegam a um número único e podem ser atendidas por diferentes usuários simultaneamente.
+      <section className="container mx-auto px-4 py-16 md:py-24" aria-labelledby="chatwhats-hero">
+        <div className="grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <Badge variant="secondary" className="mb-3">WhatsApp Omnichannel</Badge>
+            <h1 id="chatwhats-hero" className="text-3xl md:text-5xl font-bold tracking-tight">Chat WhatsApp com automações e IA</h1>
+            <p className="mt-4 text-muted-foreground text-lg">
+              Conecte um número geral do seu negócio, distribua conversas entre múltiplos atendentes e acelere respostas com fluxos, IA e integrações.
             </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button size="lg">Solicitar integração</Button>
+              <Button size="lg" variant="outline">Agendar treinamento</Button>
+              <Button size="lg" variant="ghost" className="underline-offset-4 hover:underline">Falar com especialista</Button>
+            </div>
+            <div className="mt-4 flex items-center gap-3 text-sm text-muted-foreground">
+              <ShieldCheck className="h-4 w-4" /> Conexão oficial com verificação e auditoria de logs
+            </div>
+          </div>
+
+          {/* Comparativo QR x API (visual) */}
+          <div className="grid grid-cols-2 gap-4">
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base flex items-center gap-2"><QrCode className="h-4 w-4" />Conexão via QR Code</CardTitle>
+                <CardDescription>Uso rápido, porém limitado</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2 text-sm text-muted-foreground">
+                <p className="flex items-center gap-2"><Clock8 className="h-4 w-4" /> Variação de resposta em picos</p>
+                <p className="flex items-center gap-2"><PhoneCall className="h-4 w-4" /> Depende do aparelho logado</p>
+                <p className="flex items-center gap-2"><BarChart3 className="h-4 w-4" /> <b>~3 sessões</b> estáveis</p>
+                <div className="mt-3">
+                  <p className="text-xs mb-1">Estabilidade</p>
+                  <div className="h-2 rounded bg-muted">
+                    <div className="h-2 rounded bg-primary/60 w-2/5" aria-label="estabilidade baixa" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-base flex items-center gap-2"><Cpu className="h-4 w-4" />Conexão via API (recomendada)</CardTitle>
+                <CardDescription>Escalável, estável e auditável</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-2 text-sm text-muted-foreground">
+                <p className="flex items-center gap-2"><Server className="h-4 w-4" /> Infra estável e auditável</p>
+                <p className="flex items-center gap-2"><Users className="h-4 w-4" /> Múltiplos atendentes no mesmo número</p>
+                <p className="flex items-center gap-2"><LinkIcon className="h-4 w-4" /> Webhooks, templates e BM/Meta</p>
+                <div className="mt-3">
+                  <p className="text-xs mb-1">Estabilidade</p>
+                  <div className="h-2 rounded bg-muted">
+                    <div className="h-2 rounded bg-primary w-4/5" aria-label="estabilidade alta" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
-      <Footer />
-    </div>
-  );
-};
+      {/* O que você consegue fazer */}
+      <section className="container mx-auto px-4 pb-8" aria-labelledby="chatwhats-acao">
+        <h2 id="chatwhats-acao" className="text-2xl md:text-3xl font-semibold tracking-tight mb-6">O que você consegue fazer</h2>
+        <div className="grid md:grid-cols-3 gap-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2"><Users className="h-5 w-5" /> Atendentes múltiplos</CardTitle>
+              <CardDescription>Um número, vários usuários</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground">
+              Direcione ou distribua conversas automaticamente. Permissões por equipe, histórico e ownership de contato.
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2"><MessagesSquare className="h-5 w-5" /> Central de Conversas</CardTitle>
+              <CardDescription>Aberto • Pendente • Resolvido • Chatbot</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground">
+              Exporte conversas em PDF, acesse logs, registre atividades e acompanhe o funil de vendas por conversa.
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2"><Bot className="h-5 w-5" /> Sincronização com IA</CardTitle>
+              <CardDescription>Typebot, ChatGPT e n8n</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground">
+              Integre fluxos conversacionais, automações e roteamento inteligente com ferramentas no-code/low-code.
+            </CardContent>
+          </Card>
+        </div>
+      </section>
 
-export default ChatWhatsapp;
+      {/* Módulos da plataforma (resumo) */}
+      <section className="container mx-auto px-4 py-10" aria-labelledby="chatwhats-modulos">
+        <h2 id="chatwhats-modulos" className="text-2xl md:text-3xl font-semibold tracking-tight mb-6">Integrações & Conectores</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2"><Webhook className="h-5 w-5" /> Canais & Integrações</CardTitle>
+              <CardDescription>Omnichannel & APIs</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground space-y-2">
+              <p><b>IA:</b> Typebot, ChatGPT, Grok, Gemini, Qwen, Claude, DeepSeek, Dify, Ollama, LM Studio, Dialogflow.</p>
+              <p><b>Canais & gateways:</b> Webhooks, Meta, Webchat, Evolution API, Wuzapi API, Hub Notificame, SMS Vapi, GroqCloud.</p>
+              <p><b>Templates:</b> modelos aprovados e fluxos reutilizáveis.</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2"><Settings className="h-5 w-5" /> Templates de configuração</CardTitle>
+              <CardDescription>Implante padrões em minutos</CardDescription>
+            </CardHeader>
+            <CardContent className="text-sm text-muted-foreground space-y-2">
+              <p>Modelos de mensagens, horários, feriados, SLAs e fluxos de triagem.</p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Preços */}
+      <section className="container mx-auto px-4 py-10" aria-labelledby="chatwhats-precos">
+        <h2 id="chatwhats-precos" className="sr-only">Planos e valores</h2>
+        <Card className="border-dashed">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2"><Zap className="h-5 w-5" /> Planos e valores</CardTitle>
+            <CardDescription>Mínimo de 5 usuários por conta</CardDescription>
+          </CardHeader>
+          <CardContent className="text-sm md:text-base text-muted-foreground">
+            <p><b>Base:</b> R$ 50/mês (mínimo de 5 usuários).</p>
+            <div className="mt-4 flex gap-3">
+              <Button size="sm">Solicitar integração</Button>
+              <Button size="sm" variant="outline">Agendar treinamento</Button>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* CTA final */}
+      <section className="container mx-auto px-4 py-10 pb-20" aria-labelledby="chatwhats-cta">
+        <h2 id="chatwhats-cta" className="sr-only">Chamada para ação</h2>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-6 rounded-2xl border">
+          <div>
+            <h3 className="text-xl md:text-2xl font-semibold">Pronto para profissionalizar seu WhatsApp?</h3>
+            <p className="text-muted-foreground">Veja um fluxo completo em 15 minutos.</p>
+          </div>
+          <div className="flex gap-3">
+            <Button size="lg"><MessagesSquare className="h-4 w-4 mr-2" />Solicitar integração</Button>
+            <Button size="lg" variant="outline"><CalendarClock className="h-4 w-4 mr-2" />Agendar treinamento</Button>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
 

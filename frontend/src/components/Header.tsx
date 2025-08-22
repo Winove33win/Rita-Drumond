@@ -1,24 +1,15 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
 
   const navItems = [
-    { name: "Início", href: "/", type: "link" },
-    { name: "Sobre", href: "/#about", type: "anchor" },
-    { name: "Serviços", href: "/#services", type: "anchor" },
-    { name: "Portfolio", href: "/#portfolio", type: "anchor" },
-    { name: "Templates", href: "/templates", type: "link" },
-    { name: "E-mail Corporativo", href: "/email-corporativo", type: "link" },
-    { name: "Chat Whatsapp", href: "/chat-whatsapp", type: "link" },
-    { name: "Central de Atendimento", href: "/central-atendimento", type: "link" },
-    { name: "Blog", href: "/blog", type: "link" },
-    { name: "Cases", href: "/cases", type: "link" },
-    { name: "Contato", href: "/#contact", type: "anchor" },
+    { name: "Início", href: "/" },
+    { name: "Chat WhatsApp", href: "/chat-whatsapp" },
+    { name: "Central de Atendimento", href: "/central-atendimento" },
   ];
 
   return (
@@ -35,27 +26,15 @@ export const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center gap-6 text-sm">
             {navItems.map((item) => (
-              item.type === "link" ? (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={`text-foreground hover:text-primary transition-colors duration-300 ${
-                    location.pathname === item.href ? 'text-primary' : ''
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ) : (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-foreground hover:text-primary transition-colors duration-300"
-                >
-                  {item.name}
-                </a>
-              )
+              <NavLink
+                key={item.href}
+                to={item.href}
+                className="transition-colors text-foreground/60 hover:text-foreground/80"
+              >
+                {item.name}
+              </NavLink>
             ))}
           </nav>
 
@@ -82,27 +61,14 @@ export const Header = () => {
           <div className="md:hidden mt-4 py-4 glass rounded-lg">
             <nav className="flex flex-col space-y-4 px-4">
               {navItems.map((item) => (
-                item.type === "link" ? (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={`text-foreground hover:text-primary transition-colors duration-300 ${
-                      location.pathname === item.href ? 'text-primary' : ''
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ) : (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="text-foreground hover:text-primary transition-colors duration-300"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                )
+                <NavLink
+                  key={item.href}
+                  to={item.href}
+                  className="transition-colors text-foreground/60 hover:text-foreground/80"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </NavLink>
               ))}
               <a href="https://api.whatsapp.com/send?phone=5519982403845" target="_blank" rel="noopener noreferrer">
                 <Button className="btn-primary mt-4" onClick={() => setIsMenuOpen(false)}>

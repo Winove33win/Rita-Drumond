@@ -3,12 +3,7 @@ import { ArrowRight, ExternalLink, TrendingUp } from "lucide-react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useEffect, useState } from "react";
-import {
-  CaseItem,
-  Metric,
-  safeArray,
-  normalizeImageUrl,
-} from "@/lib/caseUtils";
+import { CaseItem, parseCaseArray } from "@/lib/caseUtils";
 
 export const CasesList = () => {
   const [items, setItems] = useState<CaseItem[]>([]);
@@ -22,20 +17,7 @@ export const CasesList = () => {
           const text = await res.text();
           if (!text) throw new Error("Resposta vazia do servidor");
           const data = JSON.parse(text) as Array<Record<string, unknown>>;
-          const parsed: CaseItem[] = data.map((item) => ({
-            ...(item as Omit<CaseItem, "tags" | "gallery" | "metrics" | "coverImage">),
-            coverImage: normalizeImageUrl(
-              (item as Record<string, unknown>).coverImage as string | null | undefined,
-            ),
-            tags: safeArray<string>(item.tags as string[] | string | null | undefined),
-            gallery: safeArray<string>(
-              item.gallery as string[] | string | null | undefined,
-            ).map(normalizeImageUrl),
-            metrics: safeArray<Metric>(
-              item.metrics as Metric[] | string | null | undefined,
-            ),
-          }));
-          setItems(parsed);
+          setItems(parseCaseArray(data));
         }
       } catch (err) {
         console.error('fetch cases', err);

@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import { ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
-import {
-  CaseItem,
-  Metric,
-  safeArray,
-  normalizeImageUrl,
-} from "@/lib/caseUtils";
+import { CaseItem, parseCaseArray } from "@/lib/caseUtils";
 
 export const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -28,20 +23,7 @@ export const Portfolio = () => {
           const text = await res.text();
           if (!text) throw new Error("Resposta vazia do servidor");
           const data = JSON.parse(text) as Array<Record<string, unknown>>;
-          const parsed: CaseItem[] = data.map((item) => ({
-            ...(item as Omit<CaseItem, "tags" | "gallery" | "metrics" | "coverImage">),
-            coverImage: normalizeImageUrl(
-              (item as Record<string, unknown>).coverImage as string | null | undefined,
-            ),
-            tags: safeArray<string>(item.tags as string[] | string | null | undefined),
-            gallery: safeArray<string>(
-              item.gallery as string[] | string | null | undefined,
-            ).map(normalizeImageUrl),
-            metrics: safeArray<Metric>(
-              item.metrics as Metric[] | string | null | undefined,
-            ),
-          }));
-          setCases(parsed.slice(0, 4));
+          setCases(parseCaseArray(data).slice(0, 4));
         }
       } catch (err) {
         console.error("fetch cases", err);

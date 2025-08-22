@@ -3,12 +3,7 @@ import { ArrowLeft, Calendar, TrendingUp, Target, Lightbulb, Trophy, ArrowRight 
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useEffect, useState } from "react";
-import {
-  CaseItem,
-  Metric,
-  safeArray,
-  normalizeImageUrl,
-} from "@/lib/caseUtils";
+import { CaseItem, parseCase, parseCaseArray } from "@/lib/caseUtils";
 
 export const CaseDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -25,42 +20,14 @@ export const CaseDetail = () => {
           const text = await res.text();
           if (!text) throw new Error("Resposta vazia do servidor");
           const data = JSON.parse(text) as Record<string, unknown>;
-          const parsed: CaseItem = {
-            ...(data as Omit<CaseItem, "tags" | "gallery" | "metrics" | "coverImage">),
-            coverImage: normalizeImageUrl(
-              (data as Record<string, unknown>).coverImage as string | null | undefined,
-            ),
-            tags: safeArray<string>(
-              data.tags as string[] | string | null | undefined,
-            ),
-            gallery: safeArray<string>(
-              data.gallery as string[] | string | null | undefined,
-            ).map(normalizeImageUrl),
-            metrics: safeArray<Metric>(
-              data.metrics as Metric[] | string | null | undefined,
-            ),
-          };
+          const parsed = parseCase(data);
           setCaseItem(parsed);
           const relRes = await fetch(`${API}/cases`);
           if (relRes.ok) {
             const relText = await relRes.text();
             if (!relText) throw new Error("Resposta vazia do servidor");
             const rawCases = JSON.parse(relText) as Array<Record<string, unknown>>;
-            const all: CaseItem[] = rawCases.map((c) => ({
-              ...(c as Omit<CaseItem, "tags" | "gallery" | "metrics" | "coverImage">),
-              coverImage: normalizeImageUrl(
-                (c as Record<string, unknown>).coverImage as string | null | undefined,
-              ),
-              tags: safeArray<string>(
-                c.tags as string[] | string | null | undefined,
-              ),
-              gallery: safeArray<string>(
-                c.gallery as string[] | string | null | undefined,
-              ).map(normalizeImageUrl),
-              metrics: safeArray<Metric>(
-                c.metrics as Metric[] | string | null | undefined,
-              ),
-            }));
+            const all = parseCaseArray(rawCases);
             setRelatedCases(all.filter((c) => c.slug !== parsed.slug).slice(0, 3));
           }
         }

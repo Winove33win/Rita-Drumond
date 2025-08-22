@@ -55,3 +55,23 @@ export const normalizeImageUrl = (
   return clean;
 };
 
+export const parseCase = (data: Record<string, unknown>): CaseItem => ({
+  ...(data as Omit<CaseItem, "tags" | "gallery" | "metrics" | "coverImage">),
+  coverImage: normalizeImageUrl(
+    (data as Record<string, unknown>).coverImage as string | null | undefined,
+  ),
+  tags: safeArray<string>(
+    data.tags as string[] | string | null | undefined,
+  ),
+  gallery: safeArray<string>(
+    data.gallery as string[] | string | null | undefined,
+  ).map(normalizeImageUrl),
+  metrics: safeArray<Metric>(
+    data.metrics as Metric[] | string | null | undefined,
+  ),
+});
+
+export const parseCaseArray = (
+  arr: Array<Record<string, unknown>>,
+): CaseItem[] => arr.map(parseCase);
+

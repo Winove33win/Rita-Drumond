@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Header } from "@/components/Header";
 import Index from "./pages/Index";
 import { BlogList } from "./pages/BlogList";
 import { BlogPost } from "./pages/BlogPost";
@@ -14,8 +15,8 @@ import TemplateDetail from "./pages/TemplateDetail";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCanceled from "./pages/PaymentCanceled";
 import EmailCorporativo from "./pages/EmailCorporativo";
-import ChatWhatsapp from "./pages/ChatWhatsapp";
-import CentralAtendimento from "./pages/CentralAtendimento";
+import ChatWhatsapp from "@/pages/ChatWhatsapp";
+import { CentralAtendimento } from "@/pages/CentralAtendimento";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/blog" element={<BlogList />} />

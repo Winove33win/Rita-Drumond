@@ -1,135 +1,77 @@
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle, Calendar, PhoneCall, Clock, Plug } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { KanbanSquare, Star, Zap } from "lucide-react";
 
-const features = [
-  { icon: CheckCircle, text: "Chamados abertos, pendentes, resolvidos e chatbot" },
-  { icon: CheckCircle, text: "Funil de vendas, exportação das conversas em PDF, logs e registros" },
-  { icon: CheckCircle, text: "Sincronização com Typebot, ChatGPT e n8n" },
-  { icon: CheckCircle, text: "Gestão de oportunidades com ações, calendário e visualização kanban" },
-  { icon: CheckCircle, text: "Mensagens rápidas" },
-  { icon: Calendar, text: "Agendamento de mensagens com parâmetros (ex: aniversariantes)" },
-  { icon: PhoneCall, text: "Suporte para chamadas VoIP e logs" },
-  { icon: CheckCircle, text: "Avaliação de atendimento" },
-  { icon: Clock, text: "Horário de atendimento configurável com cadastro de feriados" },
-  { icon: Plug, text: "Integração com API externa" },
-];
-
-const aiIntegrations = [
-  "Typebot", "ChatGPT", "Grok", "Gemini", "Qwen", "Claude", "DeepSeek",
-  "n8n", "Dify", "Ollama", "LM Studio", "Dialogflow"
-];
-
-const otherIntegrations = [
-  "Webhooks", "Meta", "Webchat", "Evolution API", "Wuzapi API",
-  "Hub Notificame", "SMS Vapi", "groqCloud"
-];
-
-const CentralAtendimento = () => {
+export function CentralAtendimento() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Header />
+    <main className="min-h-screen">
+      <section className="container mx-auto px-4 py-16 md:py-24" aria-labelledby="central-hero">
+        <Badge variant="secondary" className="mb-3">Central de Atendimento</Badge>
+        <h1 id="central-hero" className="text-3xl md:text-5xl font-bold tracking-tight">Central de Conversas com funil</h1>
+        <p className="mt-4 text-muted-foreground text-lg">
+          Gerencie atendimentos em tempo real e automatize fluxos.
+        </p>
 
-      {/* Hero */}
-      <section className="pt-24 pb-16 px-4 bg-gradient-to-br from-primary/5 via-background to-primary/5 text-center">
-        <div className="container mx-auto">
-          <Badge className="mb-4 px-4 py-2">Central de Atendimento</Badge>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-            Plataforma de Atendimento Completa
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            Organize suas conversas, automatize processos e integre seu atendimento com as principais ferramentas do mercado.
-          </p>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Recursos</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {features.map((f, idx) => (
-              <Card key={idx} className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <f.icon className="w-5 h-5 text-primary" />
-                    {f.text}
-                  </CardTitle>
-                </CardHeader>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Integrations */}
-      <section className="py-16 px-4 bg-muted/30">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-6">Integrações</h2>
-          <p className="text-center text-muted-foreground mb-8">Conecte sua central às principais plataformas do mercado.</p>
-          <div className="grid md:grid-cols-2 gap-8">
+        <Tabs defaultValue="abertos" className="mt-8">
+          <TabsList className="grid w-full grid-cols-4 md:w-auto">
+            <TabsTrigger value="abertos">Abertos</TabsTrigger>
+            <TabsTrigger value="pendentes">Pendentes</TabsTrigger>
+            <TabsTrigger value="resolvidos">Resolvidos</TabsTrigger>
+            <TabsTrigger value="chatbot">Chatbot</TabsTrigger>
+          </TabsList>
+          <TabsContent value="abertos" className="mt-6 grid md:grid-cols-2 gap-4">
             <Card>
               <CardHeader>
-                <CardTitle>IA e Automação</CardTitle>
+                <CardTitle className="flex items-center gap-2"><KanbanSquare className="h-5 w-5" /> Gestão de Oportunidades</CardTitle>
+                <CardDescription>Visualização em kanban das conversas</CardDescription>
               </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                {aiIntegrations.map(name => (
-                  <Badge key={name} variant="secondary">{name}</Badge>
-                ))}
+              <CardContent className="text-sm text-muted-foreground">
+                Acompanhe estágios, atribua responsáveis e registre atividades em cada oportunidade.
               </CardContent>
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Outras Conexões</CardTitle>
+                <CardTitle className="flex items-center gap-2"><Star className="h-5 w-5" /> Avaliação de Atendimento</CardTitle>
+                <CardDescription>Feedback direto dos clientes</CardDescription>
               </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                {otherIntegrations.map(name => (
-                  <Badge key={name} variant="secondary">{name}</Badge>
-                ))}
+              <CardContent className="text-sm text-muted-foreground">
+                Colete notas e comentários ao finalizar cada conversa.
               </CardContent>
             </Card>
-          </div>
-        </div>
+          </TabsContent>
+          <TabsContent value="pendentes" className="mt-6 text-sm text-muted-foreground">
+            <p>Conversas aguardando retorno ficam em evidência para garantir SLAs e prazos.</p>
+          </TabsContent>
+          <TabsContent value="resolvidos" className="mt-6 text-sm text-muted-foreground">
+            <p>Histórico completo e exportação das conversas finalizadas.</p>
+          </TabsContent>
+          <TabsContent value="chatbot" className="mt-6 text-sm text-muted-foreground">
+            <p>Automatize triagem e respostas com fluxos e IA integrados.</p>
+          </TabsContent>
+        </Tabs>
       </section>
 
-      {/* Additional */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto space-y-12 max-w-3xl">
-          <Card>
-            <CardHeader>
-              <CardTitle>Testar BM</CardTitle>
-            </CardHeader>
-            <CardContent className="text-muted-foreground">
-              Verificação para confirmar integração com a Meta. Em caso de erro, o sistema informa imediatamente.
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Templates de Configuração</CardTitle>
-            </CardHeader>
-            <CardContent className="text-muted-foreground">
-              Modelos prontos para agilizar a implementação de fluxos e integrações.
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Valores</CardTitle>
-            </CardHeader>
-            <CardContent className="text-muted-foreground">
-              Planos com o mínimo de 5 usuários a partir de <strong>R$ 50,00 por mês</strong>.
-            </CardContent>
-          </Card>
-        </div>
+      <section className="container mx-auto px-4 py-10" aria-labelledby="central-planos">
+        <h2 id="central-planos" className="sr-only">Planos e valores</h2>
+        <Card className="border-dashed">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2"><Zap className="h-5 w-5" /> Planos e valores</CardTitle>
+            <CardDescription>Mínimo de 5 usuários por conta</CardDescription>
+          </CardHeader>
+          <CardContent className="text-sm md:text-base text-muted-foreground">
+            <p><b>Base:</b> R$ 50/mês (mínimo de 5 usuários).</p>
+            <div className="mt-4 flex gap-3">
+              <Button size="sm">Solicitar integração</Button>
+              <Button size="sm" variant="outline">Agendar treinamento</Button>
+            </div>
+          </CardContent>
+        </Card>
       </section>
-
-      <Footer />
-    </div>
+    </main>
   );
-};
+}
 
 export default CentralAtendimento;
 

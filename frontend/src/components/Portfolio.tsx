@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ExternalLink, Filter } from "lucide-react";
 import { Link } from "react-router-dom";
+import { safeArray } from "@/lib/caseUtils";
 
 interface Case {
   id: number;
@@ -8,8 +9,8 @@ interface Case {
   slug: string;
   excerpt: string;
   coverImage: string;
-  tags: string[];
-  metrics: Array<{ label: string; value: string }>;
+  tags: string[] | string | null | undefined;
+  metrics: Array<{ label: string; value: string }> | string | null | undefined;
 }
 
 export const Portfolio = () => {
@@ -40,13 +41,15 @@ export const Portfolio = () => {
   }, []);
 
   // Mapear cases para projetos
-  const projects = cases.map(caseItem => ({
+  const projects = cases.map((caseItem) => ({
     slug: caseItem.slug,
     title: caseItem.title,
     description: caseItem.excerpt,
     image: caseItem.coverImage,
-    tags: caseItem.tags,
-    results: caseItem.metrics[0]?.value || "Ver resultados"
+    tags: safeArray<string>(caseItem.tags),
+    results:
+      safeArray<{ label: string; value: string }>(caseItem.metrics)[0]?.value ||
+      "Ver resultados",
   }));
 
   const filteredProjects = activeFilter === "all" 

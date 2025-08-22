@@ -61,10 +61,22 @@ export function CentralAtendimento() {
             <CardDescription>Mínimo de 5 usuários por conta</CardDescription>
           </CardHeader>
           <CardContent className="text-sm md:text-base text-muted-foreground">
-            <p><b>Base:</b> R$ 50/mês (mínimo de 5 usuários).</p>
+            <p><b>Base:</b> R$ 750/mês (mínimo de 5 usuários).</p>
             <div className="mt-4 flex gap-3">
-              <Button size="sm">Solicitar integração</Button>
-              <Button size="sm" variant="outline">Agendar treinamento</Button>
+              <a
+                href="https://api.whatsapp.com/send?phone=5519982403845"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="sm">Solicitar integração</Button>
+              </a>
+              <a
+                href="https://api.whatsapp.com/send?phone=5519982403845"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="sm" variant="outline">Agendar treinamento</Button>
+              </a>
             </div>
           </CardContent>
         </Card>

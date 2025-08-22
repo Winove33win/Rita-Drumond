@@ -14,6 +14,8 @@ export const Header = () => {
     { name: "Portfolio", href: "/#portfolio", type: "anchor" },
     { name: "Templates", href: "/templates", type: "link" },
     { name: "E-mail Corporativo", href: "/email-corporativo", type: "link" },
+    { name: "Chat Whatsapp", href: "/chat-whatsapp", type: "link" },
+    { name: "Central de Atendimento", href: "/central-atendimento", type: "link" },
     { name: "Blog", href: "/blog", type: "link" },
     { name: "Cases", href: "/cases", type: "link" },
     { name: "Contato", href: "/#contact", type: "anchor" },

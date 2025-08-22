@@ -16,9 +16,27 @@ export default function ChatWhatsapp() {
               Conecte um número geral do seu negócio, distribua conversas entre múltiplos atendentes e acelere respostas com fluxos, IA e integrações.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Button size="lg">Solicitar integração</Button>
-              <Button size="lg" variant="outline">Agendar treinamento</Button>
-              <Button size="lg" variant="ghost" className="underline-offset-4 hover:underline">Falar com especialista</Button>
+              <a
+                href="https://api.whatsapp.com/send?phone=5519982403845"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg">Solicitar integração</Button>
+              </a>
+              <a
+                href="https://api.whatsapp.com/send?phone=5519982403845"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg" variant="outline">Agendar treinamento</Button>
+              </a>
+              <a
+                href="https://api.whatsapp.com/send?phone=5519982403845"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg" variant="ghost" className="underline-offset-4 hover:underline">Falar com especialista</Button>
+              </a>
             </div>
             <div className="mt-4 flex items-center gap-3 text-sm text-muted-foreground">
               <ShieldCheck className="h-4 w-4" /> Conexão oficial com verificação e auditoria de logs
@@ -136,10 +154,22 @@ export default function ChatWhatsapp() {
             <CardDescription>Mínimo de 5 usuários por conta</CardDescription>
           </CardHeader>
           <CardContent className="text-sm md:text-base text-muted-foreground">
-            <p><b>Base:</b> R$ 50/mês (mínimo de 5 usuários).</p>
+            <p><b>Base:</b> R$ 750/mês (mínimo de 5 usuários).</p>
             <div className="mt-4 flex gap-3">
-              <Button size="sm">Solicitar integração</Button>
-              <Button size="sm" variant="outline">Agendar treinamento</Button>
+              <a
+                href="https://api.whatsapp.com/send?phone=5519982403845"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="sm">Solicitar integração</Button>
+              </a>
+              <a
+                href="https://api.whatsapp.com/send?phone=5519982403845"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="sm" variant="outline">Agendar treinamento</Button>
+              </a>
             </div>
           </CardContent>
         </Card>
@@ -154,8 +184,20 @@ export default function ChatWhatsapp() {
             <p className="text-muted-foreground">Veja um fluxo completo em 15 minutos.</p>
           </div>
           <div className="flex gap-3">
-            <Button size="lg"><MessagesSquare className="h-4 w-4 mr-2" />Solicitar integração</Button>
-            <Button size="lg" variant="outline"><CalendarClock className="h-4 w-4 mr-2" />Agendar treinamento</Button>
+            <a
+              href="https://api.whatsapp.com/send?phone=5519982403845"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button size="lg"><MessagesSquare className="h-4 w-4 mr-2" />Solicitar integração</Button>
+            </a>
+            <a
+              href="https://api.whatsapp.com/send?phone=5519982403845"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button size="lg" variant="outline"><CalendarClock className="h-4 w-4 mr-2" />Agendar treinamento</Button>
+            </a>
           </div>
         </div>
       </section>

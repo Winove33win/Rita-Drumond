@@ -16,7 +16,7 @@ export const testimonials: Testimonial[] = [
     company: "TechStart Solutions",
     content: "A Winove transformou completamente nossa presença digital. Em 6 meses, vimos um crescimento de 400% no tráfego orgânico e 250% nas conversões. A equipe é extremamente profissional e orientada a resultados.",
     rating: 5,
-    image: "photo-1472099645785-5658abf4ff4e"
+    image: "https://winove.com.br/assets/testimonials/carlos-silva.jpg"
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ export const testimonials: Testimonial[] = [
     company: "Fashion Group",
     content: "O trabalho de rebranding da Winove elevou nossa marca a um novo patamar. A identidade visual criada conectou perfeitamente com nosso público-alvo, resultando em um aumento de 180% no engajamento nas redes sociais.",
     rating: 5,
-    image: "photo-1494790108755-2616b612b1c0"
+    image: "https://winove.com.br/assets/testimonials/ana-martins.jpg"
   },
   {
     id: 3,
@@ -34,7 +34,7 @@ export const testimonials: Testimonial[] = [
     company: "EcoHealth",
     content: "A estratégia de SEO implementada pela Winove nos posicionou na primeira página do Google para todas as palavras-chave relevantes. O ROI foi impressionante: cada real investido retornou 12 em vendas.",
     rating: 5,
-    image: "photo-1507003211169-0a1dd7228f2d"
+    image: "https://winove.com.br/assets/testimonials/roberto-costa.jpg"
   },
   {
     id: 4,
@@ -43,7 +43,7 @@ export const testimonials: Testimonial[] = [
     company: "Boutique Luna",
     content: "O e-commerce desenvolvido pela Winove superou todas as expectativas. A plataforma é rápida, intuitiva e as vendas online aumentaram 350% no primeiro trimestre. Recomendo sem hesitação!",
     rating: 5,
-    image: "photo-1438761681033-6461ffad8d80"
+    image: "https://winove.com.br/assets/testimonials/marina-santos.jpg"
   }
 ];
 

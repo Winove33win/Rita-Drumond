@@ -1,20 +1,16 @@
 import { useState, useEffect } from "react";
-import { ExternalLink, Filter } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
-
-interface Case {
-  id: number;
-  title: string;
-  slug: string;
-  excerpt: string;
-  coverImage: string;
-  tags: string[];
-  metrics: Array<{ label: string; value: string }>;
-}
+import {
+  CaseItem,
+  Metric,
+  safeArray,
+  normalizeImageUrl,
+} from "@/lib/caseUtils";
 
 export const Portfolio = () => {
   const [activeFilter, setActiveFilter] = useState("all");
-  const [cases, setCases] = useState<Case[]>([]);
+  const [cases, setCases] = useState<CaseItem[]>([]);
 
   const filters = [
     { id: "all", name: "Todos" },
@@ -29,8 +25,23 @@ export const Portfolio = () => {
       try {
         const res = await fetch("/api/cases");
         if (res.ok) {
-          const data: Case[] = await res.json();
-          setCases(data.slice(0, 4));
+          const text = await res.text();
+          if (!text) throw new Error("Resposta vazia do servidor");
+          const data = JSON.parse(text) as Array<Record<string, unknown>>;
+          const parsed: CaseItem[] = data.map((item) => ({
+            ...(item as Omit<CaseItem, "tags" | "gallery" | "metrics" | "coverImage">),
+            coverImage: normalizeImageUrl(
+              (item as Record<string, unknown>).coverImage as string | null | undefined,
+            ),
+            tags: safeArray<string>(item.tags as string[] | string | null | undefined),
+            gallery: safeArray<string>(
+              item.gallery as string[] | string | null | undefined,
+            ).map(normalizeImageUrl),
+            metrics: safeArray<Metric>(
+              item.metrics as Metric[] | string | null | undefined,
+            ),
+          }));
+          setCases(parsed.slice(0, 4));
         }
       } catch (err) {
         console.error("fetch cases", err);
@@ -40,13 +51,16 @@ export const Portfolio = () => {
   }, []);
 
   // Mapear cases para projetos
-  const projects = cases.map(caseItem => ({
+  const projects = cases.map((caseItem) => ({
     slug: caseItem.slug,
     title: caseItem.title,
     description: caseItem.excerpt,
     image: caseItem.coverImage,
     tags: caseItem.tags,
-    results: caseItem.metrics[0]?.value || "Ver resultados"
+    results:
+      typeof caseItem.metrics[0] !== "string"
+        ? caseItem.metrics[0]?.value
+        : "Ver resultados",
   }));
 
   const filteredProjects = activeFilter === "all" 
@@ -107,7 +121,7 @@ export const Portfolio = () => {
                   {/* Project Image */}
                   <div className="relative h-48 overflow-hidden">
                     <img
-                      src={`https://images.unsplash.com/${project.image}?w=600&h=400&fit=crop`}
+                      src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />

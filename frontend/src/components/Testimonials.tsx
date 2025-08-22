@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
+import { normalizeImageUrl } from "@/lib/caseUtils";
 
 export const Testimonials = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -54,7 +55,7 @@ export const Testimonials = () => {
               {/* Avatar */}
               <div className="flex-shrink-0">
                 <img
-                  src={`https://images.unsplash.com/${currentTest.image}?w=200&h=200&fit=crop&crop=face`}
+                  src={normalizeImageUrl(currentTest.image)}
                   alt={currentTest.name}
                   className="w-24 h-24 rounded-full object-cover border-4 border-primary/20"
                 />

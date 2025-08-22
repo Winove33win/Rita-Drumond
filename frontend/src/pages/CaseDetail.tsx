@@ -3,37 +3,12 @@ import { ArrowLeft, Calendar, TrendingUp, Target, Lightbulb, Trophy, ArrowRight 
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useEffect, useState } from "react";
-
-type Metric = { label: string; value: string; description?: string } | string;
-
-interface CaseItem {
-  slug: string;
-  title: string;
-  client: string;
-  date: string;
-  coverImage: string;
-  excerpt: string;
-  challenge: string;
-  solution: string;
-  results: string;
-  gallery: string[] | string | null;
-  tags: string[] | string | null;
-  metrics: Metric[] | string | null;
-}
-
-const safeArray = (v: any): any[] =>
-  Array.isArray(v)
-    ? v
-    : typeof v === "string"
-    ? (() => {
-        try {
-          const j = JSON.parse(v);
-          return Array.isArray(j) ? j : [];
-        } catch {
-          return [];
-        }
-      })()
-    : [];
+import {
+  CaseItem,
+  Metric,
+  safeArray,
+  normalizeImageUrl,
+} from "@/lib/caseUtils";
 
 export const CaseDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -49,14 +24,44 @@ export const CaseDetail = () => {
         if (res.ok) {
           const text = await res.text();
           if (!text) throw new Error("Resposta vazia do servidor");
-          const data = JSON.parse(text);
-          setCaseItem(data);
+          const data = JSON.parse(text) as Record<string, unknown>;
+          const parsed: CaseItem = {
+            ...(data as Omit<CaseItem, "tags" | "gallery" | "metrics" | "coverImage">),
+            coverImage: normalizeImageUrl(
+              (data as Record<string, unknown>).coverImage as string | null | undefined,
+            ),
+            tags: safeArray<string>(
+              data.tags as string[] | string | null | undefined,
+            ),
+            gallery: safeArray<string>(
+              data.gallery as string[] | string | null | undefined,
+            ).map(normalizeImageUrl),
+            metrics: safeArray<Metric>(
+              data.metrics as Metric[] | string | null | undefined,
+            ),
+          };
+          setCaseItem(parsed);
           const relRes = await fetch(`${API}/cases`);
           if (relRes.ok) {
             const relText = await relRes.text();
             if (!relText) throw new Error("Resposta vazia do servidor");
-            const all = JSON.parse(relText);
-            setRelatedCases(all.filter((c: CaseItem) => c.slug !== data.slug).slice(0, 3));
+            const rawCases = JSON.parse(relText) as Array<Record<string, unknown>>;
+            const all: CaseItem[] = rawCases.map((c) => ({
+              ...(c as Omit<CaseItem, "tags" | "gallery" | "metrics" | "coverImage">),
+              coverImage: normalizeImageUrl(
+                (c as Record<string, unknown>).coverImage as string | null | undefined,
+              ),
+              tags: safeArray<string>(
+                c.tags as string[] | string | null | undefined,
+              ),
+              gallery: safeArray<string>(
+                c.gallery as string[] | string | null | undefined,
+              ).map(normalizeImageUrl),
+              metrics: safeArray<Metric>(
+                c.metrics as Metric[] | string | null | undefined,
+              ),
+            }));
+            setRelatedCases(all.filter((c) => c.slug !== parsed.slug).slice(0, 3));
           }
         }
       } catch (err) {
@@ -86,10 +91,6 @@ export const CaseDetail = () => {
       </div>
     );
   }
-  const tags = safeArray(caseItem.tags);
-  const metrics = safeArray(caseItem.metrics);
-  const gallery = safeArray(caseItem.gallery);
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -135,9 +136,9 @@ export const CaseDetail = () => {
                 </div>
 
                 {/* Tags */}
-                {tags.length > 0 && (
+                {caseItem.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2">
-                    {tags.map((tag) => (
+                    {caseItem.tags.map((tag) => (
                       <span
                         key={tag}
                         className="px-3 py-1 text-xs rounded-full bg-secondary text-secondary-foreground"
@@ -152,7 +153,7 @@ export const CaseDetail = () => {
               {/* Featured Image */}
               <div className="relative h-64 md:h-96 overflow-hidden rounded-2xl">
                 <img
-                  src={`https://images.unsplash.com/${caseItem.coverImage}?w=800&h=600&fit=crop`}
+                  src={caseItem.coverImage}
                   alt={caseItem.title}
                   className="w-full h-full object-cover"
                 />
@@ -164,12 +165,12 @@ export const CaseDetail = () => {
       </section>
 
       {/* Metrics Section */}
-      {metrics.length > 0 && (
+      {caseItem.metrics.length > 0 && (
         <section className="py-16 bg-gradient-navy">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {metrics.map((metric, index) => (
+                {caseItem.metrics.map((metric, index) => (
                   <div
                     key={index}
                     className="glass rounded-2xl p-6 text-center hover-lift animate-fade-in-up"
@@ -249,7 +250,7 @@ export const CaseDetail = () => {
       </section>
 
       {/* Gallery */}
-      {gallery.length > 0 && (
+      {caseItem.gallery.length > 0 && (
         <section className="py-16 bg-gradient-navy">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
@@ -258,16 +259,16 @@ export const CaseDetail = () => {
                   Galeria do Projeto
                 </span>
               </h2>
-              
+
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {gallery.map((image, index) => (
-                  <div 
+                {caseItem.gallery.map((image, index) => (
+                  <div
                     key={index}
                     className="relative h-64 overflow-hidden rounded-2xl hover-lift animate-fade-in-up"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <img
-                      src={`https://images.unsplash.com/${image}?w=600&h=400&fit=crop`}
+                      src={image}
                       alt={`${caseItem.title} - Imagem ${index + 1}`}
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                     />
@@ -296,7 +297,7 @@ export const CaseDetail = () => {
                   <article key={relatedCase.slug} className="glass rounded-2xl overflow-hidden hover-lift group">
                     <div className="relative h-48 overflow-hidden">
                       <img
-                        src={`https://images.unsplash.com/${relatedCase.coverImage}?w=400&h=300&fit=crop`}
+                        src={relatedCase.coverImage}
                         alt={relatedCase.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />

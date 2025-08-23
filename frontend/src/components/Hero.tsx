@@ -3,7 +3,7 @@ import heroBackground from "@/assets/hero-background.jpg";
 
 export const Hero = () => {
   return (
-    <section id="hero" className="min-h-screen pt-24 flex items-center justify-center relative overflow-hidden">
+    <section id="hero" className="min-h-screen pt-32 md:pt-36 pb-16 flex items-center justify-center relative overflow-hidden">
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"

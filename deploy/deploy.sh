@@ -7,13 +7,16 @@ BACKEND_DIR="$ROOT_DIR/backend"
 
 # Build frontend
 cd "$FRONTEND_DIR"
-echo "Building frontend..."
+npm ci
 npm run build
 
 # Copy build to backend
-cd "$ROOT_DIR"
 rm -rf "$BACKEND_DIR/dist"
-cp -r "$FRONTEND_DIR/dist" "$BACKEND_DIR/"
+cp -r dist "$BACKEND_DIR/dist"
+
+# Install backend dependencies
+cd "$BACKEND_DIR"
+npm ci
 
 echo "Frontend build copied to backend/dist"
 

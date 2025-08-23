@@ -7,7 +7,7 @@ import { KanbanSquare, Star, Zap } from "lucide-react";
 export function CentralAtendimento() {
   return (
     <main className="min-h-screen">
-      <section className="container mx-auto px-4 py-16 md:py-24" aria-labelledby="central-hero">
+      <section className="container mx-auto px-4 pt-32 md:pt-36 pb-16" aria-labelledby="central-hero">
         <Badge variant="secondary" className="mb-3">Central de Atendimento</Badge>
         <h1 id="central-hero" className="text-3xl md:text-5xl font-bold tracking-tight">Central de Conversas com funil</h1>
         <p className="mt-4 text-muted-foreground text-lg">
@@ -61,7 +61,7 @@ export function CentralAtendimento() {
             <CardDescription>Mínimo de 5 usuários por conta</CardDescription>
           </CardHeader>
           <CardContent className="text-sm md:text-base text-muted-foreground">
-            <p><b>Base:</b> R$ 750/mês (mínimo de 5 usuários).</p>
+            <p><b>Base:</b> R$ 1.533/ano (plano anual para até 5 usuários).</p>
             <div className="mt-4 flex gap-3">
               <a
                 href="https://api.whatsapp.com/send?phone=5519982403845"

@@ -10,27 +10,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clonar repositório
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Instalar dependências
-        run: npm install
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
 
-      - name: Gerar build de produção
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: frontend
         run: npm run build
 
-      - name: Enviar via FTP para a Plesk
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.0
+      - name: Run deploy script
+        run: bash deploy/deploy.sh
+
+      - name: Configure SSH
+        if: ${{ secrets.PLESK_SSH_KEY != '' }}
+        uses: webfactory/ssh-agent@v0.8.0
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: ${{ secrets.FTP_TARGET_DIR }}
-          protocol: ftp
-          passive: true
-          concurrency: 1
-          timeout: 600000
-          exclude: |
-            **/.git*
-            **/.git*/**
+          ssh-private-key: ${{ secrets.PLESK_SSH_KEY }}
+
+      - name: Upload to Plesk
+        if: ${{ secrets.PLESK_SSH_KEY != '' }}
+        run: |
+          rsync -avz --delete backend/ ${{ secrets.PLESK_SSH_USER }}@${{ secrets.PLESK_SSH_HOST }}:${{ secrets.PLESK_TARGET_DIR }}

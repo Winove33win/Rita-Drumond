@@ -1,0 +1,4 @@
+INSERT INTO blog_posts (titulo, slug, resumo, conteudo, imagem_destacada, data_publicacao, autor) VALUES
+('Bem-vindo ao Blog', 'bem-vindo-ao-blog', 'Post inaugural dando boas vindas ao blog.', '<p>Este é o nosso primeiro post no blog!</p>', 'https://exemplo.com/post1.jpg', '2025-07-31 16:20:27', 'Admin'),
+('Novidades da Plataforma', 'novidades-da-plataforma', 'Veja o que mudou na última atualização.', '<p>Muitas melhorias implementadas.</p>', 'https://exemplo.com/post2.jpg', '2025-07-31 16:20:27', 'Admin'),
+('Dicas de Produtividade', 'dicas-de-produtividade', 'Pequenas ações para melhorar seu dia a dia.', '<p>Confira nossas dicas valiosas.</p>', 'https://exemplo.com/post3.jpg', '2025-07-31 16:20:27', 'Equipe Winove');

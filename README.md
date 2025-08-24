@@ -85,6 +85,22 @@ When building locally or running `deploy.sh`, make sure a `.env` file exists
 with `VITE_API_URL` defined. The provided `deploy.sh` script will create a
 minimal `.env` automatically.
 
+### Automatic deploys
+
+For servers that host this repository directly, the helper script
+`deploy/auto-update.sh` can keep the site synchronized with the latest
+commits. It fetches updates from the `main` branch and only runs the full
+`deploy.sh` process when new commits are detected.
+
+Example cron entry to check for changes every five minutes:
+
+```
+*/5 * * * * /var/www/vhosts/winove.com.br/httpdocs/deploy/auto-update.sh >> /var/log/winove-deploy.log 2>&1
+```
+
+This approach avoids rebuilding when there are no changes while ensuring new
+deployments happen automatically.
+
 ## Can I connect a custom domain to my Winove project?
 
 Yes, you can!

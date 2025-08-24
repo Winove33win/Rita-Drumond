@@ -35,3 +35,6 @@ backend/coverage/
 .vscode/
 .idea/
 *.iml
+
+# Stripe system
+winove-stripe-system/node_modules/

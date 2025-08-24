@@ -38,6 +38,7 @@ const App = () => (
           <Route path="/templates/:slug" element={<TemplateDetail />} />
           <Route path="/email-corporativo" element={<EmailCorporativo />} />
           <Route path="/chat-whatsapp" element={<ChatWhatsapp />} />
+          <Route path="/chatwhatsapp" element={<ChatWhatsapp />} />
           <Route path="/central-atendimento" element={<CentralAtendimento />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/payment-canceled" element={<PaymentCanceled />} />

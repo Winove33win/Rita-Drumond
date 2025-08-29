@@ -27,7 +27,8 @@ backend/*.sqlite
 backend/coverage/
 
 # Plesk / Arquivos grandes
-*.zip
+# allow committing dist zip for deployment; remove explicit ignore for zip
+# *.zip
 *.tar
 *.tar.gz
 

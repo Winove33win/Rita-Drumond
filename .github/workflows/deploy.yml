@@ -27,6 +27,10 @@ jobs:
           rm -rf backend/dist || true
           mkdir -p backend/dist
           cp -r frontend/dist/* backend/dist/
+          # include server rewrite rules if present
+          if [ -f backend/.htaccess ]; then
+            cp backend/.htaccess backend/dist/.htaccess
+          fi
 
       - name: Deploy to Plesk via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.4.0

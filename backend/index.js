@@ -54,12 +54,13 @@ app.use('/api', (_req, res) => res.status(404).json({ error: 'not_found' }));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // 🚀 Servir frontend compilado (Vite → dist)
-const distPath = path.join(__dirname, 'dist');
+const distPath = path.join(__dirname, 'dist', 'public');
 app.use(express.static(distPath));
 
 // Rota básica
-app.get('/', (req, res) => {
-  res.send('API rodando, sem frontend');
+app.get('/', (_req, res) => {
+  // Envia o index.html do build (se existir)
+  res.sendFile(path.join(distPath, 'index.html'));
 });
 
 // Fallback para SPA React (React Router)

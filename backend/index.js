@@ -8,10 +8,10 @@ import { fileURLToPath } from 'url';
 import blogPostsRoute from './routes/blogPosts.js';
 import casesRoute from './routes/cases.js';
 
-// Variáveis de ambiente
+// Env vars
 dotenv.config();
 
-// Setup do Express
+// Express setup
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,7 +21,8 @@ app.use(cors());
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan('dev'));
 
-app.use((req, res, next) => {
+// Basic CSP for production
+app.use((_req, res, next) => {
   res.setHeader(
     'Content-Security-Policy',
     [
@@ -32,13 +33,13 @@ app.use((req, res, next) => {
       "font-src 'self' https://fonts.gstatic.com",
       "connect-src 'self' https://winove.com.br https://www.google-analytics.com",
       "frame-ancestors 'none'",
-      "object-src 'none'"
+      "object-src 'none'",
     ].join('; ')
   );
   next();
 });
 
-// Rotas da API
+// API routes
 app.use('/api/blog-posts', blogPostsRoute);
 app.use('/api/cases', casesRoute);
 
@@ -47,29 +48,27 @@ app.get('/api/health', (_req, res) => {
   res.json({ ok: true, env: process.env.NODE_ENV || 'production' });
 });
 
-// Fallback de rotas inválidas da API
+// API 404
 app.use('/api', (_req, res) => res.status(404).json({ error: 'not_found' }));
 
-// 🚀 Servir arquivos públicos da pasta /assets (ex: imagens)
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
-
-// 🚀 Servir frontend compilado (Vite → dist)
-const distPath = path.join(__dirname, 'dist', 'public');
+// Serve frontend build (Vite output lives in backend/dist)
+const distPath = path.join(__dirname, 'dist');
+app.use('/assets', express.static(path.join(distPath, 'assets')));
 app.use(express.static(distPath));
 
-// Rota básica
+// Root route -> SPA index.html
 app.get('/', (_req, res) => {
-  // Envia o index.html do build (se existir)
   res.sendFile(path.join(distPath, 'index.html'));
 });
 
-// Fallback para SPA React (React Router)
+// SPA fallback for React Router
 app.get('*', (_req, res) => {
   res.sendFile(path.join(distPath, 'index.html'));
 });
 
-// Start do servidor
-const port = process.env.PORT || 3000;
+// Start server (Plesk sets PORT)
+const port = Number(process.env.PORT || 3333);
 app.listen(port, () => {
-  console.log(`🚀 API + Frontend rodando na porta ${port}`);
+  console.log(`API + Frontend running on port ${port}`);
 });
+

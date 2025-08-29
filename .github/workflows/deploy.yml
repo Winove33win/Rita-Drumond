@@ -1,3 +1,43 @@
+name: Build and Deploy to Plesk via FTP
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install and build frontend
+        working-directory: frontend
+        run: |
+          npm ci
+          npm run build
+
+      - name: Prepare backend dist
+        run: |
+          rm -rf backend/dist || true
+          mkdir -p backend/dist
+          cp -r frontend/dist/* backend/dist/
+
+      - name: Deploy to Plesk via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.4.0
+        with:
+          server: 168.75.84.128
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          local-dir: backend/dist
+          server-dir: /httpdocs/backend
+          passive: true
 name: build-and-deploy
 
 on:

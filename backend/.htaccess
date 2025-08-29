@@ -15,7 +15,7 @@ RewriteRule ^ - [L]
 RewriteRule ^(assets/|images/|img/|fonts/|css/|js/|favicon\.ico$|robots\.txt$|sitemap\.xml$) - [L,NC]
 
 # Qualquer outra rota → index.html (SPA)
-RewriteRule . /index.html [L]
+RewriteRule . index.html [L]
 
 # (Opcional) Cache básico p/ estáticos
 <IfModule mod_expires.c>

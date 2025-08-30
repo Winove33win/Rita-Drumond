@@ -37,7 +37,6 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: backend/dist
+          local-dir: backend/dist/
           server-dir: ${{ secrets.FTP_TARGET_DIR }}
           protocol: ftp
-          method: ftp-upload

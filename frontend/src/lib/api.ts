@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+// In Vite, env vars come from import.meta.env
+const BASE_URL = (import.meta as any).env?.VITE_API_URL || '';
+
 export const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || '',
+  baseURL: BASE_URL, // empty -> use same-origin relative /api
   timeout: 5000,
 });
 

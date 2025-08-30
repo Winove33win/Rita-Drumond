@@ -1,7 +1,4 @@
-jobs:
-name: build-and-deploy
-
-name: build-and-deploy
+name: Deploy to Plesk via FTP
 
 on:
   push:

@@ -13,11 +13,10 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
+  // Removed "Sobre" and "Portfolio"
   const navItems: NavItem[] = [
     { name: "Início", href: "/", type: "link" },
-    { name: "Sobre", href: "/about", type: "anchor" },
     { name: "Serviços", href: "#services", type: "anchor" },
-    { name: "Portfolio", href: "#portfolio", type: "anchor" },
     { name: "Templates", href: "/templates", type: "link" },
     { name: "E-mail Corporativo", href: "/email-corporativo", type: "link" },
 
@@ -136,3 +135,4 @@ export const Header = () => {
     </header>
   );
 };
+

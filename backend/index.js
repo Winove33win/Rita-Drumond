@@ -28,11 +28,12 @@ app.use((_req, res, next) => {
     'Content-Security-Policy',
     [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://winove.com.br https://www.googletagmanager.com https://www.google-analytics.com",
+      "script-src 'self' 'unsafe-inline' https://winove.com.br https://www.googletagmanager.com https://www.google-analytics.com https://js.stripe.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-      "img-src 'self' data: blob: https://winove.com.br https://www.winove.com.br",
+      "img-src 'self' data: blob: https://winove.com.br https://www.winove.com.br https://images.unsplash.com",
       "font-src 'self' https://fonts.gstatic.com",
-      "connect-src 'self' https://winove.com.br https://www.google-analytics.com",
+      "connect-src 'self' https://winove.com.br https://www.google-analytics.com https://api.stripe.com",
+      "frame-src 'self' https://js.stripe.com https://hooks.stripe.com",
       "frame-ancestors 'none'",
       "object-src 'none'",
     ].join('; ')
@@ -73,4 +74,3 @@ const port = Number(process.env.PORT || 3333);
 app.listen(port, () => {
   console.log(`API + Frontend running on port ${port}`);
 });
-

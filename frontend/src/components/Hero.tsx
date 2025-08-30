@@ -9,14 +9,14 @@ export const Hero = ({ htmlContent }: HeroProps) => {
   return (
     <section id="hero" className="min-h-screen pt-32 md:pt-36 pb-16 flex items-center justify-center relative overflow-hidden">
       {/* Background Image */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroBackground})` }}
       />
-      
+
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-background/90" />
-      
+
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-float" />
@@ -28,34 +28,35 @@ export const Hero = ({ htmlContent }: HeroProps) => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {htmlContent ? (
-            <div className="prose prose-lg mx-auto" dangerouslySetInnerHTML={{ __html: htmlContent }} />
+            <div
+              className="prose prose-invert prose-xl mx-auto text-center max-w-3xl"
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
           ) : (
             <>
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up">
-                <span className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
-                  Evoluímos Negócios com{" "}
-                </span>
-                <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-                  Estratégia, Tecnologia e Design
-                </span>
+              <h1 className="text-4xl md:text-6xl font-extrabold mb-6 animate-fade-in-up leading-tight">
+                <span className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">Winove — Sua ideia online</span>
+                <br />
+                <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">Templates de websites e construções personalizadas</span>
               </h1>
-              
-              <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                Soluções para transformar sua presença digital em resultados reais
+
+              <p
+                className="text-lg md:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto animate-fade-in-up"
+                style={{ animationDelay: '0.2s' }}
+              >
+                Do conceito ao resultado: design, tecnologia e performance para o seu negócio.
               </p>
             </>
           )}
-          
+
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             <a href="https://api.whatsapp.com/send?phone=5519982403845" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="btn-primary text-lg px-12 py-6">
-                Transformar Meu Negócio
-              </Button>
+              <Button size="lg" className="btn-primary text-lg px-12 py-6">Transformar Meu Negócio</Button>
             </a>
-            
-            <Button 
-              variant="outline" 
-              size="lg" 
+
+            <Button
+              variant="outline"
+              size="lg"
               className="btn-secondary text-lg px-8 py-6 glass border-primary/30 hover:border-primary/60"
             >
               Conhecer Nossos Cases
@@ -73,3 +74,4 @@ export const Hero = ({ htmlContent }: HeroProps) => {
     </section>
   );
 };
+

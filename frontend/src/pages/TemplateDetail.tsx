@@ -29,7 +29,23 @@ const TemplateDetail = () => {
 
   const { data: template, isLoading } = useQuery({ queryKey: ['template', slug], enabled: !!slug, queryFn: () => fetchTemplate(slug as string) });
 
-  if (!template && !isLoading) {
+  // Show loading while fetching to avoid accessing undefined template
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background text-foreground">
+        <Header />
+        <div className="pt-24 px-4">
+          <div className="container mx-auto text-center py-24">
+            <h1 className="text-2xl font-bold mb-2">Carregando template...</h1>
+            <p className="text-muted-foreground">Aguarde um instante.</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (!template) {
     return (
       <div className="min-h-screen bg-background text-foreground">
         <Header />
@@ -310,7 +326,7 @@ const TemplateDetail = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    {template.tags.map((tag, index) => (
+                    {(template?.tags || []).map((tag, index) => (
                       <Badge key={index} variant="outline" className="text-xs">
                         {tag}
                       </Badge>

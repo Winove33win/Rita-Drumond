@@ -100,7 +100,7 @@ const TemplateDetail = () => {
               {/* Hero Image */}
               <div className="relative rounded-lg overflow-hidden">
                 <img
-                  src={template.images.cover}
+                  src={template?.images?.cover || ''}
                   alt={template.title}
                   className="w-full h-96 object-cover"
                 />
@@ -186,7 +186,7 @@ const TemplateDetail = () => {
                     </CardHeader>
                     <CardContent>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        {template.features.map((feature, index) => (
+                        {(template?.features || []).map((feature, index) => (
                           <div key={index} className="flex items-center gap-2">
                             <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                             <span>{feature}</span>
@@ -199,7 +199,7 @@ const TemplateDetail = () => {
                 
                 <TabsContent value="gallery" className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {template.images.gallery.map((image, index) => (
+                    {(template?.images?.gallery || []).map((image, index) => (
                       <div key={index} className="rounded-lg overflow-hidden">
                         <img
                           src={image}
@@ -218,7 +218,7 @@ const TemplateDetail = () => {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-3">
-                        {template.includes.map((item, index) => (
+                        {(template?.includes || []).map((item, index) => (
                           <div key={index} className="flex items-center gap-3">
                             <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                             <span>{item}</span>
@@ -230,6 +230,19 @@ const TemplateDetail = () => {
                 </TabsContent>
               </Tabs>
             </div>
+            {/* Rich HTML content from DB (optional) */}
+            {template?.content && (
+              <div className="lg:col-span-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Descrição Detalhada</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="prose prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: template.content }} />
+                  </CardContent>
+                </Card>
+              </div>
+            )}
 
             {/* Sidebar */}
             <div className="space-y-6">

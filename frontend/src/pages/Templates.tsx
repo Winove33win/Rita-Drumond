@@ -18,9 +18,9 @@ const Templates = () => {
   const { data: templates = [], isLoading } = useQuery({ queryKey: ['templates'], queryFn: fetchTemplates });
 
   const filteredTemplates = templates.filter((template: any) => {
-    const matchesCategory = selectedCategory === "Todos" || template.category === selectedCategory;
+    const matchesCategory = selectedCategory === "Todos" || (template.category || '').toLowerCase() === selectedCategory.toLowerCase();
     const matchesSearch = template.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         template.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         (template.description || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
                          (template.tags || []).some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     return matchesCategory && matchesSearch;
   });

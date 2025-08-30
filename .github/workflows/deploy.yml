@@ -15,82 +15,19 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  ftp-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout código
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Deploy para FTP (Plesk)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          node-version: 18
-          cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
-
-      - name: Install frontend dependencies
-        working-directory: frontend
-        run: npm ci
-
-      - name: Build frontend
-        working-directory: frontend
-        run: npm run build
-
-      - name: Prepare backend dist
-        run: |
-          rm -rf backend/dist || true
-          mkdir -p backend/dist
-          cp -r frontend/dist/* backend/dist/
-          if [ -f backend/.htaccess ]; then cp backend/.htaccess backend/dist/.htaccess; fi
-          ls -la backend/dist || true
-
-      - name: Attempt SSH/rsync deploy (if secrets provided)
-        if: ${{ secrets.PLESK_SSH_KEY != '' && secrets.PLESK_SSH_USER != '' && secrets.PLESK_SSH_HOST != '' && secrets.PLESK_TARGET_DIR != '' }}
-        uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.PLESK_SSH_KEY }}
-
-      - name: Run rsync over SSH and mark success/failure
-        if: ${{ secrets.PLESK_SSH_KEY != '' && secrets.PLESK_SSH_USER != '' && secrets.PLESK_SSH_HOST != '' && secrets.PLESK_TARGET_DIR != '' }}
-        env:
-          SSH_USER: ${{ secrets.PLESK_SSH_USER }}
-          SSH_HOST: ${{ secrets.PLESK_SSH_HOST }}
-          SSH_TARGET: ${{ secrets.PLESK_TARGET_DIR }}
-        run: |
-          set -e
-          echo "Adding SSH host to known_hosts: $SSH_HOST"
-          mkdir -p ~/.ssh
-          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts || true
-          echo "Starting rsync -> $SSH_USER@$SSH_HOST:$SSH_TARGET"
-          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=yes" backend/dist/ $SSH_USER@$SSH_HOST:$SSH_TARGET && echo "SSH_OK" > .deploy_status || echo "SSH_FAIL" > .deploy_status
-
-      - name: Install lftp (for robust FTP mirror)
-        run: sudo apt-get update && sudo apt-get install -y lftp
-
-      - name: Upload to Plesk via FTP (lftp fallback if SSH not used or failed)
-        env:
-          FTP_HOST: 168.75.84.128
-          FTP_USER: ${{ secrets.FTP_USERNAME }}
-          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
-          REMOTE_DIR: /httpdocs/backend
-        run: |
-          # If SSH deployment succeeded, skip FTP fallback
-          if [ -f .deploy_status ] && grep -q "SSH_OK" .deploy_status; then
-            echo "SSH deployment succeeded; skipping FTP fallback"
-            exit 0
-          fi
-          echo "Starting lftp upload to $FTP_HOST (remote: $REMOTE_DIR)"
-          lftp -u "$FTP_USER","$FTP_PASS" -e "set ftp:passive-mode on; set ssl:verify-certificate no; pwd; ls -la; quit" ftp://$FTP_HOST || true
-          lftp -u "$FTP_USER","$FTP_PASS" ftp://$FTP_HOST -e "set ftp:passive-mode on; set net:max-retries 2; set net:timeout 20; mirror -R --verbose --delete --parallel=2 backend/dist $REMOTE_DIR; quit"
-
-      - name: Optional: Configure SSH & rsync (fallback)
-        if: ${{ secrets.PLESK_SSH_KEY != '' && secrets.PLESK_SSH_USER != '' && secrets.PLESK_SSH_HOST != '' && secrets.PLESK_TARGET_DIR != '' }}
-        uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.PLESK_SSH_KEY }}
-
-      - name: Optional: Fallback upload via rsync over SSH
-        if: ${{ secrets.PLESK_SSH_KEY != '' && secrets.PLESK_SSH_USER != '' && secrets.PLESK_SSH_HOST != '' && secrets.PLESK_TARGET_DIR != '' }}
-        run: |
-          rsync -avz --delete backend/dist/ ${{ secrets.PLESK_SSH_USER }}@${{ secrets.PLESK_SSH_HOST }}:${{ secrets.PLESK_TARGET_DIR }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_TARGET_DIR }}
+          protocol: ftp
+          method: ftp-upload

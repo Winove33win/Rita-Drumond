@@ -9,3 +9,8 @@ export const fetchTemplate = async (slug: string) => {
   const res = await api.get(`/api/templates/${slug}`);
   return res.data;
 };
+
+export const fetchTemplates = async () => {
+  const res = await api.get(`/api/templates`);
+  return res.data;
+};

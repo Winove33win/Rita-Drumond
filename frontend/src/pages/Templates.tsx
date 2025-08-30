@@ -1,23 +1,27 @@
 import { useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { templates, categories } from "@/data/templates";
+import { categories } from "@/data/templates";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
+import { useQuery } from '@tanstack/react-query';
+import { fetchTemplates } from '@/lib/api';
 import { Search, Eye, Star, Filter } from "lucide-react";
 
 const Templates = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredTemplates = templates.filter(template => {
+  const { data: templates = [], isLoading } = useQuery({ queryKey: ['templates'], queryFn: fetchTemplates });
+
+  const filteredTemplates = templates.filter((template: any) => {
     const matchesCategory = selectedCategory === "Todos" || template.category === selectedCategory;
     const matchesSearch = template.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          template.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         template.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+                         (template.tags || []).some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
 
@@ -82,103 +86,109 @@ const Templates = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredTemplates.map((template) => (
-              <Card key={template.slug} className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20">
-                <CardHeader className="p-0">
-                  <div className="relative overflow-hidden rounded-t-lg">
-                    <img
-                      src={template.images.cover}
-                      alt={template.title}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                      <Link to={`/templates/${template.slug}`}>
-                        <Button
-                          size="sm"
-                          className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        >
-                          <Eye className="w-4 h-4 mr-2" />
-                          Ver Demo
-                        </Button>
-                      </Link>
-                    </div>
-                    {template.originalPrice && (
-                      <Badge className="absolute top-2 right-2 bg-destructive text-destructive-foreground">
-                        -{Math.round(((template.originalPrice - template.price) / template.originalPrice) * 100)}%
-                      </Badge>
-                    )}
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Badge variant="secondary" className="text-xs">
-                      {template.category}
-                    </Badge>
-                    <Badge variant="outline" className="text-xs">
-                      {template.difficulty}
-                    </Badge>
-                  </div>
-                  
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
-                    {template.title}
-                  </h3>
-                  
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                    {template.description}
-                  </p>
-                  
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <span className="text-sm text-muted-foreground">(4.9)</span>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                    <span>{template.pages} páginas</span>
-                    <span>•</span>
-                    <span>Responsivo</span>
-                    <span>•</span>
-                    <span>SEO</span>
-                  </div>
-                </CardContent>
-                
-                <CardFooter className="p-6 pt-0">
-                  <div className="w-full space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-2xl font-bold text-primary">
-                            R$ {template.price.toFixed(2).replace('.', ',')}
-                          </span>
-                          {template.originalPrice && (
-                            <span className="text-sm text-muted-foreground line-through">
-                              R$ {template.originalPrice.toFixed(2).replace('.', ',')}
-                            </span>
-                          )}
+            {isLoading ? (
+              <div>Carregando templates...</div>
+            ) : (
+              filteredTemplates.map((template: any) => {
+                return (
+                  <Card key={template.slug} className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20">
+                    <CardHeader className="p-0">
+                      <div className="relative overflow-hidden rounded-t-lg">
+                        <img
+                          src={template.images.cover}
+                          alt={template.title}
+                          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                          <Link to={`/templates/${template.slug}`}>
+                            <Button
+                              size="sm"
+                              className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            >
+                              <Eye className="w-4 h-4 mr-2" />
+                              Ver Demo
+                            </Button>
+                          </Link>
+                        </div>
+                        {template.originalPrice && (
+                          <Badge className="absolute top-2 right-2 bg-destructive text-destructive-foreground">
+                            -{Math.round(((template.originalPrice - template.price) / template.originalPrice) * 100)}%
+                          </Badge>
+                        )}
+                      </div>
+                    </CardHeader>
+
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Badge variant="secondary" className="text-xs">
+                          {template.category}
+                        </Badge>
+                        <Badge variant="outline" className="text-xs">
+                          {template.difficulty}
+                        </Badge>
+                      </div>
+
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                        {template.title}
+                      </h3>
+
+                      <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                        {template.description}
+                      </p>
+
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          ))}
+                        </div>
+                        <span className="text-sm text-muted-foreground">(4.9)</span>
+                      </div>
+
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                        <span>{template.pages} páginas</span>
+                        <span>•</span>
+                        <span>Responsivo</span>
+                        <span>•</span>
+                        <span>SEO</span>
+                      </div>
+                    </CardContent>
+
+                    <CardFooter className="p-6 pt-0">
+                      <div className="w-full space-y-3">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-2xl font-bold text-primary">
+                                R$ {template.price.toFixed(2).replace('.', ',')}
+                              </span>
+                              {template.originalPrice && (
+                                <span className="text-sm text-muted-foreground line-through">
+                                  R$ {template.originalPrice.toFixed(2).replace('.', ',')}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex gap-2">
+                          <Link to={`/templates/${template.slug}`} className="flex-1">
+                            <Button variant="outline" className="w-full">
+                              Ver Detalhes
+                            </Button>
+                          </Link>
+                          <Link to={`/templates/${template.slug}`} className="flex-1">
+                            <Button className="w-full btn-primary">
+                              Comprar Agora
+                            </Button>
+                          </Link>
                         </div>
                       </div>
-                    </div>
-                    
-                    <div className="flex gap-2">
-                      <Link to={`/templates/${template.slug}`} className="flex-1">
-                        <Button variant="outline" className="w-full">
-                          Ver Detalhes
-                        </Button>
-                      </Link>
-                      <Link to={`/templates/${template.slug}`} className="flex-1">
-                        <Button className="w-full btn-primary">
-                          Comprar Agora
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-                </CardFooter>
-              </Card>
-            ))}
+                    </CardFooter>
+                  </Card>
+                );
+              })
+            )}
           </div>
           
           {filteredTemplates.length === 0 && (

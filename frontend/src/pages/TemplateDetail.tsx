@@ -1,7 +1,8 @@
 import { useParams, Link } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { templates } from "@/data/templates";
+import { useQuery } from '@tanstack/react-query';
+import { fetchTemplate } from '@/lib/api';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,10 +26,10 @@ import {
 const TemplateDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const { toast } = useToast();
-  
-  const template = templates.find(t => t.slug === slug);
 
-  if (!template) {
+  const { data: template, isLoading } = useQuery({ queryKey: ['template', slug], enabled: !!slug, queryFn: () => fetchTemplate(slug as string) });
+
+  if (!template && !isLoading) {
     return (
       <div className="min-h-screen bg-background text-foreground">
         <Header />

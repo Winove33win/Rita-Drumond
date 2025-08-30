@@ -1,53 +1,9 @@
-name: Build and Deploy to Plesk via FTP
-
-on:
-  push:
-    branches: [ main ]
-
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install and build frontend
-        working-directory: frontend
-        run: |
-          npm ci
-          npm run build
-
-      - name: Prepare backend dist
-        run: |
-          rm -rf backend/dist || true
-          mkdir -p backend/dist
-          cp -r frontend/dist/* backend/dist/
-          # include server rewrite rules if present
-          if [ -f backend/.htaccess ]; then
-            cp backend/.htaccess backend/dist/.htaccess
-          fi
-
-      - name: Deploy to Plesk via FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.4.0
-        with:
-          server: 168.75.84.128
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          local-dir: backend/dist
-          server-dir: /httpdocs/backend
-          passive: true
 name: build-and-deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
@@ -60,11 +16,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 18
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         working-directory: frontend
         run: npm ci
 
@@ -72,16 +28,37 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      - name: Run deploy script
-        run: bash deploy/deploy.sh
+      - name: Prepare backend dist
+        run: |
+          rm -rf backend/dist || true
+          mkdir -p backend/dist
+          cp -r frontend/dist/* backend/dist/
+          if [ -f backend/.htaccess ]; then cp backend/.htaccess backend/dist/.htaccess; fi
+          ls -la backend/dist || true
 
-      - name: Configure SSH
-        if: ${{ secrets.PLESK_SSH_KEY != '' }}
+      - name: Install lftp (for robust FTP mirror)
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Upload to Plesk via FTP (lftp mirror)
+        env:
+          FTP_HOST: 168.75.84.128
+          FTP_USER: ${{ secrets.FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
+          REMOTE_DIR: /httpdocs/backend
+        run: |
+          echo "Starting lftp upload to $FTP_HOST (remote: $REMOTE_DIR)"
+          # Show connection test (will fail fast with clear output if credentials/wrong host)
+          lftp -u "$FTP_USER","$FTP_PASS" -e "set ftp:passive-mode on; set ssl:verify-certificate no; pwd; ls -la; quit" ftp://$FTP_HOST || true
+          # Mirror local -> remote, delete extraneous files on remote, preserve permissions where possible
+          lftp -u "$FTP_USER","$FTP_PASS" ftp://$FTP_HOST -e "set ftp:passive-mode on; set net:max-retries 2; set net:timeout 20; mirror -R --verbose --delete --parallel=2 backend/dist $REMOTE_DIR; quit"
+
+      - name: Optional: Configure SSH & rsync (fallback)
+        if: ${{ secrets.PLESK_SSH_KEY != '' && secrets.PLESK_SSH_USER != '' && secrets.PLESK_SSH_HOST != '' && secrets.PLESK_TARGET_DIR != '' }}
         uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.PLESK_SSH_KEY }}
 
-      - name: Upload to Plesk
-        if: ${{ secrets.PLESK_SSH_KEY != '' }}
+      - name: Optional: Fallback upload via rsync over SSH
+        if: ${{ secrets.PLESK_SSH_KEY != '' && secrets.PLESK_SSH_USER != '' && secrets.PLESK_SSH_HOST != '' && secrets.PLESK_TARGET_DIR != '' }}
         run: |
-          rsync -avz --delete backend/ ${{ secrets.PLESK_SSH_USER }}@${{ secrets.PLESK_SSH_HOST }}:${{ secrets.PLESK_TARGET_DIR }}
+          rsync -avz --delete backend/dist/ ${{ secrets.PLESK_SSH_USER }}@${{ secrets.PLESK_SSH_HOST }}:${{ secrets.PLESK_TARGET_DIR }}

@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import heroBackground from "@/assets/hero-background.jpg";
 
-export const Hero = () => {
+type HeroProps = {
+  htmlContent?: string;
+};
+
+export const Hero = ({ htmlContent }: HeroProps) => {
   return (
     <section id="hero" className="min-h-screen pt-32 md:pt-36 pb-16 flex items-center justify-center relative overflow-hidden">
       {/* Background Image */}
@@ -23,18 +27,24 @@ export const Hero = () => {
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up">
-            <span className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
-              Evoluímos Negócios com{" "}
-            </span>
-            <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-              Estratégia, Tecnologia e Design
-            </span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Soluções para transformar sua presença digital em resultados reais
-          </p>
+          {htmlContent ? (
+            <div className="prose prose-lg mx-auto" dangerouslySetInnerHTML={{ __html: htmlContent }} />
+          ) : (
+            <>
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up">
+                <span className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
+                  Evoluímos Negócios com{" "}
+                </span>
+                <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+                  Estratégia, Tecnologia e Design
+                </span>
+              </h1>
+              
+              <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                Soluções para transformar sua presença digital em resultados reais
+              </p>
+            </>
+          )}
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             <a href="https://api.whatsapp.com/send?phone=5519982403845" target="_blank" rel="noopener noreferrer">

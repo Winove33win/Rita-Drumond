@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { categories } from "@/data/templates";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +15,16 @@ const Templates = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const { data: templates = [], isLoading } = useQuery({ queryKey: ['templates'], queryFn: fetchTemplates });
+
+  // Build dynamic category list from API data
+  const categories = useMemo(() => {
+    const set = new Set<string>();
+    (templates || []).forEach((t: any) => {
+      const c = (t?.category || "").toString().trim();
+      if (c) set.add(c);
+    });
+    return ["Todos", ...Array.from(set)];
+  }, [templates]);
 
   const filteredTemplates = templates.filter((template: any) => {
     const matchesCategory = selectedCategory === "Todos" || (template.category || '').toLowerCase() === selectedCategory.toLowerCase();

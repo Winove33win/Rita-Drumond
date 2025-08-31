@@ -21,7 +21,10 @@ function calcReadingTime(content: string): string {
 }
 
 export const BlogList = () => {
-  const [posts, setPosts] = useState<BlogPost[] | null>(null);
+  const [allPosts, setAllPosts] = useState<BlogPost[] | null>(null);
+  const [visibleCount, setVisibleCount] = useState(6);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const load = async () => {
@@ -30,7 +33,7 @@ export const BlogList = () => {
         const res = await fetch(`${API}/blog-posts`);
         if (res.ok) {
           const data: BlogPost[] = await res.json();
-          setPosts(data.slice(0, 6));
+          setAllPosts(data);
         } else {
           console.error("API Error:", res.status, res.statusText);
           const text = await res.text();
@@ -43,9 +46,16 @@ export const BlogList = () => {
     load();
   }, []);
 
-  if (!posts) {
+  if (!allPosts) {
     return <p>Carregando...</p>;
   }
+
+  const filteredPosts = allPosts.filter(post =>
+    post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const postsToShow = filteredPosts.slice(0, visibleCount);
 
   return (
     <div className="min-h-screen bg-background">
@@ -78,11 +88,29 @@ export const BlogList = () => {
       <section className="py-16 bg-gradient-navy">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
+
+            {/* Search */}
+            <div className="mb-8 flex flex-col sm:flex-row gap-4">
+              <input
+                type="text"
+                placeholder="Buscar artigos..."
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                className="flex-1 px-4 py-2 rounded-lg border border-border bg-background text-foreground"
+              />
+              <button
+                onClick={() => { setSearchTerm(searchInput); setVisibleCount(6); }}
+                className="btn-primary px-6 py-2"
+              >
+                Buscar
+              </button>
+            </div>
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.length === 0 ? (
+              {postsToShow.length === 0 ? (
                 <p>Nenhum post disponível no momento</p>
               ) : (
-                posts.map((post, index) => (
+                postsToShow.map((post, index) => (
                   <article
                     key={post.slug}
                   className="glass rounded-2xl overflow-hidden hover-lift group animate-fade-in-up"
@@ -140,6 +168,19 @@ export const BlogList = () => {
                 ))
               )}
             </div>
+
+            {/* Load More */}
+            {postsToShow.length < filteredPosts.length && (
+              <div className="mt-12 text-center">
+                <button
+                  onClick={() => setVisibleCount(v => v + 6)}
+                  className="btn-secondary px-8 py-4 text-lg"
+                >
+                  Carregar mais
+                </button>
+              </div>
+            )}
+
           </div>
         </div>
       </section>

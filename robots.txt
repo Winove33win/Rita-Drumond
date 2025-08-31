@@ -1,4 +1,4 @@
-Sitemap: https://winove.com.br/sitemap_index.xml
+Sitemap: https://winove.com.br/sitemap.xml
 
 User-agent: Googlebot
 Allow: /
@@ -15,4 +15,3 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://winove.com.br/sitemap.xml

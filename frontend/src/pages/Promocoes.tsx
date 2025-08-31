@@ -7,18 +7,18 @@ import { Link } from "react-router-dom";
 const Promocoes = () => {
   const promotions = [
     {
-      title: "Templates com 20% de desconto",
-      description: "Aproveite nossos templates profissionais com um desconto especial neste mês.",
-      link: "/templates",
-    },
-    {
-      title: "E-mail Corporativo 10% off",
-      description: "Tenha um e-mail profissional com preço reduzido durante o período promocional.",
+      title: "Pacote com 5 contas de e-mail corporativo (3 GB)",
+      description: "Assine 5 contas de e-mail corporativo com 3 GB cada por R$ 433 por ano.",
       link: "/email-corporativo",
     },
     {
-      title: "Chat WhatsApp gratuito na contratação de sites",
-      description: "Contrate um site e ganhe nosso sistema de chat WhatsApp por tempo limitado.",
+      title: "Templates Wix Studio com 10% de desconto",
+      description: "Modelos profissionais do Wix Studio com 10% de desconto.",
+      link: "/templates",
+    },
+    {
+      title: "Chat WhatsApp com 20% de desconto",
+      description: "Economize 20% no plano anual do nosso Chat WhatsApp.",
       link: "/chat-whatsapp",
     },
   ];

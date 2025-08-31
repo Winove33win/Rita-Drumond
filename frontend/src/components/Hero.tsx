@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import heroBackground from "@/assets/hero-background.jpg";
+import { Link } from "react-router-dom";
 
 type HeroProps = {
   htmlContent?: string;
@@ -35,9 +36,9 @@ export const Hero = ({ htmlContent }: HeroProps) => {
           ) : (
             <>
               <h1 className="text-4xl md:text-6xl font-extrabold mb-6 animate-fade-in-up leading-tight transition-transform duration-300 group-hover:scale-[1.02]">
-                <span className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent hover:from-primary hover:to-primary/80 transition-colors duration-300">Winove — Sua ideia online</span>
+                <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">Winove, Sua ideia online</span>
                 <br />
-                <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent hover:from-foreground hover:to-foreground/80 transition-colors duration-300">Templates de websites e construções personalizadas</span>
+                <span className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">Templates de websites e construções personalizadas.</span>
               </h1>
 
               <p
@@ -54,13 +55,15 @@ export const Hero = ({ htmlContent }: HeroProps) => {
               <Button size="lg" className="btn-primary text-lg px-12 py-6">Transformar Meu Negócio</Button>
             </a>
 
-            <Button
-              variant="outline"
-              size="lg"
-              className="btn-secondary text-lg px-8 py-6 glass border-primary/30 hover:border-primary/60"
-            >
-              Conhecer Nossos Cases
-            </Button>
+            <Link to="/cases">
+              <Button
+                variant="outline"
+                size="lg"
+                className="btn-secondary text-lg px-8 py-6 glass border-primary/30 hover:border-primary/60"
+              >
+                Conhecer Nossos Cases
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -74,3 +77,4 @@ export const Hero = ({ htmlContent }: HeroProps) => {
     </section>
   );
 };
+

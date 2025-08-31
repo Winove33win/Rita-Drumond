@@ -59,11 +59,16 @@ export const BlogList = () => {
     ) && (
       selectedCategory ? post.category === selectedCategory : true
     )
+
   );
 
   const categories = Array.from(
     new Set(allPosts.map(p => p.category).filter(Boolean))
+=======
+
   );
+
+  const categories = Array.from(new Set(allPosts.map(p => p.category)));
 
   const postsToShow = filteredPosts.slice(0, visibleCount);
 

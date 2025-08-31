@@ -13,6 +13,7 @@ interface BlogPost {
   coverImage: string;
   date: string;
   author: string;
+  category: string;
 }
 
 function calcReadingTime(content: string): string {
@@ -25,6 +26,7 @@ export const BlogList = () => {
   const [visibleCount, setVisibleCount] = useState(6);
   const [searchInput, setSearchInput] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   useEffect(() => {
     const load = async () => {
@@ -51,9 +53,15 @@ export const BlogList = () => {
   }
 
   const filteredPosts = allPosts.filter(post =>
-    post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+    (
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+    ) && (
+      selectedCategory ? post.category === selectedCategory : true
+    )
   );
+
+  const categories = Array.from(new Set(allPosts.map(p => p.category)));
 
   const postsToShow = filteredPosts.slice(0, visibleCount);
 
@@ -104,6 +112,25 @@ export const BlogList = () => {
               >
                 Buscar
               </button>
+            </div>
+
+            {/* Categories */}
+            <div className="mb-8 flex flex-wrap gap-2">
+              <button
+                onClick={() => { setSelectedCategory(null); setVisibleCount(6); }}
+                className={`px-3 py-1 rounded-full border text-sm ${selectedCategory === null ? 'bg-primary text-primary-foreground' : 'glass text-muted-foreground border-border/20'}`}
+              >
+                Todas
+              </button>
+              {categories.map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => { setSelectedCategory(cat); setVisibleCount(6); }}
+                  className={`px-3 py-1 rounded-full border text-sm ${selectedCategory === cat ? 'bg-primary text-primary-foreground' : 'glass text-muted-foreground border-border/20'}`}
+                >
+                  {cat}
+                </button>
+              ))}
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

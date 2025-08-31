@@ -26,7 +26,10 @@ async function fetchPostUrls() {
   );
   return rows.map((r) => ({
     loc: `${BASE_URL}/blog/${r.slug}`,
+    lastmod: r.date ? new Date(r.date).toISOString().split('T')[0] : undefined,
+=======
     lastmod: r.date ? new Date(r.date).toISOString() : undefined,
+
   }));
 }
 

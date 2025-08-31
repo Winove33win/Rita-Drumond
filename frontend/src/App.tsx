@@ -17,6 +17,7 @@ import PaymentCanceled from "./pages/PaymentCanceled";
 import EmailCorporativo from "./pages/EmailCorporativo";
 import ChatWhatsapp from "@/pages/ChatWhatsapp";
 import { CentralAtendimento } from "@/pages/CentralAtendimento";
+import Promocoes from "./pages/Promocoes";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/chat-whatsapp" element={<ChatWhatsapp />} />
           <Route path="/chatwhatsapp" element={<ChatWhatsapp />} />
           <Route path="/central-atendimento" element={<CentralAtendimento />} />
+          <Route path="/promocoes" element={<Promocoes />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/payment-canceled" element={<PaymentCanceled />} />
           <Route path="/admin" element={<Admin />} />

@@ -18,7 +18,8 @@ async function setupDatabase() {
       conteudo LONGTEXT,
       imagem_destacada TEXT,
       data_publicacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-      autor VARCHAR(255)
+      autor VARCHAR(255),
+      categoria VARCHAR(255)
     );
   `;
 

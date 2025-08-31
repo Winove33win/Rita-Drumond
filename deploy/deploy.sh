@@ -17,3 +17,7 @@ cp -r "$FRONTEND_DIR/dist" "$BACKEND_DIR/"
 
 echo "Frontend build copied to backend/dist"
 
+# Generate sitemaps
+npm --prefix "$BACKEND_DIR" run sitemap
+echo "Sitemaps generated in httpdocs/"
+

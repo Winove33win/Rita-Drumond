@@ -7,7 +7,7 @@ type HeroProps = {
 
 export const Hero = ({ htmlContent }: HeroProps) => {
   return (
-    <section id="hero" className="min-h-screen pt-32 md:pt-36 pb-16 flex items-center justify-center relative overflow-hidden">
+    <section id="hero" className="group min-h-screen pt-32 md:pt-36 pb-16 flex items-center justify-center relative overflow-hidden">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -34,14 +34,14 @@ export const Hero = ({ htmlContent }: HeroProps) => {
             />
           ) : (
             <>
-              <h1 className="text-4xl md:text-6xl font-extrabold mb-6 animate-fade-in-up leading-tight">
-                <span className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">Winove — Sua ideia online</span>
+              <h1 className="text-4xl md:text-6xl font-extrabold mb-6 animate-fade-in-up leading-tight transition-transform duration-300 group-hover:scale-[1.02]">
+                <span className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent hover:from-primary hover:to-primary/80 transition-colors duration-300">Winove — Sua ideia online</span>
                 <br />
-                <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">Templates de websites e construções personalizadas</span>
+                <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent hover:from-foreground hover:to-foreground/80 transition-colors duration-300">Templates de websites e construções personalizadas</span>
               </h1>
 
               <p
-                className="text-lg md:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto animate-fade-in-up"
+                className="text-lg md:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto animate-fade-in-up transition-colors duration-300 group-hover:text-foreground"
                 style={{ animationDelay: '0.2s' }}
               >
                 Do conceito ao resultado: design, tecnologia e performance para o seu negócio.
@@ -74,4 +74,3 @@ export const Hero = ({ htmlContent }: HeroProps) => {
     </section>
   );
 };
-

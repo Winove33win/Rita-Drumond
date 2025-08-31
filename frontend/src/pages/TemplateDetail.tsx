@@ -29,17 +29,40 @@ const TemplateDetail = () => {
 
   const { data: template, isLoading } = useQuery({ queryKey: ['template', slug], enabled: !!slug, queryFn: () => fetchTemplate(slug as string) });
 
-  // Show loading while fetching to avoid accessing undefined template
+  // Inline skeleton to manter layout enquanto carrega
+  const DetailSkeleton = () => (
+    <div className="pt-24 px-4">
+      <div className="container mx-auto">
+        <div className="h-6 w-40 bg-muted/40 rounded mb-6 animate-pulse" />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* esquerda */}
+          <div className="lg:col-span-2 space-y-8">
+            <div className="rounded-lg overflow-hidden bg-muted/30 h-96 animate-pulse" />
+            <div className="space-y-4">
+              <div className="h-10 w-3/4 bg-muted/40 rounded animate-pulse" />
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="rounded-lg bg-muted/30 h-24 animate-pulse" />
+                ))}
+              </div>
+              <div className="rounded-lg bg-muted/30 h-40 animate-pulse" />
+            </div>
+          </div>
+          {/* direita */}
+          <div className="space-y-6 lg:col-start-3 lg:row-start-1">
+            <div className="rounded-lg bg-muted/30 h-64 animate-pulse" />
+            <div className="rounded-lg bg-muted/30 h-32 animate-pulse" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background text-foreground">
         <Header />
-        <div className="pt-24 px-4">
-          <div className="container mx-auto text-center py-24">
-            <h1 className="text-2xl font-bold mb-2">Carregando template...</h1>
-            <p className="text-muted-foreground">Aguarde um instante.</p>
-          </div>
-        </div>
+        <DetailSkeleton />
         <Footer />
       </div>
     );

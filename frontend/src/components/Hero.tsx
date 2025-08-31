@@ -7,7 +7,7 @@ type HeroProps = {
 
 export const Hero = ({ htmlContent }: HeroProps) => {
   return (
-    <section id="hero" className="group min-h-screen pt-32 md:pt-36 pb-16 flex items-center justify-center relative overflow-hidden">
+    <section id="hero" className="group min-h-screen pt-8 md:pt-12 pb-16 flex items-center justify-center relative overflow-hidden">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"

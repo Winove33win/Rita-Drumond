@@ -248,7 +248,7 @@ const TemplateDetail = () => {
             </div>
             {/* Rich HTML content from DB (optional) */}
             {template?.content && (
-              <div className="lg:col-span-2">
+              <div className="lg:col-span-2 lg:row-start-2">
                 <Card>
                   <CardHeader>
                     <CardTitle>Descrição Detalhada</CardTitle>
@@ -261,7 +261,7 @@ const TemplateDetail = () => {
             )}
 
             {/* Sidebar */}
-            <div className="space-y-6">
+            <div className="space-y-6 lg:col-start-3 lg:row-start-1">
               {/* Price Card */}
               <Card className="sticky top-24">
                 <CardContent className="p-6">

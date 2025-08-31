@@ -8,6 +8,7 @@
   },
   "scripts": {
     "prestart": "node scripts/build-and-sync.mjs",
+    "sitemap": "node scripts/generate-sitemap.mjs",
     "migrate": "node scripts/migrate.mjs",
     "start": "node index.js",
     "deploy": "bash ../deploy/deploy.sh"

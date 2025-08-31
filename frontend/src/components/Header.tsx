@@ -48,7 +48,9 @@ export const Header = () => {
       {/* Faixa superior */}
       <div className="bg-primary text-primary-foreground text-sm flex items-center justify-center py-1">
         <span>Veja as promoções atuais</span>
-        <Button className="btn-secondary ml-4 px-3 py-1 text-xs">Ver mais</Button>
+        <Link to="/promocoes">
+          <Button className="btn-secondary ml-4 px-3 py-1 text-xs">Ver mais</Button>
+        </Link>
       </div>
 
       <div className="container mx-auto px-4 py-4">

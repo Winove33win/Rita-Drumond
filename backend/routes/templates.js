@@ -35,6 +35,8 @@ const normalize = (row) => {
   return {
     slug: row.slug,
     title: row.title,
+    heading: meta.heading || '',
+    subheading: meta.subheading || '',
     description: meta.description || '',
     category: meta.category || 'Outros',
     difficulty: meta.difficulty || 'Iniciante',
@@ -83,4 +85,3 @@ router.get('/:slug', async (req, res) => {
 });
 
 export default router;
-

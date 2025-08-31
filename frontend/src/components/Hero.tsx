@@ -3,10 +3,11 @@ import heroBackground from "@/assets/hero-background.jpg";
 import { Link } from "react-router-dom";
 
 type HeroProps = {
-  htmlContent?: string;
+  heading?: string;
+  subheading?: string;
 };
 
-export const Hero = ({ htmlContent }: HeroProps) => {
+export const Hero = ({ heading, subheading }: HeroProps) => {
   return (
     <section id="hero" className="group min-h-screen pt-4 sm:pt-6 md:pt-8 lg:pt-10 xl:pt-12 pb-16 flex items-center justify-center relative overflow-hidden">
       {/* Background Image */}
@@ -28,27 +29,18 @@ export const Hero = ({ htmlContent }: HeroProps) => {
       {/* Content */}
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {htmlContent ? (
-            <div
-              className="prose prose-invert prose-xl mx-auto text-center max-w-3xl"
-              dangerouslySetInnerHTML={{ __html: htmlContent }}
-            />
-          ) : (
-            <>
-              <h1 className="text-4xl md:text-6xl font-extrabold mb-6 animate-fade-in-up leading-tight transition-transform duration-300 group-hover:scale-[1.02]">
-                <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">Winove, Sua ideia online</span>
-                <br />
-                <span className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">Templates de websites e construções personalizadas.</span>
-              </h1>
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-6 animate-fade-in-up leading-tight transition-transform duration-300 group-hover:scale-[1.02]">
+            <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">{heading || 'Winove, Sua ideia online'}</span>
+            <br />
+            <span className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">{subheading || 'Templates de websites e construções personalizadas.'}</span>
+          </h1>
 
-              <p
-                className="text-lg md:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto animate-fade-in-up transition-colors duration-300 group-hover:text-foreground"
-                style={{ animationDelay: '0.2s' }}
-              >
-                Do conceito ao resultado: design, tecnologia e performance para o seu negócio.
-              </p>
-            </>
-          )}
+          <p
+            className="text-lg md:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto animate-fade-in-up transition-colors duration-300 group-hover:text-foreground"
+            style={{ animationDelay: '0.2s' }}
+          >
+            Do conceito ao resultado: design, tecnologia e performance para o seu negócio.
+          </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             <a href="https://api.whatsapp.com/send?phone=5519982403845" target="_blank" rel="noopener noreferrer">
@@ -77,4 +69,3 @@ export const Hero = ({ htmlContent }: HeroProps) => {
     </section>
   );
 };
-

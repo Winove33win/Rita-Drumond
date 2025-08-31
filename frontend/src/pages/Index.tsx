@@ -7,13 +7,19 @@ import { Testimonials } from "@/components/Testimonials";
 import { Blog } from "@/components/Blog";
 import { CTA } from "@/components/CTA";
 import { Footer } from "@/components/Footer";
+import { useQuery } from '@tanstack/react-query';
+import { fetchTemplate } from '@/lib/api';
 
 const Index = () => {
+  const { data } = useQuery({
+    queryKey: ['template', 'home-hero'],
+    queryFn: () => fetchTemplate('home-hero'),
+  });
+
   return (
     <div className="min-h-screen bg-background text-foreground font-inter">
       <Header />
-      {/* Hero estático para manter estilização consistente */}
-      <Hero />
+      <Hero heading={data?.heading} subheading={data?.subheading} />
       <About />
       <Services />
       <Portfolio />

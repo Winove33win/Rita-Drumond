@@ -13,6 +13,7 @@ interface BlogPost {
   coverImage: string;
   date: string;
   author: string;
+  category: string;
 }
 
 function calcReadingTime(content: string): string {
@@ -37,7 +38,9 @@ export const BlogPost = () => {
           const relRes = await fetch(`${API}/blog-posts`);
           if (relRes.ok) {
             const allPosts: BlogPost[] = await relRes.json();
-            const related = allPosts.filter(p => p.slug !== slug).slice(0, 3);
+            const related = allPosts
+              .filter(p => p.slug !== slug && p.category === data.category)
+              .slice(0, 3);
             setRelatedPosts(related);
           } else {
             console.error("Related posts API Error:", relRes.status, relRes.statusText);
@@ -106,6 +109,9 @@ export const BlogPost = () => {
 
             {/* Meta Information */}
             <div className="flex flex-wrap items-center gap-6 text-muted-foreground mb-8">
+              <span className="px-3 py-1 text-xs font-medium rounded-full glass border border-border/20 text-muted-foreground">
+                {post.category}
+              </span>
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4" />
                 <span>{post.author}</span>

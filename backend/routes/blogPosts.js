@@ -20,13 +20,14 @@ router.get('/', async (req, res) => {
         conteudo AS content,
         imagem_destacada AS coverImage,
         data_publicacao AS date,
-        autor AS author
+        autor AS author,
+        categoria AS category
       FROM blog_posts
       ORDER BY data_publicacao DESC
       LIMIT ? OFFSET ?
     `,
       [pageSize, offset]
-      );
+        );
 
     // Front-end espera um array simples de posts
     res.json(rows || []);
@@ -49,7 +50,8 @@ router.get('/:slug', async (req, res) => {
         conteudo AS content,
         imagem_destacada AS coverImage,
         data_publicacao AS date,
-        autor AS author
+        autor AS author,
+        categoria AS category
       FROM blog_posts
       WHERE slug = ?
       LIMIT 1

@@ -10,7 +10,7 @@ if ($conn->connect_error) {
 }
 
 
-$result = $conn->query("SELECT id, titulo, slug, resumo, conteudo, imagem AS imagem_destacada, criado_em AS data_publicacao, autor FROM blog_posts ORDER BY criado_em DESC");
+$result = $conn->query("SELECT id, titulo, slug, resumo, conteudo, imagem AS imagem_destacada, criado_em AS data_publicacao, autor, categoria FROM blog_posts ORDER BY criado_em DESC");
 
 
 $posts = [];

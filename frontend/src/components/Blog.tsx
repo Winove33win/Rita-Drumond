@@ -11,6 +11,7 @@ interface Post {
   coverImage: string;
   date: string;
   author: string;
+  category?: string;
 }
 
 function readingTime(content: string): string {

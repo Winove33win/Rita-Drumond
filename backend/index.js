@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import blogPostsRoute from './routes/blogPosts.js';
 import casesRoute from './routes/cases.js';
 import templatesRoute from './routes/templates.js';
+import sitemapRoute from './routes/sitemap.js';
 
 // Env vars
 dotenv.config();
@@ -46,6 +47,7 @@ app.use((_req, res, next) => {
 app.use('/api/blog-posts', blogPostsRoute);
 app.use('/api/cases', casesRoute);
 app.use('/api/templates', templatesRoute);
+app.use('/', sitemapRoute);
 
 // Health check
 app.get('/api/health', (_req, res) => {

@@ -7,30 +7,40 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { useQuery } from '@tanstack/react-query';
-import { fetchTemplates } from '@/lib/api';
+import { fetchTemplates, Template } from '@/lib/api';
 import { Search, Eye, Star, Filter } from "lucide-react";
 
 const Templates = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data: templates = [], isLoading } = useQuery({ queryKey: ['templates'], queryFn: fetchTemplates });
+  const { data: templates = [], isLoading } = useQuery<Template[]>({
+    queryKey: ['templates'],
+    queryFn: fetchTemplates,
+  });
 
   // Build dynamic category list from API data
   const categories = useMemo(() => {
     const set = new Set<string>();
-    (templates || []).forEach((t: any) => {
-      const c = (t?.category || "").toString().trim();
+    templates.forEach((t) => {
+      const c = (t.category || "").toString().trim();
       if (c) set.add(c);
     });
     return ["Todos", ...Array.from(set)];
   }, [templates]);
 
-  const filteredTemplates = templates.filter((template: any) => {
-    const matchesCategory = selectedCategory === "Todos" || (template.category || '').toLowerCase() === selectedCategory.toLowerCase();
-    const matchesSearch = template.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         (template.description || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         (template.tags || []).some((tag: string) => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredTemplates = templates.filter((template) => {
+    const matchesCategory =
+      selectedCategory === "Todos" ||
+      (template.category || '').toLowerCase() === selectedCategory.toLowerCase();
+    const matchesSearch =
+      template.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (template.description || '')
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      (template.tags || []).some((tag) =>
+        tag.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     return matchesCategory && matchesSearch;
   });
 
@@ -98,7 +108,7 @@ const Templates = () => {
             {isLoading ? (
               <div>Carregando templates...</div>
             ) : (
-              filteredTemplates.map((template: any) => {
+              filteredTemplates.map((template) => {
                 return (
                   <Card key={template.slug} className="group hover:shadow-lg transition-all duration-300 border-border/50 hover:border-primary/20">
                     <CardHeader className="p-0">

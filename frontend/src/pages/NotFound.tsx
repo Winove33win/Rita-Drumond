@@ -52,6 +52,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
+
     <div className="min-h-screen bg-background text-foreground flex flex-col font-inter">
       <Header />
       <main className="flex-grow container mx-auto px-4 flex flex-col items-center justify-center py-24">
@@ -74,6 +75,39 @@ const NotFound = () => {
         </div>
       </main>
       <Footer />
+=======
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold mb-4">404</h1>
+        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
+        <div className="flex flex-col gap-2">
+          <button
+            onClick={() => navigate("/")}
+            className="text-blue-500 hover:text-blue-700 underline"
+          >
+            Ir para Home
+          </button>
+          <button
+            onClick={() => navigate("/templates")}
+            className="text-blue-500 hover:text-blue-700 underline"
+          >
+            Ir para Templates
+          </button>
+          <button
+            onClick={() => navigate("/blog")}
+            className="text-blue-500 hover:text-blue-700 underline"
+          >
+            Ir para Blog
+          </button>
+          <button
+            onClick={() => navigate("/cases")}
+            className="text-blue-500 hover:text-blue-700 underline"
+          >
+            Ir para Cases
+          </button>
+        </div>
+      </div>
+
     </div>
   );
 };

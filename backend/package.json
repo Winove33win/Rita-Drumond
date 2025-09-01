@@ -10,7 +10,8 @@
     "prestart": "node scripts/build-and-sync.mjs",
     "migrate": "node scripts/migrate.mjs",
     "start": "node index.js",
-    "deploy": "bash ../deploy/deploy.sh"
+    "deploy": "bash ../deploy/deploy.sh",
+    "sitemap": "node scripts/generate-sitemap.mjs"
   },
   "dependencies": {
     "axios": "^1.11.0",

@@ -50,7 +50,7 @@ export default function LibrasPage() {
 
   return (
     <main className="min-h-screen bg-neutral-950 text-neutral-100">
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden pt-24">
         <video
           className="absolute inset-0 w-full h-full object-cover opacity-20"
           autoPlay

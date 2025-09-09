@@ -9,7 +9,7 @@ type HeroProps = {
 
 export const Hero = ({ heading, subheading }: HeroProps) => {
   return (
-    <section id="hero" className="group min-h-screen pt-0 pb-16 flex items-center justify-center relative overflow-hidden">
+    <section id="hero" className="group min-h-screen pt-24 pb-16 flex items-center justify-center relative overflow-hidden">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"

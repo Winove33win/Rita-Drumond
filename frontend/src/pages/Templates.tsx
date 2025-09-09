@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -46,8 +45,6 @@ const Templates = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Header />
-      
       {/* Hero Section */}
       <section className="pt-24 pb-16 px-4">
         <div className="container mx-auto text-center">

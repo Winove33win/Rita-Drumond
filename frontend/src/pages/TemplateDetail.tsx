@@ -1,5 +1,4 @@
 import { useParams, Link } from "react-router-dom";
-import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { useQuery } from '@tanstack/react-query';
 import { fetchTemplate } from '@/lib/api';
@@ -61,7 +60,6 @@ const TemplateDetail = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background text-foreground">
-        <Header />
         <DetailSkeleton />
         <Footer />
       </div>
@@ -71,7 +69,6 @@ const TemplateDetail = () => {
   if (!template) {
     return (
       <div className="min-h-screen bg-background text-foreground">
-        <Header />
         <div className="pt-24 px-4">
           <div className="container mx-auto text-center py-16">
             <h1 className="text-2xl font-bold mb-4">Template não encontrado</h1>
@@ -118,8 +115,6 @@ const TemplateDetail = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Header />
-      
       <div className="pt-24 px-4">
         <div className="container mx-auto">
           {/* Breadcrumb */}

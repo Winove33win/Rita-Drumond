@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -12,19 +12,6 @@ type NavItem = {
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const headerRef = useRef<HTMLDivElement | null>(null);
-  const [spacerH, setSpacerH] = useState<number>(96);
-
-  useEffect(() => {
-    const update = () => {
-      if (headerRef.current) {
-        setSpacerH(headerRef.current.offsetHeight);
-      }
-    };
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
 
   // Removed "Sobre" and "Portfolio"
   const navItems: NavItem[] = [
@@ -44,7 +31,7 @@ export const Header = () => {
 
   return (
     <>
-    <header ref={headerRef} className="fixed top-0 w-full z-50 glass border-b border-border/20">
+    <header className="fixed top-0 w-full z-50 border-b border-border/20">
       {/* Faixa superior */}
       <div className="bg-primary text-primary-foreground text-sm flex items-center justify-center py-1">
         <span>Veja as promoções atuais</span>
@@ -149,8 +136,6 @@ export const Header = () => {
         )}
       </div>
     </header>
-    {/* Spacer to push content below fixed header (prevents overlap) */}
-    <div aria-hidden className="pointer-events-none select-none" style={{ height: spacerH || 96 }} />
     </>
   );
 };

@@ -1,4 +1,3 @@
-import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -24,8 +23,6 @@ const EmailCorporativo = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Header />
-      
       {/* Hero Section */}
       <section className="pt-24 pb-16 px-4 bg-gradient-to-br from-primary/5 via-background to-primary/5">
         <div className="container mx-auto text-center">

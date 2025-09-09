@@ -11,7 +11,7 @@ export const Hero = ({ heading, subheading }: HeroProps) => {
   return (
     <section
       id="hero"
-      className="section--first px-4 py-16 group min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="section--first px-4 pb-16 group min-h-screen relative overflow-hidden"
     >
       {/* Background Image */}
       <div

@@ -49,8 +49,8 @@ export default function LibrasPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 pt-24">
-      <section className="relative overflow-hidden">
+    <div className="min-h-screen bg-neutral-950 text-neutral-100">
+      <section className="section--first relative overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover opacity-20"
           autoPlay

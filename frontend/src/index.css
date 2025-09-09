@@ -144,17 +144,17 @@
   .has-sticky-header body,
   .has-sticky-header main,
   .has-sticky-header #app {
-    padding-top: calc(var(--header-h) + var(--content-gap));
+    padding-top: 0;
   }
 
   [id],
   section,
   .section {
-    scroll-margin-top: calc(var(--header-h) + var(--content-gap));
+    scroll-margin-top: var(--header-h);
   }
 
   .section--first {
-    padding-top: var(--content-gap);
+    padding-top: var(--header-h);
   }
 }
 

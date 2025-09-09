@@ -60,7 +60,7 @@ export default function LibrasPage() {
       <section className="relative isolate min-h-[70vh] flex items-center">
         {/* Vídeo de fundo (movimento sutil) */}
         <video
-          className="absolute inset-0 h-full w-full object-cover motion-safe:opacity-20 motion-reduce:hidden pointer-events-none"
+          className="absolute inset-0 h-full w-full object-cover motion-safe:opacity-20 pointer-events-none"
           autoPlay
           loop
           muted

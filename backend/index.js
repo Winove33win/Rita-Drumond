@@ -44,6 +44,17 @@ app.use((_req, res, next) => {
   next();
 });
 
+// Serve frontend build from ../frontend/dist
+const distPath = path.join(__dirname, '../frontend/dist');
+app.use(
+  '/assets',
+  express.static(path.join(distPath, 'assets'), {
+    immutable: true,
+    maxAge: '1y',
+  })
+);
+app.use(express.static(distPath));
+
 // API routes
 app.use('/api/blog-posts', blogPostsRoute);
 app.use('/api/cases', casesRoute);
@@ -59,12 +70,9 @@ app.get('/api/health', (_req, res) => {
 // API 404
 app.use('/api', (_req, res) => res.status(404).json({ error: 'not_found' }));
 
-// Serve frontend build from ../frontend/dist
-const distPath = path.join(__dirname, '../frontend/dist');
-app.use(express.static(distPath));
-
 // SPA fallback for React Router
-app.get('*', (_req, res) => {
+app.get('*', (req, res) => {
+  if (req.path.includes('.')) return res.status(404).end();
   res.sendFile(path.join(distPath, 'index.html'));
 });
 

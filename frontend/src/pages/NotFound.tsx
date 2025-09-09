@@ -53,7 +53,7 @@ const NotFound = () => {
   return (
 
     <div className="min-h-screen bg-background text-foreground flex flex-col font-inter">
-      <main className="flex-grow container mx-auto px-4 flex flex-col items-center justify-center py-24">
+      <div className="flex-grow container mx-auto px-4 flex flex-col items-center justify-center py-24">
         <h1 className="text-5xl font-bold mb-4">404</h1>
         <p className="text-xl text-muted-foreground mb-8 text-center">
           Ops! A página que você procura não foi encontrada.
@@ -71,7 +71,7 @@ const NotFound = () => {
             </Card>
           ))}
         </div>
-      </main>
+      </div>
       <Footer />
     </div>
   );

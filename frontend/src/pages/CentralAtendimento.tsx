@@ -6,7 +6,7 @@ import { KanbanSquare, Star, Zap } from "lucide-react";
 
 export function CentralAtendimento() {
   return (
-    <main className="min-h-screen">
+    <div className="min-h-screen">
       <section className="container mx-auto px-4 pt-32 md:pt-36 pb-16" aria-labelledby="central-hero">
         <Badge variant="secondary" className="mb-3">Central de Atendimento</Badge>
         <h1 id="central-hero" className="text-3xl md:text-5xl font-bold tracking-tight">Central de Conversas com funil</h1>
@@ -81,7 +81,7 @@ export function CentralAtendimento() {
           </CardContent>
         </Card>
       </section>
-    </main>
+    </div>
   );
 }
 

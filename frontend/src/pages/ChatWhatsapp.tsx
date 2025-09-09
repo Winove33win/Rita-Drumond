@@ -5,7 +5,7 @@ import { MessagesSquare, CalendarClock, QrCode, Cpu, ShieldCheck, Users, Bot, We
 
 export default function ChatWhatsapp() {
   return (
-    <main className="min-h-screen">
+    <div className="min-h-screen">
       {/* Hero */}
       <section className="container mx-auto px-4 pt-32 md:pt-36 pb-16" aria-labelledby="chatwhats-hero">
         <div className="grid md:grid-cols-2 gap-10 items-center">
@@ -201,7 +201,7 @@ export default function ChatWhatsapp() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 

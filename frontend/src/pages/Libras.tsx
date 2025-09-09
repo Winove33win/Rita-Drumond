@@ -49,7 +49,7 @@ export default function LibrasPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-100 pt-24">
+    <div className="min-h-screen bg-neutral-950 text-neutral-100 pt-24">
       <section className="relative overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover opacity-20"
@@ -150,6 +150,6 @@ export default function LibrasPage() {
           </aside>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

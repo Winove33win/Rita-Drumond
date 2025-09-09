@@ -9,6 +9,8 @@
 @layer base {
   :root {
     /* Core Dark Theme Colors */
+    --header-h: 72px;
+    --content-gap: 24px;
     --background: 220 25% 3%;
     --foreground: 210 40% 98%;
     
@@ -253,4 +255,28 @@
   .bg-glass {
     background-color: var(--glass-bg);
   }
+}
+
+/* Sticky header spacing and offsets */
+.has-sticky-header body,
+.has-sticky-header main,
+.has-sticky-header #app {
+  padding-top: calc(var(--header-h) + var(--content-gap));
+}
+
+[id], section, .section {
+  scroll-margin-top: calc(var(--header-h) + var(--content-gap));
+}
+
+.page-first, .section--first {
+  padding-top: var(--content-gap);
+}
+
+#site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 15, 15, 0.92);
 }

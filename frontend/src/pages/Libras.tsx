@@ -50,19 +50,29 @@ export default function LibrasPage() {
 
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100">
-      <section className="section--first relative overflow-hidden">
+      {/* HERO — VÍDEO DE FUNDO + OVERLAY (apenas nesta página) */}
+      <section className="relative isolate min-h-[70vh] flex items-center">
+        {/* Vídeo de fundo (movimento sutil) */}
         <video
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
+          className="absolute inset-0 h-full w-full object-cover opacity-20 pointer-events-none"
           autoPlay
           loop
           muted
           playsInline
-          aria-hidden="true"
+          preload="metadata"
         >
-          <source src="/assets/1741273281128%20%281%29.mp4" type="video/mp4" />
+          {/* use esta fonte se renomeou */}
+          <source src="/assets/hero-libras.mp4" type="video/mp4" />
+          {/* descomente esta linha se NÃO renomear o arquivo
+          <source src="/assets/1741273281128%20(1).mp4" type="video/mp4" />
+          */}
         </video>
-        <div className="absolute inset-0 opacity-30 bg-gradient-to-br from-orange-500/20 via-amber-400/10 to-white/0" />
-        <div className="container mx-auto px-6 py-20 relative">
+
+        {/* Overlay escuro (ajuste 75% → 80% se quiser mais escuro) */}
+        <div aria-hidden className="absolute inset-0 bg-black/75" />
+
+        {/* Conteúdo existente do hero */}
+        <div className="relative z-10 container mx-auto px-6 pt-[var(--header-h)] pt-24 md:pt-28">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
               Interpretação de Libras <span className="text-orange-400">SP presencial</span> & <span className="text-orange-400">conteúdos gravados</span>

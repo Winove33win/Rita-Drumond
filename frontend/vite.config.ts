@@ -27,8 +27,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    rollupOptions: {
-      input: './public/index.html',
-    },
+    // Use root index.html as the entry so Vite can
+    // transform it and inject the bundled assets correctly.
   },
 }));

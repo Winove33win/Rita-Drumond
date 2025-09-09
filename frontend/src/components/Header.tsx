@@ -12,10 +12,10 @@ type NavItem = {
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const ref = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const el = ref.current;
+    const el = headerRef.current;
     if (!el) return;
     const root = document.documentElement;
     const setVars = () => {
@@ -52,9 +52,9 @@ export const Header = () => {
   return (
     <>
     <header
-      ref={ref}
       id="site-header"
-      className="w-full border-b border-border/20 z-50"
+      ref={headerRef}
+      className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur"
     >
       {/* Faixa superior */}
       <div className="bg-primary text-primary-foreground text-sm flex items-center justify-center py-1">

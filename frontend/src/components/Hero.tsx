@@ -9,7 +9,10 @@ type HeroProps = {
 
 export const Hero = ({ heading, subheading }: HeroProps) => {
   return (
-    <section id="hero" className="group min-h-screen pt-24 pb-16 flex items-center justify-center relative overflow-hidden">
+    <section
+      id="hero"
+      className="section--first px-4 py-16 group min-h-screen flex items-center justify-center relative overflow-hidden"
+    >
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -27,7 +30,7 @@ export const Hero = ({ heading, subheading }: HeroProps) => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-6 animate-fade-in-up leading-tight transition-transform duration-300 group-hover:scale-[1.02]">
             <span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">{heading || 'Winove, Sua ideia online'}</span>

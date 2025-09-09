@@ -7,10 +7,10 @@ pnpm-lock.yaml
 .env
 .env.*
 *.log
-# Ignore generic dist, but keep backend/dist (served by Node)
+# Ignore generic dist directories
 dist/
-!backend/dist/
-!backend/dist/**
+frontend/dist/
+backend/dist/
 build/
 .tmp/
 temp/
@@ -18,7 +18,6 @@ coverage/
 
 # Frontend (Vite/React)
 frontend/node_modules/
-frontend/dist/
 frontend/.vite/
 *.local
 

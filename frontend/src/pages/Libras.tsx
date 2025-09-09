@@ -49,10 +49,9 @@ export default function LibrasPage() {
     };
   }, []);
 
-  // >>> NOVO: paths seguros respeitando BASE_URL e quebrando cache
+  // Paths respeitando BASE_URL e evitando cache
   const BASE = import.meta.env.BASE_URL || "/";
-  const v = "v=2";
-  const videoSrc = `${BASE}assets/hero-libras.mp4?${v}`;
+  const videoSrc = `${BASE}assets/hero-libras.mp4?v=2`;
   const posterSrc = `${BASE}assets/hero-background-BoObiYUn.jpg`;
 
   return (
@@ -157,30 +156,19 @@ export default function LibrasPage() {
           const team = [
             {
               name: "Camila Azevedo",
+              src: `${BASE}team/camila.jpg?v=2`,
               formacao: "Bacharelado em Letras/Libras (UFSC) · Certificação Prolibras (MEC)",
-
-              src: `${BASE}team/camila.jpg?${v}`,
-
-              src: `${BASE}team/camila.jpg`,
-
             },
             {
               name: "Rafael Nogueira",
-              formacao: "Licenciatura em Letras/Libras (UFRJ) · Esp. em Tradução e Interpretação de Libras (PUC-SP)",
-
-              src: `${BASE}team/rafael.jpg?${v}`,
-
-              src: `${BASE}team/rafael.jpg`,
-
+              src: `${BASE}team/rafael.jpg?v=2`,
+              formacao:
+                "Licenciatura em Letras/Libras (UFRJ) · Esp. em Tradução e Interpretação de Libras (PUC-SP)",
             },
             {
               name: "Winove",
+              src: `${BASE}team/winove.jpg?v=2`,
               formacao: "Em breve",
-
-              src: `${BASE}team/winove.jpg?${v}`,
-
-              src: `${BASE}team/winove.jpg`,
-
             },
           ];
 

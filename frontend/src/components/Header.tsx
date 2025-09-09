@@ -31,13 +31,11 @@ export const Header = () => {
     { name: "Início", href: "/", type: "link" },
     { name: "Serviços", href: "#services", type: "anchor" },
     { name: "Libras", href: "/servicos/libras", type: "link" },
-    { name: "Conteúdos Gravados (Janela)", href: "/servicos/libras#orcamento", type: "link" },
     { name: "Templates", href: "/templates", type: "link" },
     { name: "E-mail Corporativo", href: "/email-corporativo", type: "link" },
 
     // Novas páginas
     { name: "Chat WhatsApp", href: "/chat-whatsapp", type: "link" },
-    { name: "Central de Atendimento", href: "/central-atendimento", type: "link" },
 
     { name: "Blog", href: "/blog", type: "link" },
     { name: "Cases", href: "/cases", type: "link" },

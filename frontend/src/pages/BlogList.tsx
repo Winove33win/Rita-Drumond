@@ -33,6 +33,7 @@ export const BlogList = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [categoryItems, setCategoryItems] = useState<CategoryItem[]>([]);
+  const [fallbackPosts, setFallbackPosts] = useState<BlogPost[] | null>(null);
 
   // Normaliza categorias para filtros consistentes
   const canonicalizeCategory = (raw: string | null | undefined): string => {
@@ -44,29 +45,44 @@ export const BlogList = () => {
     return raw!.trim().replace(/^(.)/, (m) => m.toUpperCase());
   };
 
+  const buildCategoryItems = (map: Map<string, number>): CategoryItem[] => {
+    const priority = ["SEO", "Wix Studio", "Marketing"];
+    const others: CategoryItem[] = [];
+    map.forEach((count, name) => {
+      if (!priority.includes(name)) others.push({ name, count });
+    });
+    return [
+      ...priority.filter((p) => map.has(p)).map((p) => ({ name: p, count: map.get(p)! })),
+      ...others.sort((a, b) => b.count - a.count),
+    ];
+  };
+
   // Carrega categorias com contagem do servidor
   useEffect(() => {
     const API = import.meta.env.VITE_API_URL || "/api";
     const fetchCategories = async () => {
       try {
         const res = await fetch(`${API}/blog-posts/categories`);
-        if (!res.ok) return;
-        const raw: { category: string; count: number }[] = await res.json();
-        const map = new Map<string, number>();
-        for (const r of raw) {
-          const key = canonicalizeCategory(r.category);
-          map.set(key, (map.get(key) || 0) + Number(r.count || 0));
+        if (res.ok) {
+          const raw: { category: string; count: number }[] = await res.json();
+          const map = new Map<string, number>();
+          for (const r of raw) {
+            const key = canonicalizeCategory(r.category);
+            map.set(key, (map.get(key) || 0) + Number(r.count || 0));
+          }
+          setCategoryItems(buildCategoryItems(map));
+        } else {
+          const allRes = await fetch(`${API}/blog-posts`);
+          if (!allRes.ok) return;
+          const posts: BlogPost[] = await allRes.json();
+          setFallbackPosts(posts);
+          const map = new Map<string, number>();
+          for (const p of posts) {
+            const key = canonicalizeCategory(p.category);
+            map.set(key, (map.get(key) || 0) + 1);
+          }
+          setCategoryItems(buildCategoryItems(map));
         }
-        const priority = ["SEO", "Wix Studio", "Marketing"];
-        const others: CategoryItem[] = [];
-        map.forEach((count, name) => {
-          if (!priority.includes(name)) others.push({ name, count });
-        });
-        const ordered: CategoryItem[] = [
-          ...priority.filter((p) => map.has(p)).map((p) => ({ name: p, count: map.get(p)! })),
-          ...others.sort((a, b) => b.count - a.count),
-        ];
-        setCategoryItems(ordered);
       } catch (err) {
         console.error('fetch categories', err);
       }
@@ -85,15 +101,57 @@ export const BlogList = () => {
     try {
       const qUse = override?.q ?? searchTerm;
       const catUse = override?.category ?? selectedCategory;
+
+      const applyClientSide = (source: BlogPost[]) => {
+        let filtered = [...source];
+        if (qUse) {
+          const qLower = qUse.toLowerCase();
+          filtered = filtered.filter(
+            (p) =>
+              p.title.toLowerCase().includes(qLower) ||
+              p.excerpt.toLowerCase().includes(qLower) ||
+              p.content.toLowerCase().includes(qLower)
+          );
+        }
+        if (catUse) {
+          filtered = filtered.filter((p) => canonicalizeCategory(p.category) === catUse);
+        }
+        const totalItems = filtered.length;
+        const slice = filtered.slice((pageToLoad - 1) * PAGE_SIZE, pageToLoad * PAGE_SIZE);
+        setTotal(totalItems);
+        setPage(pageToLoad);
+        setPosts((prev) => (reset ? slice : [...prev, ...slice]));
+      };
+
+      if (fallbackPosts) {
+        applyClientSide(fallbackPosts);
+        return;
+      }
+
       const qs = new URLSearchParams({ page: String(pageToLoad), pageSize: String(PAGE_SIZE) });
       if (qUse) qs.append('q', qUse);
       if (catUse) qs.append('category', catUse);
       const res = await fetch(`${API}/blog-posts/search?${qs.toString()}`);
-      if (!res.ok) throw new Error(`${res.status}`);
-      const data: { items: BlogPost[]; total: number; page: number; pageSize: number } = await res.json();
-      setTotal(data.total || 0);
-      setPage(pageToLoad);
-      setPosts((prev) => (reset ? data.items : [...prev, ...data.items]));
+      if (res.ok) {
+        const data: { items: BlogPost[]; total: number; page: number; pageSize: number } = await res.json();
+        setTotal(data.total || 0);
+        setPage(pageToLoad);
+        setPosts((prev) => (reset ? data.items : [...prev, ...data.items]));
+      } else if (res.status === 404) {
+        const allRes = await fetch(`${API}/blog-posts`);
+        if (!allRes.ok) throw new Error(`${allRes.status}`);
+        const items: BlogPost[] = await allRes.json();
+        setFallbackPosts(items);
+        const map = new Map<string, number>();
+        for (const p of items) {
+          const key = canonicalizeCategory(p.category);
+          map.set(key, (map.get(key) || 0) + 1);
+        }
+        setCategoryItems((prev) => (prev.length ? prev : buildCategoryItems(map)));
+        applyClientSide(items);
+      } else {
+        throw new Error(`${res.status}`);
+      }
     } catch (err) {
       console.error('fetch blog-posts/search', err);
     } finally {

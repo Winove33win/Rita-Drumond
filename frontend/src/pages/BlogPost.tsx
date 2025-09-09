@@ -31,26 +31,32 @@ export const BlogPost = () => {
       if (!slug) return;
       const API = import.meta.env.VITE_API_URL || "/api";
       try {
+        let data: BlogPost | null = null;
+        let allPosts: BlogPost[] | null = null;
         const res = await fetch(`${API}/blog-posts/${slug}`);
         if (res.ok) {
-          const data: BlogPost = await res.json();
-          setPost(data);
+          data = await res.json();
           const relRes = await fetch(`${API}/blog-posts`);
           if (relRes.ok) {
-            const allPosts: BlogPost[] = await relRes.json();
+            allPosts = await relRes.json();
+          }
+        } else {
+          const listRes = await fetch(`${API}/blog-posts`);
+          if (listRes.ok) {
+            allPosts = await listRes.json();
+            data = allPosts.find(p => p.slug === slug) || null;
+          }
+        }
+        if (data) {
+          setPost(data);
+          if (allPosts) {
             const related = allPosts
               .filter(p => p.slug !== slug && p.category === data.category)
               .slice(0, 3);
             setRelatedPosts(related);
-          } else {
-            console.error("Related posts API Error:", relRes.status, relRes.statusText);
-            const text = await relRes.text();
-            console.error("Related posts response body:", text);
           }
         } else {
-          console.error("API Error:", res.status, res.statusText);
-          const text = await res.text();
-          console.error("Response body:", text);
+          console.error('Post not found');
         }
       } catch (err) {
         console.error('fetch blog-post', err);

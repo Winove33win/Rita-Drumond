@@ -153,22 +153,21 @@ export default function LibrasPage() {
         </div>
 
         {(() => {
-          const BASE = import.meta.env.BASE_URL || "/";
           const team = [
             {
               name: "Camila Azevedo",
               formacao: "Bacharelado em Letras/Libras (UFSC) · Certificação Prolibras (MEC)",
-              src: `${BASE}team/camila.jpg`,
+              src: "/team/camila.jpg",
             },
             {
               name: "Rafael Nogueira",
               formacao: "Licenciatura em Letras/Libras (UFRJ) · Esp. em Tradução e Interpretação de Libras (PUC-SP)",
-              src: `${BASE}team/rafael.jpg`,
+              src: "/team/rafael.jpg",
             },
             {
               name: "Winove",
               formacao: "Em breve",
-              src: `${BASE}team/winove.jpg`,
+              src: "/team/winove.jpg",
             },
           ];
 
@@ -181,7 +180,7 @@ export default function LibrasPage() {
                 >
                   <img
                     src={m.src}
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = `${BASE}placeholder.svg`; }}
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; }}
                     alt={`Foto de ${m.name}`}
                     loading="lazy"
                     decoding="async"

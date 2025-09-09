@@ -61,8 +61,8 @@ export const BlogPost = () => {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-background">
-        <div className="pt-24 pb-16">
+      <div className="min-h-screen bg-background pt-24">
+        <div className="pb-16">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl font-bold text-foreground mb-4">Post não encontrado</h1>
@@ -79,9 +79,9 @@ export const BlogPost = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pt-24">
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-navy relative overflow-hidden">
+      <section className="pb-16 bg-gradient-navy relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-0 right-1/4 w-72 h-72 bg-primary/8 rounded-full blur-3xl animate-float" />
           <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" style={{ animationDelay: '4s' }} />

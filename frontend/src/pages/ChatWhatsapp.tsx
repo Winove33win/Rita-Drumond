@@ -5,10 +5,11 @@ import { MessagesSquare, CalendarClock, QrCode, Cpu, ShieldCheck, Users, Bot, We
 
 export default function ChatWhatsapp() {
   return (
-    <div className="min-h-screen">
-      {/* Hero */}
-      <section className="container mx-auto px-4 pt-32 md:pt-36 pb-16" aria-labelledby="chatwhats-hero">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
+      <div className="min-h-screen">
+        {/* Hero */}
+        <section className="section--first pb-16" aria-labelledby="chatwhats-hero">
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
             <Badge variant="secondary" className="mb-3">WhatsApp Omnichannel</Badge>
             <h1 id="chatwhats-hero" className="text-3xl md:text-5xl font-bold tracking-tight">Chat WhatsApp com automações e IA</h1>
@@ -82,6 +83,7 @@ export default function ChatWhatsapp() {
             </Card>
           </div>
         </div>
+      </div>
       </section>
 
       {/* O que você consegue fazer */}

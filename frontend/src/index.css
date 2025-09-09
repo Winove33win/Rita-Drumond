@@ -155,6 +155,7 @@
 
   .section--first {
     padding-top: var(--header-h);
+    @apply min-h-[60vh] flex items-center justify-center;
   }
 }
 

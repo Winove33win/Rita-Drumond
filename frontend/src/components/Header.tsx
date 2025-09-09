@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -12,26 +12,26 @@ type NavItem = {
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const headerRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = headerRef.current;
     if (!el) return;
-    const root = document.documentElement;
-    const setVars = () => {
-      const h = el.getBoundingClientRect().height;
-      root.style.setProperty("--header-h", `${h}px`);
-      root.classList.add("has-sticky-header");
+    const updateVars = () => {
+      const height = el.getBoundingClientRect().height;
+      document.documentElement.style.setProperty("--header-h", `${height}px`);
+      document.documentElement.classList.add("has-sticky-header");
     };
-    setVars();
-    const ro = new ResizeObserver(setVars);
+    updateVars();
+    const ro = new ResizeObserver(updateVars);
     ro.observe(el);
-    window.addEventListener("resize", setVars);
+    (document as Document & { fonts?: { ready?: Promise<unknown> } }).fonts?.ready?.then(updateVars);
+    window.addEventListener("resize", updateVars);
     return () => {
       ro.disconnect();
-      window.removeEventListener("resize", setVars);
+      window.removeEventListener("resize", updateVars);
     };
-  }, []);
+  }, [location.pathname]);
 
   // Removed "Sobre" and "Portfolio"
   const navItems: NavItem[] = [
@@ -51,115 +51,114 @@ export const Header = () => {
 
   return (
     <>
-    <header
-      id="site-header"
-      ref={headerRef}
-      className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur"
-    >
-      {/* Faixa superior */}
-      <div className="bg-primary text-primary-foreground text-sm flex items-center justify-center py-1">
-        <span>Veja as promoções atuais</span>
-        <Link to="/promocoes">
-          <Button className="btn-secondary ml-4 px-3 py-1 text-xs">Ver mais</Button>
-        </Link>
-      </div>
-
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link
-            to="/"
-            className="text-2xl font-bold text-primary hover:text-primary/80 transition-colors duration-300"
-          >
-            Winove
+      <div id="site-header" ref={headerRef} className="sticky top-0 z-50">
+        {/* Faixa de promoções */}
+        <div className="w-full bg-primary text-background px-4 py-2 flex items-center justify-between">
+          <span>Veja as promoções atuais</span>
+          <Link to="/promocoes">
+            <Button className="btn-secondary ml-4 px-3 py-1 text-xs">Ver mais</Button>
           </Link>
-
-          {/* Navegação Desktop */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) =>
-              item.type === "link" ? (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={`text-foreground hover:text-primary transition-colors duration-300 ${
-                    location.pathname === item.href ? "text-primary" : ""
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ) : (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-foreground hover:text-primary transition-colors duration-300"
-                >
-                  {item.name}
-                </a>
-              )
-            )}
-          </nav>
-
-          {/* CTA Desktop */}
-          <div className="hidden md:block">
-            <a
-              href="https://api.whatsapp.com/send?phone=5519982403845"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button className="btn-primary">Fale Conosco</Button>
-            </a>
-          </div>
-
-          {/* Botão Menu Mobile */}
-          <button
-            className="md:hidden text-foreground"
-            onClick={() => setIsMenuOpen((v) => !v)}
-            aria-label="Abrir menu"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
 
-        {/* Menu Mobile */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 py-4 glass rounded-lg">
-            <nav className="flex flex-col space-y-4 px-4">
-              {navItems.map((item) =>
-                item.type === "link" ? (
-                  <NavLink
-                    key={item.href}
-                    to={item.href}
-                    className="transition-colors text-foreground/60 hover:text-foreground/80"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </NavLink>
-                ) : (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="transition-colors text-foreground/60 hover:text-foreground/80"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                )
-              )}
-
-              <a
-                href="https://api.whatsapp.com/send?phone=5519982403845"
-                target="_blank"
-                rel="noopener noreferrer"
+        {/* Navegação principal */}
+        <header className="w-full border-b border-border bg-background/90 backdrop-blur">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              {/* Logo */}
+              <Link
+                to="/"
+                className="text-2xl font-bold text-primary hover:text-primary/80 transition-colors duration-300"
               >
-                <Button className="btn-primary mt-4" onClick={() => setIsMenuOpen(false)}>
-                  Fale Conosco
-                </Button>
-              </a>
-            </nav>
+                Winove
+              </Link>
+
+              {/* Navegação Desktop */}
+              <nav className="hidden md:flex items-center space-x-8">
+                {navItems.map((item) =>
+                  item.type === "link" ? (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className={`text-foreground hover:text-primary transition-colors duration-300 ${
+                        location.pathname === item.href ? "text-primary" : ""
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  ) : (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className="text-foreground hover:text-primary transition-colors duration-300"
+                    >
+                      {item.name}
+                    </a>
+                  )
+                )}
+              </nav>
+
+              {/* CTA Desktop */}
+              <div className="hidden md:block">
+                <a
+                  href="https://api.whatsapp.com/send?phone=5519982403845"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button className="btn-primary">Fale Conosco</Button>
+                </a>
+              </div>
+
+              {/* Botão Menu Mobile */}
+              <button
+                className="md:hidden text-foreground"
+                onClick={() => setIsMenuOpen((v) => !v)}
+                aria-label="Abrir menu"
+              >
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
+
+            {/* Menu Mobile */}
+            {isMenuOpen && (
+              <div className="md:hidden mt-4 py-4 glass rounded-lg">
+                <nav className="flex flex-col space-y-4 px-4">
+                  {navItems.map((item) =>
+                    item.type === "link" ? (
+                      <NavLink
+                        key={item.href}
+                        to={item.href}
+                        className="transition-colors text-foreground/60 hover:text-foreground/80"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item.name}
+                      </NavLink>
+                    ) : (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className="transition-colors text-foreground/60 hover:text-foreground/80"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item.name}
+                      </a>
+                    )
+                  )}
+
+                  <a
+                    href="https://api.whatsapp.com/send?phone=5519982403845"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button className="btn-primary mt-4" onClick={() => setIsMenuOpen(false)}>
+                      Fale Conosco
+                    </Button>
+                  </a>
+                </nav>
+              </div>
+            )}
           </div>
-        )}
+        </header>
       </div>
-    </header>
     </>
   );
 };

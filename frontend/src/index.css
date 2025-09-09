@@ -10,7 +10,7 @@
   :root {
     /* Core Dark Theme Colors */
     --header-h: 72px;
-    --content-gap: 24px;
+    --content-gap: 16px;
     --background: 220 25% 3%;
     --foreground: 210 40% 98%;
     

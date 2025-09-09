@@ -38,7 +38,7 @@ if (!$post) {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": <?= json_encode($post['titulo']) ?>,
-    "image": <?= json_encode($post['imagem']) ?>,
+    "image": <?= json_encode($post['imagem_destacada']) ?>,
     "author": {
       "@type": "Person",
       "name": <?= json_encode($post['autor']) ?>
@@ -64,7 +64,7 @@ if (!$post) {
   <h1><?= htmlspecialchars($post['titulo']) ?></h1>
   <div class="meta">Publicado em <?= date("d/m/Y", strtotime($post['criado_em'])) ?> por <?= htmlspecialchars($post['autor']) ?></div>
 
-  <img src="<?= htmlspecialchars($post['imagem']) ?>" alt="Imagem destacada" />
+  <img src="<?= htmlspecialchars($post['imagem_destacada']) ?>" alt="Imagem destacada" />
 
   <div>
     <?= $post['conteudo'] ?>

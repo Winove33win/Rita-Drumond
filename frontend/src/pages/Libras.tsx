@@ -2,6 +2,7 @@ import { useState } from "react";
 import { LibrasLeadForm } from "@/components/forms/LibrasLeadForm";
 import heroBg from "@/assets/hero-background.jpg";
 import { useSEO } from "@/lib/seo";
+import CinemaCegoSection from "@/components/CinemaCegoSection";
 
 export default function LibrasPage() {
   const [sent, setSent] = useState(false);
@@ -94,6 +95,9 @@ export default function LibrasPage() {
           </div>
         </div>
       </section>
+
+      {/* Cinema Cego Section */}
+      <CinemaCegoSection />
 
       <section className="container mx-auto px-6 py-16 grid md:grid-cols-2 gap-10">
         <div>

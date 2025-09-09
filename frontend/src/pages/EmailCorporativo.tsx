@@ -8,6 +8,7 @@ import {
   Share2, Settings, Zap, Cloud, Smartphone,
   PhoneCall, MessageCircle
 } from "lucide-react";
+import { useSEO } from "@/lib/seo";
 
 const EmailCorporativo = () => {
   const features = [
@@ -20,6 +21,21 @@ const EmailCorporativo = () => {
     { icon: FileText, title: "Notas", description: "Espaço reservado para suas ideias e informações relevantes" },
     { icon: MessageSquare, title: "Reuniões", description: "Não precisa instalar software, sem limite de tempo, faça suas reuniões com nossa tecnologia." },
   ];
+
+  useSEO({
+    title: "E-mail Corporativo Profissional | Winove",
+    description:
+      "Contas a partir de 5 GB com Antivirus, Antispam com 3 níveis de filtragem, acesso por Webmail, POP e IMAP.",
+    canonical: "https://www.winove.com.br/email-corporativo",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: "E-mail Corporativo",
+      provider: { "@type": "Organization", name: "Winove" },
+      areaServed: "Brasil",
+      serviceType: "E-mail corporativo profissional",
+    },
+  });
 
   return (
     <div className="min-h-screen bg-background text-foreground">

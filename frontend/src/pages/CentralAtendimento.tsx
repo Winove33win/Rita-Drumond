@@ -3,8 +3,22 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { KanbanSquare, Star, Zap } from "lucide-react";
+import { useSEO } from "@/lib/seo";
 
 export function CentralAtendimento() {
+  useSEO({
+    title: "Central de Conversas com Funil | Winove",
+    description: "Gerencie atendimentos em tempo real e automatize fluxos.",
+    canonical: "https://www.winove.com.br/central-atendimento",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: "Central de Conversas com Funil",
+      provider: { "@type": "Organization", name: "Winove" },
+      serviceType: "Central de atendimento",
+    },
+  });
+
   return (
       <div className="min-h-screen">
         <section className="section--first pb-16" aria-labelledby="central-hero">

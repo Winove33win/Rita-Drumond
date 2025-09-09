@@ -27,10 +27,31 @@ if (!$post) {
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <title><?= htmlspecialchars($post['titulo']) ?></title>
+  <meta name="description" content="<?= htmlspecialchars($post['resumo'] ?? '') ?>" />
+  <link rel="canonical" href="https://www.winove.com.br/blog/<?= urlencode($slug) ?>" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": <?= json_encode($post['titulo']) ?>,
+    "image": <?= json_encode($post['imagem']) ?>,
+    "author": {
+      "@type": "Person",
+      "name": <?= json_encode($post['autor']) ?>
+    },
+    "datePublished": <?= json_encode(date(DATE_ATOM, strtotime($post['criado_em']))) ?>,
+    "dateModified": <?= json_encode(date(DATE_ATOM, strtotime($post['criado_em']))) ?>,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.winove.com.br/blog/<?= urlencode($slug) ?>"
+    },
+    "description": <?= json_encode($post['resumo'] ?? '') ?>
+  }
+  </script>
   <style>
     body { font-family: Arial; max-width: 800px; margin: auto; padding: 20px; }
     img { max-width: 100%; margin-bottom: 20px; }

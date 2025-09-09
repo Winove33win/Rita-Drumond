@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/Footer";
+import { useSEO } from "@/lib/seo";
 
 interface BlogPost {
   id: number;
@@ -46,6 +47,27 @@ export const BlogList = () => {
     };
     load();
   }, []);
+
+  useSEO({
+    title: "Blog & Insights | Winove",
+    description:
+      "Conteúdos exclusivos, tendências e estratégias para manter seu negócio sempre à frente no mundo digital",
+    canonical: "https://www.winove.com.br/blog",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      name: "Winove Blog",
+      url: "https://www.winove.com.br/blog",
+      blogPost: allPosts?.map((p) => ({
+        "@type": "BlogPosting",
+        headline: p.title,
+        image: p.coverImage,
+        datePublished: p.date,
+        author: { "@type": "Person", name: p.author },
+        url: `https://www.winove.com.br/blog/${p.slug}`,
+      })),
+    },
+  });
 
   if (!allPosts) {
     return <p>Carregando...</p>;

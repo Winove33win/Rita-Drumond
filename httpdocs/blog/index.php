@@ -28,6 +28,31 @@
 
           container.appendChild(div);
         });
+
+        const ldJson = {
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          "blogPost": posts.map(post => ({
+            "@type": "BlogPosting",
+            "headline": post.titulo,
+            "image": post.imagem,
+            "author": {
+              "@type": "Person",
+              "name": post.autor || "Winove"
+            },
+            "datePublished": post.criado_em,
+            "description": post.resumo,
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `https://www.winove.com.br/blog/${post.slug}`
+            }
+          }))
+        };
+
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify(ldJson);
+        document.head.appendChild(script);
       })
       .catch(err => {
         console.error("Erro ao carregar posts:", err);

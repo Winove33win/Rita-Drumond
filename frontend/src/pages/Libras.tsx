@@ -157,17 +157,17 @@ export default function LibrasPage() {
             {
               name: "Camila Azevedo",
               formacao: "Bacharelado em Letras/Libras (UFSC) · Certificação Prolibras (MEC)",
-              src: "/team/camila.jpg",
+              src: `${BASE}team/camila.jpg`,
             },
             {
               name: "Rafael Nogueira",
               formacao: "Licenciatura em Letras/Libras (UFRJ) · Esp. em Tradução e Interpretação de Libras (PUC-SP)",
-              src: "/team/rafael.jpg",
+              src: `${BASE}team/rafael.jpg`,
             },
             {
               name: "Winove",
               formacao: "Em breve",
-              src: "/team/winove.jpg",
+              src: `${BASE}team/winove.jpg`,
             },
           ];
 

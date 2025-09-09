@@ -167,7 +167,7 @@ export default function LibrasPage() {
             },
             {
               name: "Winove",
-              src: `/team/winove.jpg?v=2`,
+              src: `/favicon.png`,
               formacao: "Em breve",
             },
           ];

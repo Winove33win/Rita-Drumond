@@ -12,8 +12,7 @@ RewriteCond %{REQUEST_URI} ^/(api|blog|server|backend) [NC]
 RewriteRule ^ - [L]
 
 # Allow static assets
-RewriteRule ^(assets/|images/|img/|fonts/|css/|js/|favicon\.ico$|robots\.txt$|sitemap\.xml$) - [L,NC]
+RewriteRule ^(assets/|images/|img/|team/|fonts/|css/|js/|favicon\.ico$|robots\.txt$|sitemap\.xml$) - [L,NC]
 
 # Fallback to SPA index
 RewriteRule . /index.html [L]
-

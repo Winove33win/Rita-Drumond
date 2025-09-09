@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { useSEO } from "@/lib/seo";
@@ -102,7 +102,7 @@ export const BlogList = () => {
   // SEO for Blog list (using loaded posts)
   useSEO({
     title: "Blog & Insights | Winove",
-    description: "Conte�dos exclusivos, tend�ncias e estrat�gias para manter seu neg�cio sempre � frente no mundo digital",
+    description: "Conteúdos exclusivos, tendências e estratégias para manter seu negócio sempre à frente no mundo digital",
     canonical: "https://www.winove.com.br/blog",
     jsonLd: {
       "@context": "https://schema.org",
@@ -118,9 +118,9 @@ export const BlogList = () => {
         url: `https://www.winove.com.br/blog/${p.slug}`,
       })),
     },
-  });081f9d3 (nova sessao em libras-cinemacego)
+  });
 
-  // Carrega a primeira página
+  // Carrega a primeira pÃ¡gina
   useEffect(() => {
     fetchPage(1, true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -145,7 +145,7 @@ export const BlogList = () => {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              Conteúdos exclusivos, tendências e estratégias para manter seu negócio sempre à frente no mundo digital
+              ConteÃºdos exclusivos, tendÃªncias e estratÃ©gias para manter seu negÃ³cio sempre Ã  frente no mundo digital
             </p>
           </div>
         </div>
@@ -193,7 +193,7 @@ export const BlogList = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {posts.length === 0 && !loading ? (
-                <p>Nenhum post disponível no momento</p>
+                <p>Nenhum post disponÃ­vel no momento</p>
               ) : (
                 posts.map((post, index) => (
                   <article
@@ -275,4 +275,5 @@ export const BlogList = () => {
     </div>
   );
 };
+
 

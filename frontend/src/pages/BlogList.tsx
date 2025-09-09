@@ -1,4 +1,5 @@
-﻿import { Link } from "react-router-dom";
+﻿import { useEffect, useMemo, useState } from 'react';
+import { Link } from "react-router-dom";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { useSEO } from "@/lib/seo";
@@ -275,5 +276,6 @@ export const BlogList = () => {
     </div>
   );
 };
+
 
 

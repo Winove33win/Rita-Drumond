@@ -49,6 +49,11 @@ export default function LibrasPage() {
     };
   }, []);
 
+  // >>> NOVO: paths seguros respeitando BASE_URL e quebrando cache
+  const BASE = import.meta.env.BASE_URL || "/";
+  const videoSrc = `${BASE}assets/hero-libras.mp4?v=1`;
+  const posterSrc = `${BASE}assets/hero-background-BoObiYUn.jpg`;
+
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100">
       {/* HERO — VÍDEO DE FUNDO + OVERLAY (apenas nesta página) */}
@@ -61,9 +66,9 @@ export default function LibrasPage() {
           muted
           playsInline
           preload="metadata"
-          poster="/assets/hero-background-BoObiYUn.jpg"
+          poster={posterSrc}
         >
-          <source src="/assets/hero-libras.mp4" type="video/mp4" />
+          <source src={videoSrc} type="video/mp4" />
         </video>
 
         {/* Overlay escuro principal */}
@@ -138,10 +143,7 @@ export default function LibrasPage() {
         </div>
       </section>
 
-      <section
-        id="orcamento"
-        className="container mx-auto px-6 py-16 scroll-mt-[var(--header-h)]"
-      >
+      <section id="orcamento" className="container mx-auto px-6 py-16 scroll-mt-[var(--header-h)]">
         <div className="grid lg:grid-cols-2 gap-10">
           <div>
             <h2 className="text-2xl font-bold">Solicite um orçamento</h2>
@@ -149,9 +151,7 @@ export default function LibrasPage() {
             <div className="mt-6">
               <LibrasLeadForm onSuccess={() => setSent(true)} />
               {sent && (
-                <p className="mt-3 text-green-400">
-                  Recebemos seu pedido! Entraremos em contato em breve.
-                </p>
+                <p className="mt-3 text-green-400">Recebemos seu pedido! Entraremos em contato em breve.</p>
               )}
             </div>
           </div>

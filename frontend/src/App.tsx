@@ -19,6 +19,7 @@ import ChatWhatsapp from "@/pages/ChatWhatsapp";
 import { CentralAtendimento } from "@/pages/CentralAtendimento";
 import Promocoes from "./pages/Promocoes";
 import NotFound from "./pages/NotFound";
+import LibrasPage from "./pages/Libras";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,7 @@ const App = () => (
           <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/payment-canceled" element={<PaymentCanceled />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/servicos/libras" element={<LibrasPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -30,6 +30,8 @@ export const Header = () => {
   const navItems: NavItem[] = [
     { name: "Início", href: "/", type: "link" },
     { name: "Serviços", href: "#services", type: "anchor" },
+    { name: "Libras", href: "/servicos/libras", type: "link" },
+    { name: "Conteúdos Gravados (Janela)", href: "/servicos/libras#orcamento", type: "link" },
     { name: "Templates", href: "/templates", type: "link" },
     { name: "E-mail Corporativo", href: "/email-corporativo", type: "link" },
 

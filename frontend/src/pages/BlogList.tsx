@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Calendar, User, ArrowRight } from "lucide-react";
-import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 
 interface BlogPost {
@@ -70,8 +69,6 @@ export const BlogList = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-navy relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">

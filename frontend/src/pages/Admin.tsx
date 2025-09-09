@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -209,7 +208,6 @@ export const Admin = () => {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-background">
-        <Header />
         <div className="pt-24 pb-16">
           <div className="container mx-auto px-4">
             <div className="max-w-md mx-auto">
@@ -246,7 +244,6 @@ export const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       <div className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">

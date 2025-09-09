@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,8 +7,6 @@ import { CheckCircle, Download, ArrowLeft, Mail } from "lucide-react";
 const PaymentSuccess = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Header />
-      
       <div className="pt-24 px-4 pb-16">
         <div className="container mx-auto max-w-2xl">
           <Card className="text-center">

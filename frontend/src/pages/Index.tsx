@@ -1,4 +1,3 @@
-import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Services } from "@/components/Services";
@@ -18,7 +17,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground font-inter">
-      <Header />
       <Hero heading={data?.heading} subheading={data?.subheading} />
       <About />
       <Services />

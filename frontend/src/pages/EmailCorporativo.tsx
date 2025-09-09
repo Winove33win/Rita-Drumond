@@ -26,7 +26,7 @@ const EmailCorporativo = () => {
       {/* Hero Section */}
       <section
         id="hero"
-        className="section--first pb-16 px-4 bg-gradient-to-br from-primary/5 via-background to-primary/5"
+        className="section--first min-h-[80vh] px-4 bg-gradient-to-br from-primary/5 via-background to-primary/5"
       >
         <div className="container mx-auto text-center">
           <Badge className="mb-4 px-4 py-2">Email Profissional</Badge>

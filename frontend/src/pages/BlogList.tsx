@@ -1,5 +1,6 @@
 ﻿import { Link } from "react-router-dom";
 import { Calendar, User, ArrowRight } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
 import { Footer } from "@/components/Footer";
 import { useSEO } from "@/lib/seo";
 
@@ -144,9 +145,9 @@ export const BlogList = () => {
                 Blog & Insights
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              ConteÃºdos exclusivos, tendÃªncias e estratÃ©gias para manter seu negÃ³cio sempre Ã  frente no mundo digital
-            </p>
+              <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+                Conteúdos exclusivos, tendências e estratégias para manter seu negócio sempre à frente no mundo digital
+              </p>
           </div>
         </div>
       </section>

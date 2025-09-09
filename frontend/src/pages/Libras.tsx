@@ -156,18 +156,18 @@ export default function LibrasPage() {
           const team = [
             {
               name: "Camila Azevedo",
-              src: `${BASE}interpretes/camila.jpg?v=2`,
+              src: `${BASE}team/camila.jpg?v=2`,
               formacao: "Bacharelado em Letras/Libras (UFSC) · Certificação Prolibras (MEC)",
             },
             {
               name: "Rafael Nogueira",
-              src: `${BASE}interpretes/rafael.jpg?v=2`,
+              src: `${BASE}team/rafael.jpg?v=2`,
               formacao:
                 "Licenciatura em Letras/Libras (UFRJ) · Esp. em Tradução e Interpretação de Libras (PUC-SP)",
             },
             {
               name: "Winove",
-              src: `${BASE}interpretes/winove.jpg?v=2`,
+              src: `${BASE}team/winove.jpg?v=2`,
               formacao: "Em breve",
             },
           ];

@@ -51,18 +51,22 @@ export const Header = () => {
 
   return (
     <>
-      <div id="site-header" ref={headerRef} className="sticky top-0 z-50">
+      <div
+        id="site-header"
+        ref={headerRef}
+        className="fixed top-0 left-0 z-50 w-full"
+      >
         {/* Faixa de promoções */}
-        <div className="w-full bg-primary text-background px-4 py-2 flex items-center justify-between">
+        <div className="w-full bg-primary text-background px-4 py-2 flex items-center justify-center gap-4">
           <span>Veja as promoções atuais</span>
           <Link to="/promocoes">
-            <Button className="btn-secondary ml-4 px-3 py-1 text-xs">Ver mais</Button>
+            <Button className="btn-secondary px-3 py-1 text-xs">Ver mais</Button>
           </Link>
         </div>
 
         {/* Navegação principal */}
         <header className="w-full border-b border-border bg-background/90 backdrop-blur">
-          <div className="container mx-auto px-4 py-4">
+          <div className="container mx-auto px-4 pt-4 pb-[23px]">
             <div className="flex items-center justify-between">
               {/* Logo */}
               <Link

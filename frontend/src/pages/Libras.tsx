@@ -143,6 +143,61 @@ export default function LibrasPage() {
         </div>
       </section>
 
+      {/* --- CONHEÇA O PESSOAL (antes do orçamento) --- */}
+      <section id="equipe" className="container mx-auto px-6 py-16">
+        <div className="max-w-3xl">
+          <h2 className="text-2xl font-bold">Conheça o pessoal</h2>
+          <p className="mt-2 text-neutral-300">
+            Equipe certificada e experiente em interpretação de Libras para eventos e conteúdos gravados.
+          </p>
+        </div>
+
+        {(() => {
+          const BASE = import.meta.env.BASE_URL || "/";
+          const team = [
+            {
+              name: "Camila Azevedo",
+              formacao: "Bacharelado em Letras/Libras (UFSC) · Certificação Prolibras (MEC)",
+              src: `${BASE}team/camila.jpg`,
+            },
+            {
+              name: "Rafael Nogueira",
+              formacao: "Licenciatura em Letras/Libras (UFRJ) · Esp. em Tradução e Interpretação de Libras (PUC-SP)",
+              src: `${BASE}team/rafael.jpg`,
+            },
+            {
+              name: "Winove",
+              formacao: "Em breve",
+              src: `${BASE}team/winove.jpg`,
+            },
+          ];
+
+          return (
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {team.map((m) => (
+                <figure
+                  key={m.name}
+                  className="rounded-2xl border border-neutral-800 bg-neutral-900/50 p-6 text-center"
+                >
+                  <img
+                    src={m.src}
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = `${BASE}placeholder.svg`; }}
+                    alt={`Foto de ${m.name}`}
+                    loading="lazy"
+                    decoding="async"
+                    width={160}
+                    height={160}
+                    className="mx-auto h-40 w-40 rounded-full object-cover ring-2 ring-white/10 shadow"
+                  />
+                  <figcaption className="mt-4 text-lg font-semibold">{m.name}</figcaption>
+                  <p className="mt-1 text-sm text-neutral-300">{m.formacao}</p>
+                </figure>
+              ))}
+            </div>
+          );
+        })()}
+      </section>
+
       <section id="orcamento" className="container mx-auto px-6 py-16 scroll-mt-[var(--header-h)]">
         <div className="grid lg:grid-cols-2 gap-10">
           <div>

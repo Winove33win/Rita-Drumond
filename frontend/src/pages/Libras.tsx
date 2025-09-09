@@ -51,7 +51,8 @@ export default function LibrasPage() {
 
   // >>> NOVO: paths seguros respeitando BASE_URL e quebrando cache
   const BASE = import.meta.env.BASE_URL || "/";
-  const videoSrc = `${BASE}assets/hero-libras.mp4?v=1`;
+  const v = "v=2";
+  const videoSrc = `${BASE}assets/hero-libras.mp4?${v}`;
   const posterSrc = `${BASE}assets/hero-background-BoObiYUn.jpg`;
 
   return (
@@ -157,17 +158,17 @@ export default function LibrasPage() {
             {
               name: "Camila Azevedo",
               formacao: "Bacharelado em Letras/Libras (UFSC) · Certificação Prolibras (MEC)",
-              src: "/team/camila.jpg",
+              src: `${BASE}team/camila.jpg?${v}`,
             },
             {
               name: "Rafael Nogueira",
               formacao: "Licenciatura em Letras/Libras (UFRJ) · Esp. em Tradução e Interpretação de Libras (PUC-SP)",
-              src: "/team/rafael.jpg",
+              src: `${BASE}team/rafael.jpg?${v}`,
             },
             {
               name: "Winove",
               formacao: "Em breve",
-              src: "/team/winove.jpg",
+              src: `${BASE}team/winove.jpg?${v}`,
             },
           ];
 

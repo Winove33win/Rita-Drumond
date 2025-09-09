@@ -30,26 +30,28 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/blog" element={<BlogList />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/cases" element={<CasesList />} />
-          <Route path="/cases/:slug" element={<CaseDetail />} />
-          <Route path="/templates" element={<Templates />} />
-          <Route path="/templates/:slug" element={<TemplateDetail />} />
-          <Route path="/email-corporativo" element={<EmailCorporativo />} />
-          <Route path="/chat-whatsapp" element={<ChatWhatsapp />} />
-          <Route path="/chatwhatsapp" element={<ChatWhatsapp />} />
-          <Route path="/central-atendimento" element={<CentralAtendimento />} />
-          <Route path="/promocoes" element={<Promocoes />} />
-          <Route path="/payment-success" element={<PaymentSuccess />} />
-          <Route path="/payment-canceled" element={<PaymentCanceled />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/servicos/libras" element={<LibrasPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <main id="app">
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/blog" element={<BlogList />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/cases" element={<CasesList />} />
+            <Route path="/cases/:slug" element={<CaseDetail />} />
+            <Route path="/templates" element={<Templates />} />
+            <Route path="/templates/:slug" element={<TemplateDetail />} />
+            <Route path="/email-corporativo" element={<EmailCorporativo />} />
+            <Route path="/chat-whatsapp" element={<ChatWhatsapp />} />
+            <Route path="/chatwhatsapp" element={<ChatWhatsapp />} />
+            <Route path="/central-atendimento" element={<CentralAtendimento />} />
+            <Route path="/promocoes" element={<Promocoes />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
+            <Route path="/payment-canceled" element={<PaymentCanceled />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/servicos/libras" element={<LibrasPage />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

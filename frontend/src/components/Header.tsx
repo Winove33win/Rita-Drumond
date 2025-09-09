@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -12,6 +12,26 @@ type NavItem = {
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const root = document.documentElement;
+    const setVars = () => {
+      const h = el.getBoundingClientRect().height;
+      root.style.setProperty("--header-h", `${h}px`);
+      root.classList.add("has-sticky-header");
+    };
+    setVars();
+    const ro = new ResizeObserver(setVars);
+    ro.observe(el);
+    window.addEventListener("resize", setVars);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", setVars);
+    };
+  }, []);
 
   // Removed "Sobre" and "Portfolio"
   const navItems: NavItem[] = [
@@ -31,7 +51,11 @@ export const Header = () => {
 
   return (
     <>
-    <header className="fixed top-0 w-full z-50 border-b border-border/20">
+    <header
+      ref={ref}
+      id="site-header"
+      className="w-full border-b border-border/20 z-50"
+    >
       {/* Faixa superior */}
       <div className="bg-primary text-primary-foreground text-sm flex items-center justify-center py-1">
         <span>Veja as promoções atuais</span>

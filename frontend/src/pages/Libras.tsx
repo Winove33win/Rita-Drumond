@@ -91,7 +91,7 @@ export default function LibrasPage() {
                 Solicitar orçamento
               </a>
               <a
-                href="https://wa.me/5511999999999?text=Quero%20or%C3%A7amento%20de%20interpreta%C3%A7%C3%A3o%20em%20Libras&utm_source=site&utm_medium=cta&utm_campaign=libras"
+                href="https://wa.me/5519982403845?text=Gostaria%20de%20falar%20sobre%20os%20servi%C3%A7os%20de%20interpreta%C3%A7%C3%A3o%20de%20Libras&utm_source=site&utm_medium=cta&utm_campaign=libras"
                 className="px-5 py-3 border border-neutral-700 hover:border-neutral-500 rounded-xl"
                 target="_blank"
                 rel="noopener noreferrer"

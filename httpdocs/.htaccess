@@ -12,7 +12,7 @@ RewriteCond %{REQUEST_URI} ^/(api|blog|server|backend) [NC]
 RewriteRule ^ - [L]
 
 # Allow common static assets
-RewriteRule ^(assets/|images/|img/|fonts/|css/|js/|favicon\.ico$|robots\.txt$|sitemap\.xml$) - [L,NC]
+RewriteRule ^(assets/|images/|img/|team/|fonts/|css/|js/|favicon\.ico$|robots\.txt$|sitemap\.xml$) - [L,NC]
 
 # Everything else -> index.html (SPA)
 RewriteRule . /index.html [L]
@@ -25,4 +25,3 @@ RewriteRule . /index.html [L]
   ExpiresByType application/javascript "access plus 1 week"
   ExpiresByType image/* "access plus 1 month"
 </IfModule>
-

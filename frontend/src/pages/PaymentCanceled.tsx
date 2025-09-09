@@ -7,7 +7,7 @@ import { XCircle, ArrowLeft, ShoppingCart, MessageCircle } from "lucide-react";
 const PaymentCanceled = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="pt-24 px-4 pb-16">
+      <div className="section--first px-4 pb-16">
         <div className="container mx-auto max-w-2xl">
           <Card className="text-center">
             <CardHeader className="pb-6">

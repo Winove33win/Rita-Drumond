@@ -23,8 +23,8 @@ const Promocoes = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground pt-24">
-      <section className="pb-16 px-4">
+    <div className="min-h-screen bg-background text-foreground">
+      <section className="section--first pb-16 px-4">
         <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
             Promoções do Mês

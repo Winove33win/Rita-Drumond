@@ -208,7 +208,7 @@ export const Admin = () => {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="pt-24 pb-16">
+        <div className="section--first pb-16">
           <div className="container mx-auto px-4">
             <div className="max-w-md mx-auto">
               <Card>
@@ -244,7 +244,7 @@ export const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="pt-24 pb-16">
+      <div className="section--first pb-16">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">

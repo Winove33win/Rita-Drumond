@@ -30,7 +30,7 @@ const TemplateDetail = () => {
 
   // Inline skeleton to manter layout enquanto carrega
   const DetailSkeleton = () => (
-    <div className="pt-24 px-4">
+    <div className="section--first px-4">
       <div className="container mx-auto">
         <div className="h-6 w-40 bg-muted/40 rounded mb-6 animate-pulse" />
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -69,7 +69,7 @@ const TemplateDetail = () => {
   if (!template) {
     return (
       <div className="min-h-screen bg-background text-foreground">
-        <div className="pt-24 px-4">
+        <div className="section--first px-4">
           <div className="container mx-auto text-center py-16">
             <h1 className="text-2xl font-bold mb-4">Template não encontrado</h1>
             <Link to="/templates">
@@ -115,7 +115,7 @@ const TemplateDetail = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="pt-24 px-4">
+      <div className="section--first px-4">
         <div className="container mx-auto">
           {/* Breadcrumb */}
           <div className="mb-6">

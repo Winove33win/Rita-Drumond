@@ -49,8 +49,8 @@ export default function LibrasPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-100">
-      <section className="relative overflow-hidden pt-24">
+    <main className="min-h-screen bg-neutral-950 text-neutral-100 pt-24">
+      <section className="relative overflow-hidden">
         <video
           className="absolute inset-0 w-full h-full object-cover opacity-20"
           autoPlay
@@ -59,7 +59,7 @@ export default function LibrasPage() {
           playsInline
           aria-hidden="true"
         >
-          <source src="/assets/1741273281128%20(1).mp4" type="video/mp4" />
+          <source src="/assets/1741273281128%20%281%29.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 opacity-30 bg-gradient-to-br from-orange-500/20 via-amber-400/10 to-white/0" />
         <div className="container mx-auto px-6 py-20 relative">

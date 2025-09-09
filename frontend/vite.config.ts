@@ -5,7 +5,9 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: process.env.BASE_PATH || "./",
+  // Use absolute base to ensure built assets load on nested routes (e.g., /servicos/libras)
+  // If you ever host under a subpath, set BASE_PATH env accordingly (e.g., "/subpath/").
+  base: process.env.BASE_PATH || "/",
   server: {
     host: "::",
     port: 8080,

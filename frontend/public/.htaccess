@@ -1,0 +1,19 @@
+# Copied to dist/ at build time
+RewriteEngine On
+RewriteBase /
+
+# Serve existing files/directories as-is
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Skip backend and blog
+RewriteCond %{REQUEST_URI} ^/(api|blog|server|backend) [NC]
+RewriteRule ^ - [L]
+
+# Allow static assets
+RewriteRule ^(assets/|images/|img/|fonts/|css/|js/|favicon\.ico$|robots\.txt$|sitemap\.xml$) - [L,NC]
+
+# Fallback to SPA index
+RewriteRule . /index.html [L]
+

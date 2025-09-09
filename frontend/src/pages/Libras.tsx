@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { LibrasLeadForm } from "@/components/forms/LibrasLeadForm";
+import heroBg from "@/assets/hero-background.jpg";
 
 export default function LibrasPage() {
   const [sent, setSent] = useState(false);
@@ -49,10 +50,9 @@ export default function LibrasPage() {
     };
   }, []);
 
-  // Paths respeitando BASE_URL e evitando cache
-  const BASE = import.meta.env.BASE_URL || "/";
-  const videoSrc = `${BASE}assets/hero-libras.mp4?v=2`;
-  const posterSrc = `${BASE}assets/hero-background-BoObiYUn.jpg`;
+  // Assets públicos devem usar caminho absoluto para não quebrar em rotas aninhadas
+  const videoSrc = `/assets/hero-libras.mp4?v=2`;
+  const posterSrc = heroBg;
 
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100">
@@ -156,18 +156,18 @@ export default function LibrasPage() {
           const team = [
             {
               name: "Camila Azevedo",
-              src: `${BASE}team/camila.jpg?v=2`,
+              src: `/team/camila.jpg?v=2`,
               formacao: "Bacharelado em Letras/Libras (UFSC) · Certificação Prolibras (MEC)",
             },
             {
               name: "Rafael Nogueira",
-              src: `${BASE}team/rafael.jpg?v=2`,
+              src: `/team/rafael.jpg?v=2`,
               formacao:
                 "Licenciatura em Letras/Libras (UFRJ) · Esp. em Tradução e Interpretação de Libras (PUC-SP)",
             },
             {
               name: "Winove",
-              src: `${BASE}team/winove.jpg?v=2`,
+              src: `/team/winove.jpg?v=2`,
               formacao: "Em breve",
             },
           ];

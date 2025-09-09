@@ -60,6 +60,9 @@ export default function LibrasPage() {
           muted
           playsInline
           preload="metadata"
+
+          poster="/assets/hero-background-BoObiYUn.jpg"
+
         >
           {/* use esta fonte se renomeou */}
           <source src="/assets/hero-libras.mp4" type="video/mp4" />

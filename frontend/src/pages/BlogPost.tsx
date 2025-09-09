@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { Calendar, User, ArrowLeft, Clock, Share2 } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { useEffect, useState } from "react";
+import { useSEO } from "@/lib/seo";
 
 interface BlogPost {
   id: number;
@@ -58,6 +59,23 @@ export const BlogPost = () => {
     load();
     window.scrollTo(0, 0);
   }, [slug]);
+
+  useSEO({
+    title: post ? `${post.title} | Blog Winove` : "Blog Winove",
+    description: post?.excerpt || "",
+    canonical: post ? `https://www.winove.com.br/blog/${post.slug}` : undefined,
+    jsonLd: post
+      ? {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          image: post.coverImage,
+          datePublished: post.date,
+          author: { "@type": "Person", name: post.author },
+          url: `https://www.winove.com.br/blog/${post.slug}`,
+        }
+      : undefined,
+  });
 
   if (!post) {
     return (

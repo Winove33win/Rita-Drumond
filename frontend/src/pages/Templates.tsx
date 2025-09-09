@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from '@tanstack/react-query';
 import { fetchTemplates, Template } from '@/lib/api';
 import { Search, Eye, Star, Filter } from "lucide-react";
+import { useSEO } from "@/lib/seo";
 
 const Templates = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
@@ -41,6 +42,19 @@ const Templates = () => {
         tag.toLowerCase().includes(searchTerm.toLowerCase())
       );
     return matchesCategory && matchesSearch;
+  });
+
+  useSEO({
+    title: "Templates Wix Studio | Winove",
+    description:
+      "Acelere seu projeto com nossos templates profissionais para Wix Studio. Designs modernos, responsivos e otimizados para conversão.",
+    canonical: "https://www.winove.com.br/templates",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "Templates Wix Studio",
+      url: "https://www.winove.com.br/templates",
+    },
   });
 
   return (

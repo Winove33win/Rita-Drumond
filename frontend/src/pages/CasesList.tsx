@@ -3,6 +3,7 @@ import { ArrowRight, ExternalLink, TrendingUp } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { useEffect, useState } from "react";
 import { CaseItem, Metric, safeArray } from "@/lib/caseUtils";
+import { useSEO } from "@/lib/seo";
 
 export const CasesList = () => {
   const [items, setItems] = useState<CaseItem[]>([]);
@@ -30,6 +31,24 @@ export const CasesList = () => {
     };
     load();
   }, []);
+
+  useSEO({
+    title: "Cases de Sucesso | Winove",
+    description:
+      "Projetos que transformaram negócios e geraram resultados excepcionais para nossos clientes",
+    canonical: "https://www.winove.com.br/cases",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "Cases de Sucesso",
+      url: "https://www.winove.com.br/cases",
+      hasPart: items.map((c) => ({
+        "@type": "CaseStudy",
+        name: c.title,
+        url: `https://www.winove.com.br/cases/${c.slug}`,
+      })),
+    },
+  });
 
   return (
     <div className="min-h-screen bg-background">

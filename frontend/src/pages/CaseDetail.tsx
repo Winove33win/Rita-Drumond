@@ -3,6 +3,7 @@ import { ArrowLeft, Calendar, TrendingUp, Target, Lightbulb, Trophy, ArrowRight 
 import { Footer } from "@/components/Footer";
 import { useEffect, useState } from "react";
 import { CaseItem, Metric, safeArray } from "@/lib/caseUtils";
+import { useSEO } from "@/lib/seo";
 
 export const CaseDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -47,6 +48,23 @@ export const CaseDetail = () => {
     load();
     window.scrollTo(0, 0);
   }, [slug]);
+
+  useSEO({
+    title: caseItem ? `${caseItem.title} | Case de Sucesso | Winove` : "Case | Winove",
+    description: caseItem?.excerpt || "",
+    canonical: caseItem ? `https://www.winove.com.br/cases/${caseItem.slug}` : undefined,
+    jsonLd: caseItem
+      ? {
+          "@context": "https://schema.org",
+          "@type": "CaseStudy",
+          name: caseItem.title,
+          description: caseItem.excerpt,
+          datePublished: caseItem.date,
+          author: { "@type": "Organization", name: "Winove" },
+          url: `https://www.winove.com.br/cases/${caseItem.slug}`,
+        }
+      : undefined,
+  });
 
   if (!caseItem) {
     return (

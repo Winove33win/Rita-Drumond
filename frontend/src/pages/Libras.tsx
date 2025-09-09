@@ -6,7 +6,8 @@ export default function LibrasPage() {
 
   useEffect(() => {
     document.title = "Interpretação de Libras em SP e Janela de Libras para Vídeos | Winove";
-    const metaDesc = "Cobertura presencial em São Paulo e janela de Libras para vídeos. Equipes certificadas, NBR 15290 e revezamento para eventos >1h. Proposta em até 24h.";
+    const metaDesc =
+      "Cobertura presencial em São Paulo e janela de Libras para vídeos. Equipes certificadas, NBR 15290 e revezamento para eventos >1h. Proposta em até 24h.";
     let meta = document.querySelector("meta[name='description']");
     if (!meta) {
       meta = document.createElement("meta");
@@ -54,31 +55,28 @@ export default function LibrasPage() {
       <section className="relative isolate min-h-[70vh] flex items-center">
         {/* Vídeo de fundo (movimento sutil) */}
         <video
-          className="absolute inset-0 h-full w-full object-cover opacity-20 pointer-events-none"
+          className="absolute inset-0 h-full w-full object-cover motion-safe:opacity-20 motion-reduce:hidden pointer-events-none"
           autoPlay
           loop
           muted
           playsInline
           preload="metadata"
-
           poster="/assets/hero-background-BoObiYUn.jpg"
-
         >
-          {/* use esta fonte se renomeou */}
           <source src="/assets/hero-libras.mp4" type="video/mp4" />
-          {/* descomente esta linha se NÃO renomear o arquivo
-          <source src="/assets/1741273281128%20(1).mp4" type="video/mp4" />
-          */}
         </video>
 
-        {/* Overlay escuro (ajuste 75% → 80% se quiser mais escuro) */}
-        <div aria-hidden className="absolute inset-0 bg-black/75" />
+        {/* Overlay escuro principal */}
+        <div aria-hidden className="absolute inset-0 bg-black/80" />
+        {/* Gradiente para reforçar legibilidade (vignette) */}
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80" />
 
-        {/* Conteúdo existente do hero */}
+        {/* Conteúdo do hero */}
         <div className="relative z-10 container mx-auto px-6 pt-[var(--header-h)] pt-24 md:pt-28">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
-              Interpretação de Libras <span className="text-orange-400">SP presencial</span> & <span className="text-orange-400">conteúdos gravados</span>
+              Interpretação de Libras <span className="text-orange-400">SP presencial</span> &{" "}
+              <span className="text-orange-400">conteúdos gravados</span>
             </h1>
             <p className="mt-5 text-lg text-neutral-300">
               Aumente alcance, cumpra a legislação e entregue experiências verdadeiramente inclusivas.
@@ -90,7 +88,9 @@ export default function LibrasPage() {
               <a
                 href="https://wa.me/5511999999999?text=Quero%20or%C3%A7amento%20de%20interpreta%C3%A7%C3%A3o%20em%20Libras&utm_source=site&utm_medium=cta&utm_campaign=libras"
                 className="px-5 py-3 border border-neutral-700 hover:border-neutral-500 rounded-xl"
-                target="_blank" rel="noopener noreferrer"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Falar no WhatsApp sobre interpretação em Libras"
               >
                 Falar no WhatsApp
               </a>
@@ -138,7 +138,10 @@ export default function LibrasPage() {
         </div>
       </section>
 
-      <section id="orcamento" className="container mx-auto px-6 py-16">
+      <section
+        id="orcamento"
+        className="container mx-auto px-6 py-16 scroll-mt-[var(--header-h)]"
+      >
         <div className="grid lg:grid-cols-2 gap-10">
           <div>
             <h2 className="text-2xl font-bold">Solicite um orçamento</h2>

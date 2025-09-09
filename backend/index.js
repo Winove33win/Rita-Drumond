@@ -10,6 +10,7 @@ import blogPostsRoute from './routes/blogPosts.js';
 import casesRoute from './routes/cases.js';
 import templatesRoute from './routes/templates.js';
 import sitemapRoute from './routes/sitemap.js';
+import leadsRoutes from './routes/leads.js';
 
 // Env vars
 dotenv.config();
@@ -47,6 +48,7 @@ app.use((_req, res, next) => {
 app.use('/api/blog-posts', blogPostsRoute);
 app.use('/api/cases', casesRoute);
 app.use('/api/templates', templatesRoute);
+app.use('/api/leads', leadsRoutes);
 app.use('/', sitemapRoute);
 
 // Health check

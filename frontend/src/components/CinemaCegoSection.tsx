@@ -9,7 +9,14 @@ export default function CinemaCegoSection() {
           src="/assets/cinema-cego-logo.png"
           alt="Cinema Cego"
           className="h-20 object-contain"
-          onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; }}
+          loading="lazy"
+          decoding="async"
+          onError={(e) => {
+            const img = e.currentTarget as HTMLImageElement;
+            // evita loop e flicker
+            img.onerror = null;
+            img.src = "/placeholder.svg";
+          }}
         />
         <h2 className="text-3xl md:text-4xl font-bold">
           🎬 Cinema Cego: Transformando o jeito de viver o cinema
@@ -24,10 +31,22 @@ export default function CinemaCegoSection() {
       {/* Fundadora */}
       <div className="mt-12 flex flex-col md:flex-row items-center gap-6 md:gap-10">
         <img
-          src="/assets/jane-menezes.jpg"
+          src="/assets/jane-menezes.png"
           alt="Jane Menezes - Fundadora do Cinema Cego"
           className="h-40 w-40 rounded-full object-cover shadow-lg"
-          onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; }}
+          loading="lazy"
+          decoding="async"
+          onError={(e) => {
+            const img = e.currentTarget as HTMLImageElement;
+            // tenta extensão alternativa uma vez antes do placeholder
+            if (!(img as any)._altTried) {
+              (img as any)._altTried = true;
+              img.src = "/assets/jane-menezes.jpg";
+            } else {
+              img.onerror = null;
+              img.src = "/placeholder.svg";
+            }
+          }}
         />
         <div className="text-center md:text-left">
           <h3 className="text-2xl font-semibold">Jane Menezes • Fundadora</h3>

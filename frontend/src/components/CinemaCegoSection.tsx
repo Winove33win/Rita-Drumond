@@ -6,7 +6,7 @@ export default function CinemaCegoSection() {
       {/* Logo + Título */}
       <div className="flex flex-col items-center text-center gap-6">
         <img
-          // Tentar carregar do mesmo diretório das fotos da equipe
+          // Usar a mesma pasta das fotos da equipe (/public/team)
           src="/team/cinema-cego-logo.png"
           alt="Cinema Cego"
           className="h-20 object-contain"
@@ -14,7 +14,7 @@ export default function CinemaCegoSection() {
           decoding="async"
           onError={(e) => {
             const img = e.currentTarget as HTMLImageElement;
-            // Alterna para /assets como fallback antes do placeholder
+            // Tenta /assets antes de cair no placeholder
             if (!(img as any)._altTried) {
               (img as any)._altTried = true;
               img.src = "/assets/cinema-cego-logo.png";
@@ -25,7 +25,7 @@ export default function CinemaCegoSection() {
           }}
         />
         <h2 className="text-3xl md:text-4xl font-bold">
-          🎬 Cinema Cego: Transformando o jeito de viver o cinema
+          Cinema Cego: Transformando o jeito de viver o cinema
         </h2>
         <p className="max-w-3xl text-lg text-muted-foreground leading-relaxed">
           O <strong>Cinema Cego</strong> nasceu para reinventar a forma de viver a sétima arte.
@@ -37,7 +37,7 @@ export default function CinemaCegoSection() {
       {/* Fundadora */}
       <div className="mt-12 flex flex-col md:flex-row items-center gap-6 md:gap-10">
         <img
-          // Colocar no mesmo repositório das fotos da equipe (/public/team)
+          // Mesmo repositório das fotos da equipe (/public/team)
           src="/team/jane-menezes.png"
           alt="Jane Menezes - Fundadora do Cinema Cego"
           className="h-40 w-40 rounded-full object-cover shadow-lg"
@@ -45,7 +45,7 @@ export default function CinemaCegoSection() {
           decoding="async"
           onError={(e) => {
             const img = e.currentTarget as HTMLImageElement;
-            // Tenta variações antes de cair no placeholder
+            // Tenta variações antes do placeholder
             const tries = (img as any)._tries || 0;
             (img as any)._tries = tries + 1;
             const fallbacks = [
@@ -99,7 +99,7 @@ export default function CinemaCegoSection() {
           </p>
         </div>
         <h3 className="text-2xl md:text-3xl font-bold mb-6">
-          👁️‍🗨️ O que é Audiodescrição?
+          O que é Audiodescrição?
         </h3>
         <div className="grid md:grid-cols-3 gap-6">
           <div>
@@ -128,7 +128,7 @@ export default function CinemaCegoSection() {
           </div>
         </div>
         <p className="mt-6 text-lg font-semibold text-primary text-center">
-          ✨ A audiodescrição dá voz às imagens e abre portas para novas formas de viver histórias.
+          A audiodescrição dá voz às imagens e abre portas para novas formas de viver histórias.
         </p>
       </div>
     </section>

@@ -6,7 +6,7 @@ export default function CinemaCegoSection() {
       {/* Logo + Título */}
       <div className="flex flex-col items-center text-center gap-6">
         <img
-          src="/assets/cinema-cego-logo.png"
+          src="/_assets/cinema-cego-logo.png"
           alt="Cinema Cego"
           className="h-20 object-contain"
           onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; }}
@@ -24,7 +24,7 @@ export default function CinemaCegoSection() {
       {/* Fundadora */}
       <div className="mt-12 flex flex-col md:flex-row items-center gap-6 md:gap-10">
         <img
-          src="/assets/jane-menezes.jpg"
+          src="/_assets/jane-menezes.png"
           alt="Jane Menezes - Fundadora do Cinema Cego"
           className="h-40 w-40 rounded-full object-cover shadow-lg"
           onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg"; }}

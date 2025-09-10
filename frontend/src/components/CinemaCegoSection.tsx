@@ -6,16 +6,22 @@ export default function CinemaCegoSection() {
       {/* Logo + Título */}
       <div className="flex flex-col items-center text-center gap-6">
         <img
-          src="/assets/cinema-cego-logo.png"
+          // Tentar carregar do mesmo diretório das fotos da equipe
+          src="/team/cinema-cego-logo.png"
           alt="Cinema Cego"
           className="h-20 object-contain"
           loading="lazy"
           decoding="async"
           onError={(e) => {
             const img = e.currentTarget as HTMLImageElement;
-            // evita loop e flicker
-            img.onerror = null;
-            img.src = "/placeholder.svg";
+            // Alterna para /assets como fallback antes do placeholder
+            if (!(img as any)._altTried) {
+              (img as any)._altTried = true;
+              img.src = "/assets/cinema-cego-logo.png";
+            } else {
+              img.onerror = null;
+              img.src = "/placeholder.svg";
+            }
           }}
         />
         <h2 className="text-3xl md:text-4xl font-bold">
@@ -31,17 +37,24 @@ export default function CinemaCegoSection() {
       {/* Fundadora */}
       <div className="mt-12 flex flex-col md:flex-row items-center gap-6 md:gap-10">
         <img
-          src="/assets/jane-menezes.png"
+          // Colocar no mesmo repositório das fotos da equipe (/public/team)
+          src="/team/jane-menezes.png"
           alt="Jane Menezes - Fundadora do Cinema Cego"
           className="h-40 w-40 rounded-full object-cover shadow-lg"
           loading="lazy"
           decoding="async"
           onError={(e) => {
             const img = e.currentTarget as HTMLImageElement;
-            // tenta extensão alternativa uma vez antes do placeholder
-            if (!(img as any)._altTried) {
-              (img as any)._altTried = true;
-              img.src = "/assets/jane-menezes.jpg";
+            // Tenta variações antes de cair no placeholder
+            const tries = (img as any)._tries || 0;
+            (img as any)._tries = tries + 1;
+            const fallbacks = [
+              "/team/jane-menezes.jpg",
+              "/assets/jane-menezes.png",
+              "/assets/jane-menezes.jpg",
+            ];
+            if (tries < fallbacks.length) {
+              img.src = fallbacks[tries];
             } else {
               img.onerror = null;
               img.src = "/placeholder.svg";

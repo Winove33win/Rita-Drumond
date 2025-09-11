@@ -1,6 +1,6 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    fetch("/api/blog-posts.php")
+    fetch("/api/blog-posts")
       .then(res => res.json())
       .then(posts => {
         const container = document.getElementById("blogContainer");

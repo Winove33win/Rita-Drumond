@@ -1,0 +1,7 @@
+RewriteEngine On
+
+# Map extensionless endpoints to PHP scripts
+RewriteRule ^blog-posts/search$ blog-posts-search.php [L,NC]
+RewriteRule ^blog-posts/categories$ blog-posts-categories.php [L,NC]
+RewriteRule ^blog-posts/?$ blog-posts.php [L,NC]
+

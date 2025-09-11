@@ -63,7 +63,25 @@ export const BlogList = () => {
         `${API}/blog-posts/categories`,
         `/api/blog-posts-categories.php`,
       ]);
-      if (!raw) return;
+      if (!raw) {
+        // Derivar categorias a partir do fallback local (último recurso em produção)
+        const local = await fetchJsonFallback<BlogPost[]>(['/blog/fallback.json']);
+        if (!local) return;
+        const map = new Map<string, number>();
+        for (const p of local) {
+          const key = canonicalizeCategory(p.category as any);
+          map.set(key, (map.get(key) || 0) + 1);
+        }
+        const priority = ["SEO", "Wix Studio", "Marketing"];        
+        const others: CategoryItem[] = [];
+        map.forEach((count, name) => { if (!priority.includes(name)) others.push({ name, count }); });
+        const ordered: CategoryItem[] = [
+          ...priority.filter((p) => map.has(p)).map((p) => ({ name: p, count: map.get(p)! })),
+          ...others.sort((a, b) => b.count - a.count),
+        ];
+        setCategoryItems(ordered);
+        return;
+      }
       const map = new Map<string, number>();
       for (const r of raw) {
         const key = canonicalizeCategory(r.category);
@@ -101,7 +119,22 @@ export const BlogList = () => {
         `${API}/blog-posts/search?${qs.toString()}`,
         `/api/blog-posts-search.php?${qs.toString()}`,
       ]);
-      if (!data) throw new Error('not_found');
+      if (!data) {
+        // Fallback local – paginação básica a partir do arquivo estático
+        const local = await fetchJsonFallback<BlogPost[]>(['/blog/fallback.json']);
+        if (!local) throw new Error('not_found');
+        const filtered = local.filter((p) => {
+          const okQ = !qUse || p.title.toLowerCase().includes(qUse.toLowerCase()) || p.excerpt.toLowerCase().includes(qUse.toLowerCase());
+          const okCat = !catUse || canonicalizeCategory(p.category) === catUse;
+          return okQ && okCat;
+        });
+        const start = (pageToLoad - 1) * PAGE_SIZE;
+        const items = filtered.slice(start, start + PAGE_SIZE);
+        setTotal(filtered.length);
+        setPage(pageToLoad);
+        setPosts((prev) => (reset ? items : [...prev, ...items]));
+        return;
+      }
       setTotal(data.total || 0);
       setPage(pageToLoad);
       setPosts((prev) => (reset ? data.items : [...prev, ...data.items]));

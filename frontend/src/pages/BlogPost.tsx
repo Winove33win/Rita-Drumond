@@ -44,17 +44,31 @@ export const BlogPost = () => {
           `${API}/blog-posts/${slug}`,
           `/api/blog-posts-by-slug.php?slug=${encodeURIComponent(slug)}`,
         ]);
-        if (!data) return;
-        setPost(data);
+        let postData = data;
+        if (!postData) {
+          // Fallback local
+          const local = await fetchJsonFallback<BlogPost[]>(['/blog/fallback.json']);
+          postData = local?.find(p => p.slug === slug) || null;
+          if (!postData) return;
+        }
+        setPost(postData);
         const allPosts = await fetchJsonFallback<BlogPost[]>([
           `${API}/blog-posts`,
           `/api/blog-posts.php`,
         ]);
         if (allPosts) {
           const related = allPosts
-            .filter(p => p.slug !== slug && p.category === data.category)
+            .filter(p => p.slug !== slug && p.category === postData.category)
             .slice(0, 3);
           setRelatedPosts(related);
+        } else {
+          const local = await fetchJsonFallback<BlogPost[]>(['/blog/fallback.json']);
+          if (local) {
+            const related = local
+              .filter(p => p.slug !== slug && p.category === postData.category)
+              .slice(0, 3);
+            setRelatedPosts(related);
+          }
         }
       } catch (err) {
         console.error('fetch blog-post', err);

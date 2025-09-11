@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSEO } from "@/lib/seo";
+
 import { Footer } from "@/components/Footer";
+
 import "./Cursos.css";
 
 const CHANNEL_ID = "UC72j8hbrLTXC4ntTtpkvaYw";
@@ -90,7 +92,11 @@ const Cursos = () => {
 
   return (
     <>
+
       <header className="container" style={{ marginTop: "var(--header-h)", padding: "16px 24px 0" }}>
+
+      <header className="container" style={{ padding: "16px 24px 0" }}>
+
         <div className="badge">Curso Wix • Winove</div>
       </header>
 
@@ -203,7 +209,15 @@ const Cursos = () => {
         </div>
       </section>
 
+
       <Footer />
+
+      <footer>
+        <div className="container" style={{ borderTop: "1px solid var(--line)", paddingTop: "18px" }}>
+          <small>© Winove. Curso Wix – Landing page conceito estilo Airbnb.</small>
+        </div>
+      </footer>
+
     </>
   );
 };

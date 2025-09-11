@@ -46,9 +46,13 @@ export const BlogPost = () => {
         ]);
         let postData = data;
         if (!postData) {
-          // Fallback local
-          const local = await fetchJsonFallback<BlogPost[]>(['/blog/fallback.json']);
-          postData = local?.find(p => p.slug === slug) || null;
+          // Fallback: lista completa via /api/blog-posts
+          const all = await fetchJsonFallback<BlogPost[]>([
+            `${API}/blog-posts`,
+            `/api/blog-posts.php`,
+            `/assets/blog-fallback.json`,
+          ]);
+          postData = all?.find(p => p.slug === slug) || null;
           if (!postData) return;
         }
         setPost(postData);

@@ -25,6 +25,7 @@ function calcReadingTime(content: string): string {
 
 export const BlogList = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [allPosts, setAllPosts] = useState<BlogPost[] | null>(null);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 6;
@@ -55,50 +56,35 @@ export const BlogList = () => {
     return null;
   }
 
-  // Carrega categorias com contagem do servidor
+  // Carrega todos os posts uma única vez e deriva categorias
   useEffect(() => {
     const API = import.meta.env.VITE_API_URL || "/api";
-    const fetchCategories = async () => {
-      const raw = await fetchJsonFallback<{ category: string; count: number }[]>([
-        `${API}/blog-posts/categories`,
-        `/api/blog-posts-categories.php`,
+    const loadAll = async () => {
+      const arr = await fetchJsonFallback<BlogPost[]>([
+        `${API}/blog-posts`,
+        `/api/blog-posts.php`,
+        `/assets/blog-fallback.json`,
       ]);
-      if (!raw) {
-        // Derivar categorias a partir do fallback local (último recurso em produção)
-        const local = await fetchJsonFallback<BlogPost[]>(['/blog/fallback.json']);
-        if (!local) return;
-        const map = new Map<string, number>();
-        for (const p of local) {
-          const key = canonicalizeCategory(p.category as any);
-          map.set(key, (map.get(key) || 0) + 1);
-        }
-        const priority = ["SEO", "Wix Studio", "Marketing"];        
-        const others: CategoryItem[] = [];
-        map.forEach((count, name) => { if (!priority.includes(name)) others.push({ name, count }); });
-        const ordered: CategoryItem[] = [
-          ...priority.filter((p) => map.has(p)).map((p) => ({ name: p, count: map.get(p)! })),
-          ...others.sort((a, b) => b.count - a.count),
-        ];
-        setCategoryItems(ordered);
-        return;
-      }
+      if (!arr) return;
+      setAllPosts(arr);
+
+      // Deriva categorias localmente
       const map = new Map<string, number>();
-      for (const r of raw) {
-        const key = canonicalizeCategory(r.category);
-        map.set(key, (map.get(key) || 0) + Number(r.count || 0));
+      for (const p of arr) {
+        const key = canonicalizeCategory(p.category);
+        if (!key) continue;
+        map.set(key, (map.get(key) || 0) + 1);
       }
       const priority = ["SEO", "Wix Studio", "Marketing"];
       const others: CategoryItem[] = [];
-      map.forEach((count, name) => {
-        if (!priority.includes(name)) others.push({ name, count });
-      });
+      map.forEach((count, name) => { if (!priority.includes(name)) others.push({ name, count }); });
       const ordered: CategoryItem[] = [
         ...priority.filter((p) => map.has(p)).map((p) => ({ name: p, count: map.get(p)! })),
         ...others.sort((a, b) => b.count - a.count),
       ];
       setCategoryItems(ordered);
     };
-    fetchCategories();
+    loadAll();
   }, []);
 
 
@@ -115,15 +101,17 @@ export const BlogList = () => {
       const qs = new URLSearchParams({ page: String(pageToLoad), pageSize: String(PAGE_SIZE) });
       if (qUse) qs.append('q', qUse);
       if (catUse) qs.append('category', catUse);
-      const data = await fetchJsonFallback<{ items: BlogPost[]; total: number; page: number; pageSize: number }>([
-        `${API}/blog-posts/search?${qs.toString()}`,
-        `/api/blog-posts-search.php?${qs.toString()}`,
-      ]);
-      if (!data) {
-        // Fallback local – paginação básica a partir do arquivo estático
-        const local = await fetchJsonFallback<BlogPost[]>(['/blog/fallback.json']);
-        if (!local) throw new Error('not_found');
-        const filtered = local.filter((p) => {
+      // Prioridade: usar lista completa carregada /api/blog-posts (mais robusto)
+      let source = allPosts;
+      if (!source) {
+        source = await fetchJsonFallback<BlogPost[]>([
+          `${API}/blog-posts`,
+          `/api/blog-posts.php`,
+          `/assets/blog-fallback.json`,
+        ]);
+      }
+      if (source) {
+        const filtered = source.filter((p) => {
           const okQ = !qUse || p.title.toLowerCase().includes(qUse.toLowerCase()) || p.excerpt.toLowerCase().includes(qUse.toLowerCase());
           const okCat = !catUse || canonicalizeCategory(p.category) === catUse;
           return okQ && okCat;
@@ -135,6 +123,13 @@ export const BlogList = () => {
         setPosts((prev) => (reset ? items : [...prev, ...items]));
         return;
       }
+
+      // Tentativa de APIs com paginação (se existirem)
+      const data = await fetchJsonFallback<{ items: BlogPost[]; total: number; page: number; pageSize: number }>([
+        `${API}/blog-posts/search?${qs.toString()}`,
+        `/api/blog-posts-search.php?${qs.toString()}`,
+      ]);
+      if (!data) throw new Error('not_found');
       setTotal(data.total || 0);
       setPage(pageToLoad);
       setPosts((prev) => (reset ? data.items : [...prev, ...data.items]));

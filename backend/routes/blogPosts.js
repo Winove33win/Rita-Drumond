@@ -37,37 +37,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// 1 post por slug
-// Slug detalhado (evita conflito com rotas como /search, /categories)
-router.get('/:slug([A-Za-z0-9-]+)', async (req, res) => {
-  try {
-    const [rows] = await pool.query(
-      `
-      SELECT
-        id,
-        titulo AS title,
-        slug,
-        resumo AS excerpt,
-        conteudo AS content,
-        imagem_destacada AS coverImage,
-        data_publicacao AS date,
-        autor AS author,
-        categoria AS category
-      FROM blog_posts
-      WHERE slug = ?
-      LIMIT 1
-    `,
-      [req.params.slug]
-    );
-
-    if (!rows?.length) return res.status(404).json({ error: 'Post não encontrado' });
-    res.json(rows[0]);
-  } catch (err) {
-    console.error('GET /api/blog-posts/:slug ->', err);
-    res.status(500).json({ error: 'Erro ao carregar post' });
-  }
-});
-
 // Busca com filtros + paginação
 router.get('/search', async (req, res) => {
   try {
@@ -139,6 +108,37 @@ router.get('/categories', async (_req, res) => {
   } catch (err) {
     console.error('GET /api/blog-posts/categories ->', err);
     res.status(500).json({ error: 'Erro ao carregar categorias' });
+  }
+});
+
+// 1 post por slug
+// Slug detalhado (evita conflito com rotas como /search, /categories)
+router.get('/:slug([A-Za-z0-9-]+)', async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      `
+      SELECT
+        id,
+        titulo AS title,
+        slug,
+        resumo AS excerpt,
+        conteudo AS content,
+        imagem_destacada AS coverImage,
+        data_publicacao AS date,
+        autor AS author,
+        categoria AS category
+      FROM blog_posts
+      WHERE slug = ?
+      LIMIT 1
+    `,
+      [req.params.slug]
+    );
+
+    if (!rows?.length) return res.status(404).json({ error: 'Post não encontrado' });
+    res.json(rows[0]);
+  } catch (err) {
+    console.error('GET /api/blog-posts/:slug ->', err);
+    res.status(500).json({ error: 'Erro ao carregar post' });
   }
 });
 

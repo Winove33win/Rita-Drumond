@@ -1,6 +1,99 @@
 import { Footer } from "@/components/Footer";
+import { Testimonials } from "@/components/Testimonials";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+} from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
 import { useSEO } from "@/lib/seo";
+
+const modules = [
+  {
+    title: "Planejamento do Site",
+    description:
+      "Entenda os objetivos e prepare a estrutura antes de começar.",
+    link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  },
+  {
+    title: "Criando Conta e Template",
+    description:
+      "Passo a passo para criar conta e escolher o template ideal.",
+    link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  },
+  {
+    title: "Dominando o Editor",
+    description: "Layout, elementos e design responsivo.",
+    link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  },
+  {
+    title: "Estrutura do Site",
+    description: "Páginas, menus e navegação.",
+    comingSoon: true,
+  },
+  {
+    title: "Formulários de Contato e Blog",
+    description: "Recursos essenciais para engajar visitantes.",
+    comingSoon: true,
+  },
+  {
+    title: "Lojas Online",
+    description: "E-commerce com Wix Stores.",
+    comingSoon: true,
+  },
+  {
+    title: "Páginas Dinâmicas e CMS",
+    description: "Content Manager e páginas automáticas.",
+    comingSoon: true,
+  },
+  {
+    title: "Otimização e SEO",
+    description: "Seja encontrado nos buscadores.",
+    comingSoon: true,
+  },
+  {
+    title: "Publicação e Gestão",
+    description: "Publique e mantenha seu site.",
+    comingSoon: true,
+  },
+];
+
+const faqs = [
+  {
+    q: "Preciso pagar para usar o Wix ou fazer este curso?",
+    a: "Não. O Wix oferece planos gratuitos e todo o curso está disponível no YouTube sem custo.",
+  },
+  {
+    q: "Preciso saber programar ou ter experiência em web design?",
+    a: "Não se preocupe, o curso é para iniciantes e o Wix usa um editor visual intuitivo.",
+  },
+  {
+    q: "O curso aborda Wix Editor ou Wix Studio? Qual a diferença?",
+    a: "Cobrimos principalmente o Wix Editor tradicional, com dicas sobre o Wix Studio em módulos avançados.",
+  },
+  {
+    q: "Posso criar uma loja online completa com este curso?",
+    a: "Sim! Há um módulo dedicado ao Wix Stores para você vender produtos e serviços.",
+  },
+  {
+    q: "Como tiro dúvidas durante o aprendizado?",
+    a: "Comente nos vídeos do YouTube ou participe da nossa comunidade nas redes sociais.",
+  },
+  {
+    q: "Receberei algum certificado ao concluir o curso?",
+    a: "No momento não emitimos certificados, o foco é o aprendizado prático.",
+  },
+];
 
 const Cursos = () => {
   useSEO({
@@ -12,95 +105,137 @@ const Cursos = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <section className="section--first pb-16 px-4">
-        <div className="container mx-auto text-center">
+      {/* Hero Section */}
+      <section className="relative flex items-center justify-center text-center min-h-[60vh]">
+        <img
+          src="https://images.unsplash.com/photo-1522199710521-72d69614c702?auto=format&fit=crop&w=1600&q=80"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 container mx-auto px-4 py-20">
           <Badge className="mb-4 px-4 py-2">Curso</Badge>
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Como Criar e Gerenciar Sites no Wix
+            Aprenda a Criar e Gerenciar Sites no Wix
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Comece sua jornada para criar um site profissional com Wix de forma simples e eficiente. Neste curso completo, reunimos anos de experiência da Winove – uma agência especializada em desenvolvimento de sites na plataforma Wix – para ensinar desde os conceitos básicos até recursos avançados.
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Domine a plataforma Wix, crie sites incríveis e gerencie seu negócio
+            online de forma profissional.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <Button
+              size="lg"
+              className="bg-orange-500 hover:bg-orange-600"
+              asChild
+            >
+              <a
+                href="https://www.youtube.com/@winoveonline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Comece Agora (Grátis)
+              </a>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <a href="#grade">Ver Grade Completa do Curso</a>
+            </Button>
+          </div>
         </div>
       </section>
 
-      <section className="container mx-auto px-4 pb-16">
-        <div className="prose max-w-none">
-          <h2>O Que Você Irá Aprender 📚</h2>
-          <p>
-            A seguir está a grade de aulas do curso “Como Criar e Gerenciar Sites no Wix”, com módulos baseados em conteúdos já disponíveis no nosso canal do YouTube Winove Online (incluímos links para as aulas gratuitas):
-          </p>
-          <ol>
-            <li>
-              <strong>Conceitos Iniciais e Planejamento do Site:</strong> Antes de colocar a mão na massa, é importante definir os objetivos do seu site e organizar ideias. Nesta introdução, você verá dicas sobre como planejar a estrutura e o conteúdo do site antes de começar a construí-lo. (Vídeo: "Como construir um site sozinho? O que eu preciso saber antes de começar?" – 10:40 em <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">youtube.com</a>). Essa aula aborda os preparativos iniciais, garantindo que você tenha clareza de público-alvo, propósito do site e recursos necessários.
-            </li>
-            <li>
-              <strong>Criando sua Conta Wix e Escolhendo um Template:</strong> Aqui você aprenderá a criar uma conta gratuita no Wix e iniciar um novo site. Mostramos como escolher um template profissional ou começar do zero, de acordo com a identidade do seu negócio. O Wix oferece dezenas de modelos personalizáveis e permite criar um site gratuito rapidamente em <a href="https://wix.com" target="_blank" rel="noopener noreferrer">wix.com</a>. Você verá passo a passo como selecionar o design ideal e entender as diferenças entre usar o Wix ADI e o Editor Wix manual.
-            </li>
-            <li>
-              <strong>Dominando o Editor Wix: Layout, Elementos e Design:</strong> Com o site iniciado, vamos explorar a interface do Editor Wix. Nesse módulo, você aprenderá a editar textos, adicionar imagens, botões, vídeos e outros elementos às páginas. Explicamos o sistema de seções e grades do Wix, organizando o layout de forma responsiva. Também mostramos como personalizar cores e fontes para alinhar o visual ao seu branding.
-            </li>
-            <li>
-              <strong>Estrutura do Site: Páginas, Menus e Navegação:</strong> Neste tópico, você aprenderá a criar novas páginas e a organizar o menu de navegação do site. Mostramos como hierarquizar páginas e configurar o menu do cabeçalho e rodapé. Discutimos boas práticas de UX para menu intuitivo e linkagem interna entre páginas.
-            </li>
-            <li>
-              <strong>Recursos Essenciais: Formulários de Contato e Blog:</strong> Todo site profissional precisa de maneiras de engajar visitantes. Aqui, ensinamos como inserir um Formulário de Contato usando as ferramentas prontas do Wix e como configurar o Wix Blog caso você queira publicar artigos ou notícias. Além disso, apresentamos uma solução avançada: como criar um formulário personalizado com banco de dados usando o Wix Velo.
-            </li>
-            <li>
-              <strong>Lojas Online (E-commerce com Wix):</strong> Se você pretende vender produtos ou serviços, o Wix oferece a ferramenta Wix Stores. Neste módulo, mostramos como criar uma loja virtual do zero dentro do Wix: adicionando a página de loja, cadastrando produtos com imagens, preço e estoque, configurando métodos de pagamento e frete.
-            </li>
-            <li>
-              <strong>Páginas Dinâmicas e CMS Avançado:</strong> À medida que seu site cresce, você pode precisar gerenciar conteúdo de forma escalável. Neste módulo avançado, explicamos como usar o Content Manager do Wix para criar coleções de dados e gerar páginas dinâmicas automaticamente.
-            </li>
-            <li>
-              <strong>Otimização e SEO Básico no Wix:</strong> Não basta ter um site bonito – é preciso que ele seja encontrado nos buscadores. Neste módulo, você verá como otimizar seu site para mecanismos de busca usando os recursos do Wix.
-            </li>
-            <li>
-              <strong>Publicação do Site e Gestão Contínua:</strong> Chegou a hora de publicar! Aqui, guiamos você pelos passos finais para lançar seu site. Você aprenderá como publicar seu site no Wix, conectar um domínio personalizado e gerenciar o site após a publicação.
-            </li>
-          </ol>
+      {/* Course Grid */}
+      <section
+        id="grade"
+        className="container mx-auto px-4 py-24 text-center"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold mb-12">Grade do Curso</h2>
+        <div className="grid gap-6 md:grid-cols-3">
+          {modules.map((mod, i) => (
+            <Card
+              key={i}
+              className={cn("flex flex-col", mod.comingSoon && "opacity-60")}
+            >
+              <CardHeader>
+                <CardTitle>{mod.title}</CardTitle>
+                <CardDescription>{mod.description}</CardDescription>
+              </CardHeader>
+              <CardFooter className="mt-auto">
+                {mod.link ? (
+                  <Button asChild className="w-full">
+                    <a
+                      href={mod.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Assistir no YouTube
+                    </a>
+                  </Button>
+                ) : (
+                  <Badge variant="secondary">Em Breve</Badge>
+                )}
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </section>
 
-          <h2>Perguntas Frequentes (FAQ) 🤔</h2>
-          <p>
-            <strong>Preciso pagar para usar o Wix ou fazer este curso?</strong> Não. O Wix oferece planos gratuitos onde você pode criar e publicar seu site com um endereço Wix. Todas as aulas do curso são gratuitas, disponíveis no YouTube.
-          </p>
-          <p>
-            <strong>Preciso saber programar ou ter experiência em web design?</strong> Não se preocupe! O curso foi feito para iniciantes. Você não precisa conhecer programação. O Wix utiliza um editor visual intuitivo, permitindo construir páginas apenas arrastando elementos e preenchendo textos e imagens.
-          </p>
-          <p>
-            <strong>O curso aborda Wix Editor ou Wix Studio? Qual a diferença?</strong> Nós cobrimos principalmente o Wix Editor tradicional, que é a versão usada pela maioria dos usuários para criar sites. Entretanto, também apresentamos dicas e recursos do Wix Studio em alguns módulos avançados.
-          </p>
-          <p>
-            <strong>Posso criar uma loja online completa com este curso?</strong> Sim! Temos um módulo dedicado a lojas online onde ensinamos a usar o Wix Stores. Você vai aprender a cadastrar produtos, configurar meios de pagamento e cálculo de frete.
-          </p>
-          <p>
-            <strong>Como tiro dúvidas durante o aprendizado?</strong> Você pode comentar diretamente nos vídeos do YouTube – respondemos por lá sempre que possível. Além disso, mantemos uma comunidade nas redes sociais onde compartilhamos dicas extras.
-          </p>
-          <p>
-            <strong>Receberei algum certificado ao concluir o curso?</strong> Atualmente, por se tratar de um curso aberto e gratuito no YouTube, não emitimos certificados. O objetivo principal é fornecer conhecimento prático para você aplicar imediatamente em seus projetos.
-          </p>
-          <p>
-            <strong>Quais são os próximos passos após concluir este curso?</strong> Após terminar as aulas, recomendamos que você pratique criando outros tipos de site ou adicionando novos recursos ao seu projeto.
-          </p>
+      {/* Testimonials */}
+      <section className="container mx-auto px-4 text-center py-16">
+        <p className="text-lg md:text-xl mb-8 font-medium">
+          Mais de 5.000 visualizações no canal e dezenas de sites criados pelos
+          alunos.
+        </p>
+      </section>
+      <Testimonials />
 
-          <h2>Aulas Grátis no YouTube e Próximos Cursos 🎥🎓</h2>
-          <p>
-            Além deste curso introdutório gratuito, a Winove oferece e planeja novos treinamentos para você se tornar um expert em Wix e em negócios digitais. Fique de olho nesses conteúdos e oportunidades a seguir:
+      {/* FAQ */}
+      <section className="container mx-auto px-4 py-24">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          Perguntas Frequentes
+        </h2>
+        <Accordion
+          type="single"
+          collapsible
+          className="max-w-3xl mx-auto text-left"
+        >
+          {faqs.map((item, i) => (
+            <AccordionItem key={i} value={`item-${i}`}>
+              <AccordionTrigger>{item.q}</AccordionTrigger>
+              <AccordionContent>{item.a}</AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-24 bg-gradient-to-r from-zinc-900 to-zinc-800 text-white text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Todas essas aulas são gratuitas no nosso canal.
+          </h2>
+          <p className="text-lg mb-8">
+            Inscreva-se no YouTube e comece hoje mesmo!
           </p>
-          <ul>
-            <li>
-              <strong>Curso Wix para Iniciantes (Gratuito no YouTube):</strong> Este é o curso que você acabou de conhecer! Todas as aulas estão disponíveis gratuitamente no nosso canal Winove Online.
-            </li>
-            <li>
-              <strong>Curso Wix Avançado e Velo (Em Breve):</strong> Em desenvolvimento. Um curso pago voltado para usuários que desejam se aprofundar nas ferramentas avançadas do Wix.
-            </li>
-            <li>
-              <strong>Curso de Marketing Digital para Websites (Em Breve):</strong> Em planejamento. Criar um site é o primeiro passo; atrair visitantes e converter vendas é o próximo desafio.
-            </li>
-          </ul>
-          <p>
-            Esperamos que este conteúdo tenha ajudado você a entender como criar e gerenciar seu site no Wix. 🚀 Vamos juntos transformar suas ideias em um site de verdade!
-          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              size="lg"
+              className="bg-orange-500 hover:bg-orange-600"
+              asChild
+            >
+              <a
+                href="https://www.youtube.com/@winoveonline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Assistir no YouTube
+              </a>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <a href="mailto:contato@winove.com.br?subject=Curso%20Avan%C3%A7ado%20Wix">
+                Avise-me sobre o Curso Avançado
+              </a>
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -110,4 +245,3 @@ const Cursos = () => {
 };
 
 export default Cursos;
-

@@ -146,7 +146,7 @@ export const BlogList = () => {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              ConteÃºdos exclusivos, tendÃªncias e estratÃ©gias para manter seu negÃ³cio sempre Ã  frente no mundo digital
+              Conteúdos exclusivos, tendências e estratégias para manter seu negócio sempre à frente no mundo digital
             </p>
           </div>
         </div>

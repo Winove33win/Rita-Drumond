@@ -13,10 +13,12 @@ export default function CinemaCegoSection() {
           loading="lazy"
           decoding="async"
           onError={(e) => {
-            const img = e.currentTarget as HTMLImageElement;
+            const img = e.currentTarget as HTMLImageElement & {
+              _altTried?: boolean;
+            };
             // Tenta /assets antes de cair no placeholder
-            if (!(img as any)._altTried) {
-              (img as any)._altTried = true;
+            if (!img._altTried) {
+              img._altTried = true;
               img.src = "/assets/cinema-cego-logo.png";
             } else {
               img.onerror = null;
@@ -44,10 +46,12 @@ export default function CinemaCegoSection() {
           loading="lazy"
           decoding="async"
           onError={(e) => {
-            const img = e.currentTarget as HTMLImageElement;
+            const img = e.currentTarget as HTMLImageElement & {
+              _tries?: number;
+            };
             // Tenta variações antes do placeholder
-            const tries = (img as any)._tries || 0;
-            (img as any)._tries = tries + 1;
+            const tries = img._tries || 0;
+            img._tries = tries + 1;
             const fallbacks = [
               "/team/jane-menezes.jpg",
               "/assets/jane-menezes.png",

@@ -43,6 +43,7 @@ export const Header = () => {
 
     // Novas páginas
     { name: "Chat WhatsApp", href: "/chat-whatsapp", type: "link" },
+    { name: "Cursos", href: "/cursos", type: "link" },
 
     { name: "Blog", href: "/blog", type: "link" },
     { name: "Cases", href: "/cases", type: "link" },

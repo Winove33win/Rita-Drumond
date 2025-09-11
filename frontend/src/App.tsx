@@ -20,6 +20,7 @@ import { CentralAtendimento } from "@/pages/CentralAtendimento";
 import Promocoes from "./pages/Promocoes";
 import NotFound from "./pages/NotFound";
 import LibrasPage from "./pages/Libras";
+import Cursos from "./pages/Cursos";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/templates" element={<Templates />} />
             <Route path="/templates/:slug" element={<TemplateDetail />} />
             <Route path="/email-corporativo" element={<EmailCorporativo />} />
+            <Route path="/cursos" element={<Cursos />} />
             <Route path="/chat-whatsapp" element={<ChatWhatsapp />} />
             <Route path="/chatwhatsapp" element={<ChatWhatsapp />} />
             <Route path="/central-atendimento" element={<CentralAtendimento />} />

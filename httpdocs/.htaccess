@@ -7,6 +7,12 @@ RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
+# Map explicit API endpoints for blog (works even se /api/.htaccess não aplicar)
+RewriteRule ^api/blog-posts/search$ api/blog-posts-search.php [L,NC]
+RewriteRule ^api/blog-posts/categories$ api/blog-posts-categories.php [L,NC]
+RewriteRule ^api/blog-posts/?$ api/blog-posts.php [L,NC]
+RewriteRule ^api/blog-posts/([A-Za-z0-9-]+)$ api/blog-posts-by-slug.php?slug=$1 [L,NC]
+
 # Do not rewrite backend paths or PHP blog
 RewriteCond %{REQUEST_URI} ^/(api|blog|server|backend) [NC]
 RewriteRule ^ - [L]

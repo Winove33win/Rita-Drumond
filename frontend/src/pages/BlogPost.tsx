@@ -27,30 +27,34 @@ export const BlogPost = () => {
   const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
 
   useEffect(() => {
+    const fetchJsonFallback = async <T,>(urls: string[]): Promise<T | null> => {
+      for (const url of urls) {
+        try {
+          const res = await fetch(url);
+          if (res.ok) return (await res.json()) as T;
+        } catch (_) {}
+      }
+      return null;
+    };
     const load = async () => {
       if (!slug) return;
       const API = import.meta.env.VITE_API_URL || "/api";
       try {
-        const res = await fetch(`${API}/blog-posts/${slug}`);
-        if (res.ok) {
-          const data: BlogPost = await res.json();
-          setPost(data);
-          const relRes = await fetch(`${API}/blog-posts`);
-          if (relRes.ok) {
-            const allPosts: BlogPost[] = await relRes.json();
-            const related = allPosts
-              .filter(p => p.slug !== slug && p.category === data.category)
-              .slice(0, 3);
-            setRelatedPosts(related);
-          } else {
-            console.error("Related posts API Error:", relRes.status, relRes.statusText);
-            const text = await relRes.text();
-            console.error("Related posts response body:", text);
-          }
-        } else {
-          console.error("API Error:", res.status, res.statusText);
-          const text = await res.text();
-          console.error("Response body:", text);
+        const data = await fetchJsonFallback<BlogPost>([
+          `${API}/blog-posts/${slug}`,
+          `/api/blog-posts-by-slug.php?slug=${encodeURIComponent(slug)}`,
+        ]);
+        if (!data) return;
+        setPost(data);
+        const allPosts = await fetchJsonFallback<BlogPost[]>([
+          `${API}/blog-posts`,
+          `/api/blog-posts.php`,
+        ]);
+        if (allPosts) {
+          const related = allPosts
+            .filter(p => p.slug !== slug && p.category === data.category)
+            .slice(0, 3);
+          setRelatedPosts(related);
         }
       } catch (err) {
         console.error('fetch blog-post', err);

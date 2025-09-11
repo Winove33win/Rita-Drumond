@@ -44,32 +44,41 @@ export const BlogList = () => {
     return raw!.trim().replace(/^(.)/, (m) => m.toUpperCase());
   };
 
+  // Helper para tentar múltiplas URLs (Node/Express ou PHP com rewrite desabilitado)
+  async function fetchJsonFallback<T = any>(urls: string[]): Promise<T | null> {
+    for (const url of urls) {
+      try {
+        const res = await fetch(url);
+        if (res.ok) return (await res.json()) as T;
+      } catch (_) {}
+    }
+    return null;
+  }
+
   // Carrega categorias com contagem do servidor
   useEffect(() => {
     const API = import.meta.env.VITE_API_URL || "/api";
     const fetchCategories = async () => {
-      try {
-        const res = await fetch(`${API}/blog-posts/categories`);
-        if (!res.ok) return;
-        const raw: { category: string; count: number }[] = await res.json();
-        const map = new Map<string, number>();
-        for (const r of raw) {
-          const key = canonicalizeCategory(r.category);
-          map.set(key, (map.get(key) || 0) + Number(r.count || 0));
-        }
-        const priority = ["SEO", "Wix Studio", "Marketing"];
-        const others: CategoryItem[] = [];
-        map.forEach((count, name) => {
-          if (!priority.includes(name)) others.push({ name, count });
-        });
-        const ordered: CategoryItem[] = [
-          ...priority.filter((p) => map.has(p)).map((p) => ({ name: p, count: map.get(p)! })),
-          ...others.sort((a, b) => b.count - a.count),
-        ];
-        setCategoryItems(ordered);
-      } catch (err) {
-        console.error('fetch categories', err);
+      const raw = await fetchJsonFallback<{ category: string; count: number }[]>([
+        `${API}/blog-posts/categories`,
+        `/api/blog-posts-categories.php`,
+      ]);
+      if (!raw) return;
+      const map = new Map<string, number>();
+      for (const r of raw) {
+        const key = canonicalizeCategory(r.category);
+        map.set(key, (map.get(key) || 0) + Number(r.count || 0));
       }
+      const priority = ["SEO", "Wix Studio", "Marketing"];
+      const others: CategoryItem[] = [];
+      map.forEach((count, name) => {
+        if (!priority.includes(name)) others.push({ name, count });
+      });
+      const ordered: CategoryItem[] = [
+        ...priority.filter((p) => map.has(p)).map((p) => ({ name: p, count: map.get(p)! })),
+        ...others.sort((a, b) => b.count - a.count),
+      ];
+      setCategoryItems(ordered);
     };
     fetchCategories();
   }, []);
@@ -88,9 +97,11 @@ export const BlogList = () => {
       const qs = new URLSearchParams({ page: String(pageToLoad), pageSize: String(PAGE_SIZE) });
       if (qUse) qs.append('q', qUse);
       if (catUse) qs.append('category', catUse);
-      const res = await fetch(`${API}/blog-posts/search?${qs.toString()}`);
-      if (!res.ok) throw new Error(`${res.status}`);
-      const data: { items: BlogPost[]; total: number; page: number; pageSize: number } = await res.json();
+      const data = await fetchJsonFallback<{ items: BlogPost[]; total: number; page: number; pageSize: number }>([
+        `${API}/blog-posts/search?${qs.toString()}`,
+        `/api/blog-posts-search.php?${qs.toString()}`,
+      ]);
+      if (!data) throw new Error('not_found');
       setTotal(data.total || 0);
       setPage(pageToLoad);
       setPosts((prev) => (reset ? data.items : [...prev, ...data.items]));

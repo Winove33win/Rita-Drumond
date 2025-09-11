@@ -92,11 +92,7 @@ const Cursos = () => {
 
   return (
     <>
-
       <header className="container" style={{ marginTop: "var(--header-h)", padding: "16px 24px 0" }}>
-
-      <header className="container" style={{ padding: "16px 24px 0" }}>
-
         <div className="badge">Curso Wix • Winove</div>
       </header>
 

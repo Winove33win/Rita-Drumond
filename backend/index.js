@@ -11,6 +11,7 @@ import casesRoute from './routes/cases.js';
 import templatesRoute from './routes/templates.js';
 import sitemapRoute from './routes/sitemap.js';
 import leadsRoutes from './routes/leads.js';
+import postSeoRoute from './routes/postSeo.js';
 
 // Env vars
 dotenv.config();
@@ -61,6 +62,7 @@ app.use('/api/cases', casesRoute);
 app.use('/api/templates', templatesRoute);
 app.use('/api/leads', leadsRoutes);
 app.use('/', sitemapRoute);
+app.use('/', postSeoRoute);
 
 // Health check
 app.get('/api/health', (_req, res) => {

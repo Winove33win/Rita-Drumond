@@ -1,21 +1,15 @@
 import express from 'express';
-import mysql from 'mysql2/promise';
+
+import { pool } from '../db.js';
 
 const router = express.Router();
 
-const db = await mysql.createConnection({
-  host: 'lweb03.appuni.com.br',
-  user: 'winove',
-  password: '9*19avmU0',
-  database: 'fernando_winove_com_br_',
-});
-
 router.get('/sitemap.xml', async (req, res) => {
   try {
-    const base = 'https://winove.com.br';
+    const base = process.env.SITEMAP_BASE_URL || 'https://winove.com.br';
 
     // POSTS DO BLOG
-    const [posts] = await db.execute(
+    const [posts] = await pool.query(
       'SELECT slug, updated_at FROM blog_posts ORDER BY updated_at DESC'
     );
 
@@ -37,10 +31,14 @@ router.get('/sitemap.xml', async (req, res) => {
       </url>`.trim();
 
     const staticXml = staticUrls.map(u => toUrl(u)).join('');
-    const postsXml = posts.map(p => toUrl(
-      { loc: `${base}/blog/${p.slug}`, priority: '0.8', changefreq: 'weekly' },
-      p.updated_at
-    )).join('');
+    const postsXml = posts
+      .map(p =>
+        toUrl(
+          { loc: `${base}/blog/${p.slug}`, priority: '0.8', changefreq: 'weekly' },
+          p?.updated_at
+        )
+      )
+      .join('');
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

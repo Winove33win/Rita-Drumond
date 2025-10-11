@@ -1,57 +1,60 @@
 import fs from 'fs';
-import path from 'path';
-import axios from 'axios';
-import { SitemapStream, streamToPromise } from 'sitemap';
-import { gzipSync } from 'node:zlib';
-import { fileURLToPath } from 'url';
+import mysql from 'mysql2/promise';
 
-async function generate() {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-  const rootDir = path.resolve(__dirname, '..');
-  const httpdocsDir = path.resolve(rootDir, '..', 'httpdocs');
+const BASE = 'https://winove.com.br';
+// AJUSTE o caminho real do seu Plesk, se for diferente:
+const OUT = '/var/www/vhosts/winove.com.br/httpdocs/sitemap.xml';
 
-  let posts = [];
-  try {
-    const response = await axios.get('https://winove.com.br/api/blog-posts', { proxy: false });
-    if (Array.isArray(response.data)) {
-      posts = response.data;
-    } else {
-      console.warn('Unexpected blog posts payload received while generating sitemap.');
-    }
-  } catch (error) {
-    const errorMessage = error?.message || (error?.response ? `status ${error.response.status}` : 'Unknown error');
-    console.warn('Failed to fetch blog posts for sitemap generation. Continuing with static routes.', errorMessage);
-  }
-
-  const postUrls = posts.map((post) => ({
-    url: `/blog/${post.slug}`,
-    changefreq: 'weekly',
-    priority: 0.7,
-    lastmodISO: post.date,
-  }));
-
-  const smStream = new SitemapStream({ hostname: 'https://winove.com.br' });
-
-  smStream.write({ url: '/', changefreq: 'weekly', priority: 1.0 });
-  smStream.write({ url: '/blog', changefreq: 'weekly', priority: 0.8 });
-  smStream.write({ url: '/sobre', changefreq: 'monthly', priority: 0.6 });
-  smStream.write({ url: '/servicos', changefreq: 'monthly', priority: 0.6 });
-  smStream.write({ url: '/contato', changefreq: 'monthly', priority: 0.6 });
-
-  postUrls.forEach((page) => smStream.write(page));
-
-  smStream.end();
-  const data = await streamToPromise(smStream);
-
-  await fs.promises.mkdir(httpdocsDir, { recursive: true });
-  await fs.promises.writeFile(path.join(httpdocsDir, 'sitemap.xml'), data.toString());
-  await fs.promises.writeFile(path.join(httpdocsDir, 'sitemap.xml.gz'), gzipSync(data));
-
-  console.log('Sitemap written to httpdocs/');
-}
-
-generate().catch((err) => {
-  console.error(err);
-  process.exit(1);
+const pool = mysql.createPool({
+  host: process.env.DB_HOST || 'lweb03.appuni.com.br',
+  port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306,
+  user: process.env.DB_USER || 'winove',
+  password: process.env.DB_PASSWORD || '9*19avmU0',
+  database: process.env.DB_NAME || 'fernando_winove_com_br_',
+  waitForConnections: true,
+  connectionLimit: 10,
 });
+
+const staticUrls = [
+  { loc: `${BASE}/`,         changefreq: 'weekly',  priority: '1.0' },
+  { loc: `${BASE}/blog`,     changefreq: 'weekly',  priority: '0.9' },
+  { loc: `${BASE}/cases`,    changefreq: 'monthly', priority: '0.7' },
+  { loc: `${BASE}/servicos`, changefreq: 'monthly', priority: '0.7' },
+  { loc: `${BASE}/contato`,  changefreq: 'monthly', priority: '0.6' },
+];
+
+const toUrlXml = ({ loc, changefreq, priority, lastmod }) => `
+  <url>
+    <loc>${loc}</loc>
+    ${lastmod ? `<lastmod>${new Date(lastmod).toISOString()}</lastmod>` : ''}
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+  </url>`.trim();
+
+try {
+  const [rows] = await pool.query(
+    `SELECT slug, data_publicacao
+     FROM blog_posts
+     WHERE slug IS NOT NULL AND slug <> ''
+     ORDER BY data_publicacao DESC
+     LIMIT 5000`
+  );
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${staticUrls.map(u => toUrlXml(u)).join('')}
+  ${rows.map(p => toUrlXml({
+        loc: `${BASE}/blog/${p.slug}`,
+        changefreq: 'weekly',
+        priority: '0.8',
+        lastmod: p.data_publicacao || new Date(),
+      })).join('')}
+</urlset>`;
+
+  fs.writeFileSync(OUT, xml, 'utf8');
+  console.log('Sitemap escrito em', OUT);
+  process.exit(0);
+} catch (e) {
+  console.error('Erro ao gerar sitemap:', e);
+  process.exit(1);
+}

@@ -2,13 +2,13 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Mail, Shield, Filter, Globe, Calendar, Users, 
-  CheckCircle, MessageSquare, Clock, FileText, 
+import {
+  Mail, Shield, Filter, Globe, Calendar, Users,
+  CheckCircle, MessageSquare, Clock, FileText,
   Share2, Settings, Zap, Cloud, Smartphone,
   PhoneCall, MessageCircle
 } from "lucide-react";
-import { useSEO } from "@/lib/seo";
+import { SEO } from "@/lib/seo";
 
 const EmailCorporativo = () => {
   const features = [
@@ -22,22 +22,22 @@ const EmailCorporativo = () => {
     { icon: MessageSquare, title: "Reuniões", description: "Não precisa instalar software, sem limite de tempo, faça suas reuniões com nossa tecnologia." },
   ];
 
-  useSEO({
-    title: "E-mail Corporativo Profissional | Winove",
-    description:
-      "Contas a partir de 5 GB com Antivirus, Antispam com 3 níveis de filtragem, acesso por Webmail, POP e IMAP.",
-    canonical: "https://www.winove.com.br/email-corporativo",
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: "E-mail Corporativo",
-      provider: { "@type": "Organization", name: "Winove" },
-      areaServed: "Brasil",
-      serviceType: "E-mail corporativo profissional",
-    },
-  });
-
   return (
+    <>
+      <SEO
+        title="E-mail Corporativo Profissional | Winove"
+        description="Contas a partir de 5 GB com Antivirus, Antispam com 3 níveis de filtragem, acesso por Webmail, POP e IMAP."
+        canonical="https://www.winove.com.br/email-corporativo"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "E-mail Corporativo",
+          provider: { "@type": "Organization", name: "Winove" },
+          areaServed: "Brasil",
+          serviceType: "E-mail corporativo profissional",
+          url: "https://www.winove.com.br/email-corporativo",
+        }}
+      />
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
       <section
@@ -212,6 +212,7 @@ const EmailCorporativo = () => {
 
       <Footer />
     </div>
+    </>
   );
 };
 

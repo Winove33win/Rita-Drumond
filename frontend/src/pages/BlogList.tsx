@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/Footer";
-import { useSEO } from "@/lib/seo";
+import { SEO } from "@/lib/seo";
 
 interface BlogPost {
   id: number;
@@ -140,25 +140,20 @@ export const BlogList = () => {
     }
   };
   // SEO for Blog list (using loaded posts)
-  useSEO({
-    title: "Blog & Insights | Winove",
-    description: "Conteúdos exclusivos, tendências e estratégias para manter seu negócio sempre à frente no mundo digital",
-    canonical: "https://www.winove.com.br/blog",
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Blog",
-      name: "Winove Blog",
-      url: "https://www.winove.com.br/blog",
-      blogPost: posts.map((p) => ({
-        "@type": "BlogPosting",
-        headline: p.title,
-        image: p.coverImage,
-        datePublished: p.date,
-        author: { "@type": "Person", name: p.author },
-        url: `https://www.winove.com.br/blog/${p.slug}`,
-      })),
-    },
-  });
+  const blogJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Winove Blog",
+    url: "https://www.winove.com.br/blog",
+    blogPost: posts.map((p) => ({
+      "@type": "BlogPosting",
+      headline: p.title,
+      image: p.coverImage,
+      datePublished: p.date,
+      author: { "@type": "Person", name: p.author },
+      url: `https://www.winove.com.br/blog/${p.slug}`,
+    })),
+  };
 
   // Carrega a primeira pÃ¡gina
   useEffect(() => {
@@ -169,6 +164,13 @@ export const BlogList = () => {
   const categories = useMemo(() => categoryItems.map((c) => c.name), [categoryItems]);
 
   return (
+    <>
+      <SEO
+        title="Blog & Insights | Winove"
+        description="Conteúdos exclusivos, tendências e estratégias para manter seu negócio sempre à frente no mundo digital"
+        canonical="https://www.winove.com.br/blog"
+        jsonLd={blogJsonLd}
+      />
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="section--first pb-16 bg-gradient-navy relative overflow-hidden">
@@ -313,6 +315,7 @@ export const BlogList = () => {
 
       <Footer />
     </div>
+    </>
   );
 };
 

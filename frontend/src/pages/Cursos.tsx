@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSEO } from "@/lib/seo";
+import { SEO } from "@/lib/seo";
 
 import { Footer } from "@/components/Footer";
 
@@ -76,13 +76,6 @@ const faqs = [
 ];
 
 const Cursos = () => {
-  useSEO({
-    title: "Curso Wix – Winove",
-    description:
-      "Domine a plataforma Wix, crie sites incríveis e gerencie seu negócio online de forma profissional. Aulas gratuitas com base no nosso canal oficial.",
-    canonical: "https://www.winove.com.br/cursos",
-  });
-
   useEffect(() => {
     document.body.classList.add("cursos-page");
     return () => document.body.classList.remove("cursos-page");
@@ -92,6 +85,20 @@ const Cursos = () => {
 
   return (
     <>
+      <SEO
+        title="Curso Wix – Winove"
+        description="Domine a plataforma Wix, crie sites incríveis e gerencie seu negócio online de forma profissional. Aulas gratuitas com base no nosso canal oficial."
+        canonical="https://www.winove.com.br/cursos"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Course",
+          name: "Curso Wix – Winove",
+          description:
+            "Domine a plataforma Wix, crie sites incríveis e gerencie seu negócio online de forma profissional.",
+          provider: { "@type": "Organization", name: "Winove" },
+          url: "https://www.winove.com.br/cursos",
+        }}
+      />
       <header className="container" style={{ marginTop: "var(--header-h)", padding: "16px 24px 0" }}>
         <div className="badge">Curso Wix • Winove</div>
       </header>

@@ -1,52 +1,52 @@
 import { useState } from "react";
 import { LibrasLeadForm } from "@/components/forms/LibrasLeadForm";
 import heroBg from "@/assets/hero-background.jpg";
-import { useSEO } from "@/lib/seo";
+import { SEO } from "@/lib/seo";
 import CinemaCegoSection from "@/components/CinemaCegoSection";
 
 export default function LibrasPage() {
   const [sent, setSent] = useState(false);
-
-  useSEO({
-    title: "Interpretação de Libras em SP e Janela de Libras para Vídeos | Winove",
-    description:
-      "Cobertura presencial em São Paulo e janela de Libras para vídeos. Equipes certificadas, NBR 15290 e revezamento para eventos >1h. Proposta em até 24h.",
-    canonical: "https://www.winove.com.br/servicos/libras",
-    noindex: true,
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: "Interpretação de Libras (SP) e Janela de Libras para Vídeos",
-      provider: { "@type": "Organization", name: "Winove" },
-      areaServed: { "@type": "AdministrativeArea", name: "São Paulo" },
-      serviceType: "Libras Presencial; Janela de Libras",
-      offers: { "@type": "Offer", availability: "https://schema.org/InStock" },
-      audience: {
-        "@type": "Audience",
-        audienceType: ["Empresas", "Palestrantes", "Produtoras"],
-      },
-      hasOfferCatalog: {
-        "@type": "OfferCatalog",
-        name: "Formatos",
-        itemListElement: [
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Presencial (SP)" } },
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "Conteúdos gravados (Janela de Libras)",
-            },
-          },
-        ],
-      },
-    },
-  });
 
   // Assets públicos devem usar caminho absoluto para não quebrar em rotas aninhadas
   const videoSrc = `/assets/hero-libras.mp4?v=2`;
   const posterSrc = heroBg;
 
   return (
+    <>
+      <SEO
+        title="Interpretação de Libras em SP e Janela de Libras para Vídeos | Winove"
+        description="Cobertura presencial em São Paulo e janela de Libras para vídeos. Equipes certificadas, NBR 15290 e revezamento para eventos >1h. Proposta em até 24h."
+        canonical="https://www.winove.com.br/servicos/libras"
+        noindex
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "Interpretação de Libras (SP) e Janela de Libras para Vídeos",
+          provider: { "@type": "Organization", name: "Winove" },
+          areaServed: { "@type": "AdministrativeArea", name: "São Paulo" },
+          serviceType: "Libras Presencial; Janela de Libras",
+          offers: { "@type": "Offer", availability: "https://schema.org/InStock" },
+          audience: {
+            "@type": "Audience",
+            audienceType: ["Empresas", "Palestrantes", "Produtoras"],
+          },
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Formatos",
+            itemListElement: [
+              { "@type": "Offer", itemOffered: { "@type": "Service", name: "Presencial (SP)" } },
+              {
+                "@type": "Offer",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Conteúdos gravados (Janela de Libras)",
+                },
+              },
+            ],
+          },
+          url: "https://www.winove.com.br/servicos/libras",
+        }}
+      />
     <div className="min-h-screen bg-neutral-950 text-neutral-100">
       {/* HERO — VÍDEO DE FUNDO + OVERLAY (apenas nesta página) */}
       <section className="relative isolate min-h-[70vh] flex items-center">
@@ -217,5 +217,6 @@ export default function LibrasPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

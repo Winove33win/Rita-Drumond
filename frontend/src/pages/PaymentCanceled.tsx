@@ -3,12 +3,20 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { XCircle, ArrowLeft, ShoppingCart, MessageCircle } from "lucide-react";
+import { SEO } from "@/lib/seo";
 
 const PaymentCanceled = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="section--first px-4 pb-16">
-        <div className="container mx-auto max-w-2xl">
+    <>
+      <SEO
+        title="Pagamento cancelado | Templates Wix Studio | Winove"
+        description="Página de orientação quando o pagamento do template Wix Studio é cancelado."
+        canonical="https://www.winove.com.br/payment-canceled"
+        noindex
+      />
+        <div className="min-h-screen bg-background text-foreground">
+          <div className="section--first px-4 pb-16">
+            <div className="container mx-auto max-w-2xl">
           <Card className="text-center">
             <CardHeader className="pb-6">
               <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
@@ -60,11 +68,12 @@ const PaymentCanceled = () => {
               </div>
             </CardContent>
           </Card>
+            </div>
+          </div>
+
+          <Footer />
         </div>
-      </div>
-      
-      <Footer />
-    </div>
+    </>
   );
 };
 

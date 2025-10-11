@@ -3,12 +3,20 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Download, ArrowLeft, Mail } from "lucide-react";
+import { SEO } from "@/lib/seo";
 
 const PaymentSuccess = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="section--first px-4 pb-16">
-        <div className="container mx-auto max-w-2xl">
+    <>
+      <SEO
+        title="Pagamento aprovado | Templates Wix Studio | Winove"
+        description="Confirmação de compra dos templates Wix Studio da Winove. Página não indexável."
+        canonical="https://www.winove.com.br/payment-success"
+        noindex
+      />
+        <div className="min-h-screen bg-background text-foreground">
+          <div className="section--first px-4 pb-16">
+            <div className="container mx-auto max-w-2xl">
           <Card className="text-center">
             <CardHeader className="pb-6">
               <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
@@ -64,11 +72,12 @@ const PaymentSuccess = () => {
               </div>
             </CardContent>
           </Card>
+            </div>
+          </div>
+
+          <Footer />
         </div>
-      </div>
-      
-      <Footer />
-    </div>
+    </>
   );
 };
 

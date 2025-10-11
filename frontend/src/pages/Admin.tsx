@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { blogPosts, BlogPost } from "@/data/blogPosts";
 import { cases, Case } from "@/data/cases";
 import { testimonials, Testimonial } from "@/data/testimonials";
+import { SEO } from "@/lib/seo";
 
 const ADMIN_PASSWORD = "winfer333#";
 
@@ -207,7 +208,14 @@ export const Admin = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-background">
+      <>
+        <SEO
+          title="Login administrativo | Winove"
+          description="Área restrita para gestão interna da Winove."
+          canonical="https://www.winove.com.br/admin"
+          noindex
+        />
+        <div className="min-h-screen bg-background">
         <div className="section--first pb-16">
           <div className="container mx-auto px-4">
             <div className="max-w-md mx-auto">
@@ -238,12 +246,20 @@ export const Admin = () => {
           </div>
         </div>
         <Footer />
-      </div>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
+      <SEO
+        title="Painel administrativo | Winove"
+        description="Interface interna para gerenciamento manual de conteúdo."
+        canonical="https://www.winove.com.br/admin"
+        noindex
+      />
+      <div className="min-h-screen bg-background">
       <div className="section--first pb-16">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
@@ -610,7 +626,9 @@ export const Admin = () => {
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
+    </>
   );
 };

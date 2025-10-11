@@ -9,6 +9,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { SEO } from "@/lib/seo";
 
 interface ActionCard {
   title: string;
@@ -51,9 +52,15 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-
-    <div className="min-h-screen bg-background text-foreground flex flex-col font-inter">
-      <div className="flex-grow container mx-auto px-4 flex flex-col items-center justify-center py-24">
+    <>
+      <SEO
+        title="Página não encontrada | Winove"
+        description="O conteúdo solicitado não existe ou foi removido."
+        canonical={`https://www.winove.com.br${location.pathname}`}
+        noindex
+      />
+        <div className="min-h-screen bg-background text-foreground flex flex-col font-inter">
+          <div className="flex-grow container mx-auto px-4 flex flex-col items-center justify-center py-24">
         <h1 className="text-5xl font-bold mb-4">404</h1>
         <p className="text-xl text-muted-foreground mb-8 text-center">
           Ops! A página que você procura não foi encontrada.
@@ -71,9 +78,11 @@ const NotFound = () => {
             </Card>
           ))}
         </div>
-      </div>
-      <Footer />
-    </div>
+          </div>
+
+          <Footer />
+        </div>
+    </>
   );
 };
 

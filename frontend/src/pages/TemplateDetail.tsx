@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { loadStripe } from "@stripe/stripe-js";
+import { SEO } from "@/lib/seo";
 import {
   ArrowLeft,
   Eye,
@@ -27,6 +28,14 @@ const TemplateDetail = () => {
   const { toast } = useToast();
 
   const { data: template, isLoading } = useQuery({ queryKey: ['template', slug], enabled: !!slug, queryFn: () => fetchTemplate(slug as string) });
+
+  const canonicalBase = "https://www.winove.com.br/templates";
+  const canonical = slug ? `${canonicalBase}/${slug}` : canonicalBase;
+  const fallbackDescription = "Veja detalhes completos de um template profissional Wix Studio desenvolvido pela Winove.";
+  const seoTitle = template
+    ? `${template.title} | Template Wix Studio | Winove`
+    : "Template Wix Studio | Winove";
+  const seoDescription = template?.description || fallbackDescription;
 
   // Inline skeleton to manter layout enquanto carrega
   const DetailSkeleton = () => (
@@ -57,31 +66,71 @@ const TemplateDetail = () => {
     </div>
   );
 
+  const jsonLd = template
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: template.title,
+        description: template.description,
+        image: template.images?.cover,
+        sku: template.slug,
+        url: canonical,
+        offers: template.price
+          ? {
+              "@type": "Offer",
+              price: template.price,
+              priceCurrency: "BRL",
+              availability: "https://schema.org/InStock",
+            }
+          : undefined,
+        brand: {
+          "@type": "Organization",
+          name: "Winove",
+        },
+      }
+    : undefined;
+
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background text-foreground">
-        <DetailSkeleton />
-        <Footer />
-      </div>
+      <>
+        <SEO
+          title={seoTitle}
+          description={seoDescription}
+          canonical={canonical}
+          noindex
+        />
+        <div className="min-h-screen bg-background text-foreground">
+          <DetailSkeleton />
+          <Footer />
+        </div>
+      </>
     );
   }
 
   if (!template) {
     return (
-      <div className="min-h-screen bg-background text-foreground">
-        <div className="section--first px-4">
-          <div className="container mx-auto text-center py-16">
-            <h1 className="text-2xl font-bold mb-4">Template não encontrado</h1>
-            <Link to="/templates">
-              <Button>
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Voltar para Templates
-              </Button>
-            </Link>
+      <>
+        <SEO
+          title="Template não encontrado | Winove"
+          description={fallbackDescription}
+          canonical={canonical}
+          noindex
+        />
+        <div className="min-h-screen bg-background text-foreground">
+          <div className="section--first px-4">
+            <div className="container mx-auto text-center py-16">
+              <h1 className="text-2xl font-bold mb-4">Template não encontrado</h1>
+              <Link to="/templates">
+                <Button>
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Voltar para Templates
+                </Button>
+              </Link>
+            </div>
           </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </>
     );
   }
 
@@ -114,21 +163,29 @@ const TemplateDetail = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="section--first px-4">
-        <div className="container mx-auto">
-          {/* Breadcrumb */}
-          <div className="mb-6">
-            <Link 
-              to="/templates" 
-              className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Voltar para Templates
-            </Link>
-          </div>
+    <>
+      <SEO
+        title={seoTitle}
+        description={seoDescription}
+        canonical={canonical}
+        image={template?.images?.cover}
+        jsonLd={jsonLd}
+      />
+      <div className="min-h-screen bg-background text-foreground">
+        <div className="section--first px-4">
+          <div className="container mx-auto">
+            {/* Breadcrumb */}
+            <div className="mb-6">
+              <Link
+                to="/templates"
+                className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Voltar para Templates
+              </Link>
+            </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
               {/* Hero Image */}
@@ -359,6 +416,7 @@ const TemplateDetail = () => {
 
       <Footer />
     </div>
+    </>
   );
 };
 

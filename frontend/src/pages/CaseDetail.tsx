@@ -3,7 +3,7 @@ import { ArrowLeft, Calendar, TrendingUp, Target, Lightbulb, Trophy, ArrowRight 
 import { Footer } from "@/components/Footer";
 import { useEffect, useState } from "react";
 import { CaseItem, Metric, safeArray } from "@/lib/caseUtils";
-import { useSEO } from "@/lib/seo";
+import { SEO } from "@/lib/seo";
 
 export const CaseDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -49,12 +49,40 @@ export const CaseDetail = () => {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  useSEO({
-    title: caseItem ? `${caseItem.title} | Case de Sucesso | Winove` : "Case | Winove",
-    description: caseItem?.excerpt || "",
-    canonical: caseItem ? `https://www.winove.com.br/cases/${caseItem.slug}` : undefined,
-    jsonLd: caseItem
-      ? {
+  if (!caseItem) {
+    return (
+      <>
+        <SEO
+          title="Case | Winove"
+          description="Conheça os projetos e resultados entregues pela Winove."
+          canonical="https://www.winove.com.br/cases"
+          noindex
+        />
+        <div className="min-h-screen bg-background">
+          <div className="section--first pb-16">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto text-center">
+                <h1 className="text-4xl font-bold text-foreground mb-4">Case não encontrado</h1>
+                <p className="text-muted-foreground mb-8">O case que você está procurando não existe.</p>
+                <Link to="/cases" className="btn-primary">
+                  Voltar aos Cases
+                </Link>
+              </div>
+            </div>
+          </div>
+          <Footer />
+        </div>
+      </>
+    );
+  }
+  return (
+    <>
+      <SEO
+        title={`${caseItem.title} | Case de Sucesso | Winove`}
+        description={caseItem.excerpt || ""}
+        canonical={`https://www.winove.com.br/cases/${caseItem.slug}`}
+        image={caseItem.coverImage}
+        jsonLd={{
           "@context": "https://schema.org",
           "@type": "CaseStudy",
           name: caseItem.title,
@@ -62,29 +90,9 @@ export const CaseDetail = () => {
           datePublished: caseItem.date,
           author: { "@type": "Organization", name: "Winove" },
           url: `https://www.winove.com.br/cases/${caseItem.slug}`,
-        }
-      : undefined,
-  });
-
-  if (!caseItem) {
-    return (
-      <div className="min-h-screen bg-background">
-        <div className="section--first pb-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl font-bold text-foreground mb-4">Case não encontrado</h1>
-              <p className="text-muted-foreground mb-8">O case que você está procurando não existe.</p>
-              <Link to="/cases" className="btn-primary">
-                Voltar aos Cases
-              </Link>
-            </div>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-  return (
+          image: caseItem.coverImage,
+        }}
+      />
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="section--first pb-16 bg-gradient-navy relative overflow-hidden">
@@ -347,5 +355,6 @@ export const CaseDetail = () => {
 
       <Footer />
     </div>
+    </>
   );
 };

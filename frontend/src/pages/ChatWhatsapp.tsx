@@ -2,24 +2,24 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MessagesSquare, CalendarClock, QrCode, Cpu, ShieldCheck, Users, Bot, Webhook, Settings, Zap, PhoneCall, Clock8, BarChart3, Server, Link as LinkIcon } from "lucide-react";
-import { useSEO } from "@/lib/seo";
+import { SEO } from "@/lib/seo";
 
 export default function ChatWhatsapp() {
-  useSEO({
-    title: "Chat WhatsApp com automações e IA | Winove",
-    description:
-      "Conecte um número geral do seu negócio, distribua conversas entre múltiplos atendentes e acelere respostas com fluxos, IA e integrações.",
-    canonical: "https://www.winove.com.br/chat-whatsapp",
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: "Chat WhatsApp com automações e IA",
-      provider: { "@type": "Organization", name: "Winove" },
-      serviceType: "Atendimento via WhatsApp",
-    },
-  });
-
   return (
+      <>
+      <SEO
+        title="Chat WhatsApp com automações e IA | Winove"
+        description="Conecte um número geral do seu negócio, distribua conversas entre múltiplos atendentes e acelere respostas com fluxos, IA e integrações."
+        canonical="https://www.winove.com.br/chat-whatsapp"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "Chat WhatsApp com automações e IA",
+          provider: { "@type": "Organization", name: "Winove" },
+          serviceType: "Atendimento via WhatsApp",
+          url: "https://www.winove.com.br/chat-whatsapp",
+        }}
+      />
       <div className="min-h-screen">
         {/* Hero */}
         <section className="section--first pb-16" aria-labelledby="chatwhats-hero">
@@ -218,7 +218,8 @@ export default function ChatWhatsapp() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+      </>
   );
 }
 

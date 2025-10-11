@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from '@tanstack/react-query';
 import { fetchTemplates, Template } from '@/lib/api';
 import { Search, Eye, Star, Filter } from "lucide-react";
-import { useSEO } from "@/lib/seo";
+import { SEO } from "@/lib/seo";
 
 const Templates = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
@@ -44,20 +44,21 @@ const Templates = () => {
     return matchesCategory && matchesSearch;
   });
 
-  useSEO({
-    title: "Templates Wix Studio | Winove",
-    description:
-      "Acelere seu projeto com nossos templates profissionais para Wix Studio. Designs modernos, responsivos e otimizados para conversão.",
-    canonical: "https://www.winove.com.br/templates",
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      name: "Templates Wix Studio",
-      url: "https://www.winove.com.br/templates",
-    },
-  });
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Templates Wix Studio",
+    url: "https://www.winove.com.br/templates",
+  };
 
   return (
+    <>
+      <SEO
+        title="Templates Wix Studio | Winove"
+        description="Acelere seu projeto com nossos templates profissionais para Wix Studio. Designs modernos, responsivos e otimizados para conversão."
+        canonical="https://www.winove.com.br/templates"
+        jsonLd={jsonLd}
+      />
     <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
       <section className="section--first pb-16 px-4">
@@ -234,6 +235,7 @@ const Templates = () => {
 
       <Footer />
     </div>
+    </>
   );
 };
 

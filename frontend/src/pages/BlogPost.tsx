@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { Calendar, User, ArrowLeft, Clock, Share2 } from "lucide-react";
 import { Footer } from "@/components/Footer";
 import { useEffect, useState } from "react";
-import { useSEO } from "@/lib/seo";
+import { SEO } from "@/lib/seo";
 
 interface BlogPost {
   id: number;
@@ -82,43 +82,65 @@ export const BlogPost = () => {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  useSEO({
-    title: post ? `${post.title} | Blog Winove` : "Blog Winove",
-    description: post?.excerpt || "",
-    canonical: post ? `https://www.winove.com.br/blog/${post.slug}` : undefined,
-    jsonLd: post
-      ? {
-          "@context": "https://schema.org",
-          "@type": "BlogPosting",
-          headline: post.title,
-          image: post.coverImage,
-          datePublished: post.date,
-          author: { "@type": "Person", name: post.author },
-          url: `https://www.winove.com.br/blog/${post.slug}`,
-        }
-      : undefined,
-  });
-
   if (!post) {
     return (
-      <div className="min-h-screen bg-background">
-        <div className="section--first pb-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl font-bold text-foreground mb-4">Post não encontrado</h1>
-              <p className="text-muted-foreground mb-8">O post que você está procurando não existe.</p>
-              <Link to="/blog" className="btn-primary">
-                Voltar ao Blog
-              </Link>
+      <>
+        <SEO
+          title="Blog Winove"
+          description="Conteúdos exclusivos sobre marketing, vendas e tecnologia para impulsionar seu negócio."
+          canonical="https://www.winove.com.br/blog"
+          noindex
+        />
+        <div className="min-h-screen bg-background">
+          <div className="section--first pb-16">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto text-center">
+                <h1 className="text-4xl font-bold text-foreground mb-4">Post não encontrado</h1>
+                <p className="text-muted-foreground mb-8">O post que você está procurando não existe.</p>
+                <Link to="/blog" className="btn-primary">
+                  Voltar ao Blog
+                </Link>
+              </div>
             </div>
           </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </>
     );
   }
 
   return (
+    <>
+      <SEO
+        title={`${post.title} | Blog Winove`}
+        description={post.excerpt || ""}
+        canonical={`https://www.winove.com.br/blog/${post.slug}`}
+        image={post.coverImage}
+        type="article"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.excerpt || "",
+          image: post.coverImage,
+          author: { "@type": "Person", name: post.author },
+          publisher: {
+            "@type": "Organization",
+            name: "Winove",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://winove.com.br/logo.png",
+            },
+          },
+          datePublished: post.date,
+          dateModified: post.date,
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": `https://www.winove.com.br/blog/${post.slug}`,
+          },
+          url: `https://www.winove.com.br/blog/${post.slug}`,
+        }}
+      />
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="section--first pb-16 bg-gradient-navy relative overflow-hidden">
@@ -250,5 +272,6 @@ export const BlogPost = () => {
 
       <Footer />
     </div>
+    </>
   );
 };

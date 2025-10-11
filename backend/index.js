@@ -6,10 +6,10 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
+import sitemapRoute from './routes/sitemap.js';
 import blogPostsRoute from './routes/blogPosts.js';
 import casesRoute from './routes/cases.js';
 import templatesRoute from './routes/templates.js';
-import sitemapRoute from './routes/sitemap.js';
 import leadsRoutes from './routes/leads.js';
 import postSeoRoute from './routes/postSeo.js';
 
@@ -25,6 +25,9 @@ const __dirname = path.dirname(__filename);
 app.use(cors());
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan('dev'));
+
+// Sitemap must be served before static middlewares
+app.use('/', sitemapRoute);
 
 // Basic CSP for production
 app.use((_req, res, next) => {
@@ -45,8 +48,8 @@ app.use((_req, res, next) => {
   next();
 });
 
-// Serve frontend build from ../frontend/dist
 const distPath = path.join(__dirname, '../frontend/dist');
+// Serve frontend build from ../frontend/dist
 app.use(
   '/assets',
   express.static(path.join(distPath, 'assets'), {
@@ -61,7 +64,6 @@ app.use('/api/blog-posts', blogPostsRoute);
 app.use('/api/cases', casesRoute);
 app.use('/api/templates', templatesRoute);
 app.use('/api/leads', leadsRoutes);
-app.use('/', sitemapRoute);
 app.use('/', postSeoRoute);
 
 // Health check

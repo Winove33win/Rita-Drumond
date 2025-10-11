@@ -9,9 +9,16 @@ router.get('/sitemap.xml', async (req, res) => {
     const base = process.env.SITEMAP_BASE_URL || 'https://winove.com.br';
 
     // POSTS DO BLOG
-    const [posts] = await pool.query(
-      'SELECT slug, updated_at FROM blog_posts ORDER BY updated_at DESC'
-    );
+    let posts = [];
+    try {
+      const [rows] = await pool.query(
+        'SELECT slug, updated_at FROM blog_posts ORDER BY updated_at DESC'
+      );
+      posts = rows;
+    } catch (dbError) {
+      const reason = dbError?.message || 'Unknown database error';
+      console.error('[sitemap.xml] failed to load blog posts:', reason);
+    }
 
     // OUTRAS PÁGINAS FIXAS (adicione aqui as que quiser)
     const staticUrls = [

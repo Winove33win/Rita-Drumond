@@ -11,7 +11,18 @@ async function generate() {
   const rootDir = path.resolve(__dirname, '..');
   const httpdocsDir = path.resolve(rootDir, '..', 'httpdocs');
 
-  const { data: posts } = await axios.get('https://winove.com.br/api/blog-posts', { proxy: false });
+  let posts = [];
+  try {
+    const response = await axios.get('https://winove.com.br/api/blog-posts', { proxy: false });
+    if (Array.isArray(response.data)) {
+      posts = response.data;
+    } else {
+      console.warn('Unexpected blog posts payload received while generating sitemap.');
+    }
+  } catch (error) {
+    const errorMessage = error?.message || (error?.response ? `status ${error.response.status}` : 'Unknown error');
+    console.warn('Failed to fetch blog posts for sitemap generation. Continuing with static routes.', errorMessage);
+  }
 
   const postUrls = posts.map((post) => ({
     url: `/blog/${post.slug}`,

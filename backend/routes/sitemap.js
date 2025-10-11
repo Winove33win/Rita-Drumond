@@ -16,11 +16,11 @@ const pool = mysql.createPool({
 const BASE = 'https://winove.com.br';
 
 const staticUrls = [
-  { loc: `${BASE}/`,         changefreq: 'weekly',  priority: '1.0' },
-  { loc: `${BASE}/blog`,     changefreq: 'weekly',  priority: '0.9' },
-  { loc: `${BASE}/cases`,    changefreq: 'monthly', priority: '0.7' },
-  { loc: `${BASE}/servicos`, changefreq: 'monthly', priority: '0.7' },
-  { loc: `${BASE}/contato`,  changefreq: 'monthly', priority: '0.6' },
+  { loc: `${BASE}/`,          changefreq: 'weekly',  priority: '1.0' },
+  { loc: `${BASE}/blog/`,     changefreq: 'weekly',  priority: '0.9' },
+  { loc: `${BASE}/cases`,     changefreq: 'monthly', priority: '0.7' },
+  { loc: `${BASE}/servicos`,  changefreq: 'monthly', priority: '0.7' },
+  { loc: `${BASE}/contato`,   changefreq: 'monthly', priority: '0.6' },
 ];
 
 const toUrlXml = ({ loc, changefreq, priority, lastmod }) => `
@@ -51,7 +51,7 @@ router.get('/sitemap.xml', async (req, res) => {
     const staticXml = staticUrls.map(u => toUrlXml(u)).join('');
     const postsXml = posts.map(p =>
       toUrlXml({
-        loc: `${BASE}/blog/${p.slug}`,
+        loc: `${BASE}/blog/${p.slug}/`,
         changefreq: 'weekly',
         priority: '0.8',
         lastmod: p.data_publicacao || new Date(),

@@ -36,7 +36,7 @@ app.use((_req, res, next) => {
       "img-src 'self' data: blob: https://winove.com.br https://www.winove.com.br https://images.unsplash.com",
       "font-src 'self' https://fonts.gstatic.com",
       "connect-src 'self' https://winove.com.br https://www.google-analytics.com https://api.stripe.com",
-      "frame-src 'self' https://js.stripe.com https://hooks.stripe.com",
+      "frame-src 'self' https://js.stripe.com https://hooks.stripe.com https://www.youtube.com https://www.youtube-nocookie.com",
       "frame-ancestors 'none'",
       "object-src 'none'",
     ].join('; ')

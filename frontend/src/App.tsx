@@ -1,298 +1,161 @@
 import "./App.css";
+import heroImg from "./assets/hero-background.jpg";
+import profileImg from "./assets/foto-perfil.png";
+import signatureImg from "./assets/rita-microfone.png";
+import stageImg from "./assets/palestra.png";
+import seloImg from "./assets/selo-sap-speakers.png";
+import depoimentoImg from "./assets/depoimentos.jpg";
 
-const heroMetrics = [
+const magicPillars = [
   {
-    value: "+120",
-    label: "lançamentos acompanhados lado a lado com os clientes",
+    title: "Conteúdo autoral",
+    description:
+      "Histórias reais, dados e pesquisas que traduzem tendências em provocações práticas para o seu público.",
   },
   {
-    value: "92%",
-    label: "dos novos projetos chegam por indicação",
+    title: "Experiência imersiva",
+    description:
+      "Trago recursos multimídia, participação da plateia e dinâmicas que mantêm a energia do início ao fim.",
   },
   {
-    value: "15 dias",
-    label: "para apresentarmos as primeiras entregas estratégicas",
+    title: "Plano de continuidade",
+    description:
+      "Cada encontro termina com materiais de apoio e caminhos de ação para que o impacto se mantenha vivo.",
   },
 ];
 
-const services = [
+const signatureHighlights = [
   {
-    title: "Posicionamento estratégico",
-    description:
-      "Construímos narrativas fortes para acelerar a tomada de decisão do seu público e gerar clareza para o time.",
-    items: [
-      "Mapa de proposta de valor e diferenciais",
-      "Storyline para apresentações e pitches",
-      "Guia de linguagem e mensagens-chave",
-    ],
+    heading: "Liderança no singular",
+    copy:
+      "Cada palestra nasce a partir da escuta das pessoas envolvidas. O resultado é uma experiência que acolhe diferentes trajetórias e desperta decisões alinhadas com propósito.",
   },
   {
-    title: "Identidade e expressão visual",
-    description:
-      "Traduzimos a essência da marca em sistemas visuais consistentes, prontos para ganhar escala em qualquer formato.",
-    items: [
-      "Identidade visual completa",
-      "Sistemas modulares para social e produto",
-      "Kits de lançamento com templates editáveis",
-    ],
+    heading: "Comunicação que aproxima",
+    copy:
+      "Com linguagem acessível e sensível, conecto equipes, clientes e parceiros em torno de objetivos comuns, fortalecendo o sentimento de comunidade.",
   },
   {
-    title: "Experiência digital e produtos",
-    description:
-      "Desenhamos jornadas digitais que conectam estratégia e performance com foco em conversão e retenção.",
-    items: [
-      "Protótipos navegáveis e testes com usuários",
-      "Design systems prontos para desenvolvimento",
-      "Otimização contínua com métricas acionáveis",
-    ],
-  },
-];
-
-const cases = [
-  {
-    name: "Atlas Ventures",
-    sector: "Venture Builder",
-    result: "Reposicionamento elevou captação em 3x",
-    description:
-      "Criamos o manifesto e a presença digital da marca, alinhando discurso e produto para atrair investidores estratégicos.",
-  },
-  {
-    name: "Northea Health",
-    sector: "Healthtech",
-    result: "Experiência digital com NPS 86",
-    description:
-      "Mapeamos toda a jornada dos pacientes e redesenhamos o aplicativo com foco em confiança, clareza e eficiência operacional.",
-  },
-  {
-    name: "Launa Studio",
-    sector: "Arquitetura",
-    result: "Site com 2,4x mais leads qualificados",
-    description:
-      "Reposicionamento completo com foco em projetos autorais, materiais comerciais e suporte ao time comercial.",
-  },
-];
-
-const approach = [
-  {
-    title: "Imersão guiada",
-    description:
-      "Entrevistas, análise de dados e leitura do mercado para descobrir oportunidades, tensões e pontos de destaque.",
-  },
-  {
-    title: "Direcionamento",
-    description:
-      "Construímos plataformas de marca, jornadas e guidelines que guiam comunicação, produto e cultura interna.",
-  },
-  {
-    title: "Construção colaborativa",
-    description:
-      "Rodadas semanais para validar hipóteses, evoluir entregas e garantir alinhamento com todas as frentes do projeto.",
-  },
-  {
-    title: "Implementação e transição",
-    description:
-      "Acompanhamos o time na aplicação das soluções, com materiais prontos, rituais e métricas para o pós-lançamento.",
+    heading: "Resultados que permanecem",
+    copy:
+      "Mais do que inspiração momentânea, cocriamos compromissos reais. Os eventos ganham follow-ups, guias e rituais para sustentar a transformação.",
   },
 ];
 
 const testimonials = [
   {
     quote:
-      "A Rita trouxe clareza para o posicionamento da Northea, conectando produto, comunicação e expansão comercial. Os materiais seguem sendo nosso norte até hoje.",
-    author: "Luiza Carvalho",
-    role: "Head de Marketing na Northea Health",
+      "A presença da Rita elevou todo o evento. Ela traduziu nossos desafios em histórias potentes e entregou um conteúdo que fez o time sair com brilho nos olhos.",
+    author: "Luciana Costa",
+    role: "Diretora de Pessoas na Vibra Energia",
   },
   {
     quote:
-      "Além do visual impecável, o projeto com a Rita reorganizou nossa proposta de valor e deu argumentos sólidos para o time fechar novos contratos.",
-    author: "Márcio Santos",
-    role: "Sócio na Atlas Ventures",
+      "Ela conseguiu unir emoção, dados e provocações práticas. O público permaneceu conectado e seguimos utilizando os materiais pós-evento no nosso dia a dia.",
+    author: "Diego Martins",
+    role: "Head de Comunicação no Senac MG",
   },
 ];
 
 function App() {
   return (
-    <div className="page">
+    <div className="site">
       <header className="hero" id="top">
-        <nav className="hero__nav">
-          <a className="logo" href="#top" aria-label="Ir para o topo">
-            Rita Drumond Estúdio
-          </a>
-          <div className="hero__actions">
-            <a className="nav-link" href="#sobre">
-              Sobre
-            </a>
-            <a className="nav-link" href="#servicos">
-              Soluções
-            </a>
-            <a className="nav-link" href="#cases">
-              Projetos
-            </a>
-            <a className="button" href="#contato">
-              Vamos conversar
-            </a>
-          </div>
-        </nav>
-
-        <div className="hero__layout">
-          <div className="hero__copy">
-            <span className="hero__tag">Marca, design e estratégia</span>
-            <h1>
-              Consultoria criativa para marcas que querem lançar, crescer e liderar.
-            </h1>
-            <p>
-              Lideramos transformações que unem branding, narrativa e experiência digital. Do diagnóstico ao plano de ação, trabalhamos lado a lado com seu time para entregar resultados mensuráveis.
-            </p>
-            <div className="hero__cta">
-              <a className="button" href="#contato">
-                Agendar uma reunião
-              </a>
-              <a className="button button--ghost" href="#servicos">
-                Entender nossa abordagem
-              </a>
-            </div>
-          </div>
-
-          <aside className="hero__panel" aria-labelledby="agenda">
-            <div className="panel__badge" id="agenda">
-              Agenda do próximo ciclo aberta
-            </div>
-            <p>
-              Enviamos um diagnóstico inicial em até 48h após o primeiro contato. Projetos personalizados, com duração média de 8 a 12 semanas.
-            </p>
-            <ul>
-              <li>Blueprint estratégico completo</li>
-              <li>Time multidisciplinar dedicado</li>
-              <li>Entrega modular com rituais semanais</li>
-            </ul>
-            <a className="panel__link" href="mailto:contato@ritadrumond.com">
-              contato@ritadrumond.com
-            </a>
-          </aside>
+        <div className="hero__image" aria-hidden="true">
+          <img src={heroImg} alt="Rita Drumond palestrando para uma plateia" />
+          <div className="hero__overlay" />
         </div>
-
-        <dl className="hero__metrics">
-          {heroMetrics.map((metric) => (
-            <div key={metric.value}>
-              <dt>{metric.value}</dt>
-              <dd>{metric.label}</dd>
-            </div>
-          ))}
-        </dl>
-
-        <div className="hero__brands" aria-label="Clientes atendidos">
-          <span>Trusted by</span>
-          <ul>
-            <li>Atlas Ventures</li>
-            <li>Northea</li>
-            <li>Launa Studio</li>
-            <li>Grupo Meta</li>
-            <li>ShiftLab</li>
-          </ul>
+        <div className="hero__content">
+          <div className="hero__badge">
+            <img src={seloImg} alt="Selo SAP Speakers" />
+            <span>Top Speaker SAP 2023</span>
+          </div>
+          <p className="hero__eyebrow">Palestrante e consultora</p>
+          <h1>Rita Drumond</h1>
+          <p className="hero__description">
+            Experiências que unem emoção, estratégia e ação para potencializar pessoas, marcas e comunidades. Uma jornada
+            criativa que transforma conhecimento em legado.
+          </p>
+          <a className="hero__cta" href="#contato">
+            Quero a Rita no meu evento
+          </a>
         </div>
       </header>
 
       <main>
-        <section className="section section--about" id="sobre">
-          <div className="section__content">
-            <span className="section__label">Manifesto</span>
-            <h2>Somos parceiros criativos de negócios com ambição.</h2>
+        <section className="intro" id="sobre">
+          <div className="intro__media">
+            <img src={profileImg} alt="Retrato de Rita Drumond sorrindo" />
+            <div className="intro__label">12 anos guiando jornadas de transformação</div>
+          </div>
+          <div className="intro__content">
+            <span className="intro__eyebrow">A receita do legado</span>
+            <h2>Qual é a magia?</h2>
             <p>
-              Atuamos como extensão estratégica do seu time para conectar dados, visão e execução. Cada projeto é construído de forma colaborativa, com entregas que guiam decisões e aceleram resultados.
+              O segredo está na combinação entre repertório criativo, curadoria afetiva e direcionamento estratégico. Cada
+              apresentação é desenhada a muitas mãos para que faça sentido para quem organiza e, principalmente, para quem
+              participa.
             </p>
-            <div className="about__grid">
-              <article>
-                <h3>Visão integrada</h3>
-                <p>
-                  Do posicionamento à experiência digital, garantimos consistência em toda a jornada da marca.
-                </p>
-              </article>
-              <article>
-                <h3>Processos enxutos</h3>
-                <p>
-                  Ciclos curtos de entrega e validação para responder rápido às mudanças do negócio.
-                </p>
-              </article>
-              <article>
-                <h3>Resultados mensuráveis</h3>
-                <p>
-                  Métricas claras e acompanhamento próximo para evoluir continuamente após o lançamento.
-                </p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section className="section section--services" id="servicos">
-          <div className="section__content">
-            <span className="section__label">Como podemos ajudar</span>
-            <h2>Projetos customizados para cada etapa da sua marca.</h2>
-            <div className="services__grid">
-              {services.map((service) => (
-                <article key={service.title}>
-                  <header>
-                    <h3>{service.title}</h3>
-                    <p>{service.description}</p>
-                  </header>
-                  <ul>
-                    {service.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </article>
+            <ul className="intro__list">
+              {magicPillars.map((pillar) => (
+                <li key={pillar.title}>
+                  <h3>{pillar.title}</h3>
+                  <p>{pillar.description}</p>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </section>
 
-        <section className="section section--cases" id="cases">
-          <div className="section__content">
-            <span className="section__label">Resultados recentes</span>
-            <h2>Projetos que demonstram a força de uma estratégia clara.</h2>
-            <div className="cases__list">
-              {cases.map((caseItem) => (
-                <article key={caseItem.name}>
-                  <div className="case__head">
-                    <span className="case__name">{caseItem.name}</span>
-                    <span className="case__sector">{caseItem.sector}</span>
-                  </div>
-                  <p className="case__result">{caseItem.result}</p>
-                  <p>{caseItem.description}</p>
-                </article>
-              ))}
-            </div>
+        <section className="signature" id="servicos">
+          <div className="signature__grid">
+            {signatureHighlights.map((item) => (
+              <article className="signature__card" key={item.heading}>
+                <h3>{item.heading}</h3>
+                <p>{item.copy}</p>
+              </article>
+            ))}
+          </div>
+          <div className="signature__figure">
+            <img src={signatureImg} alt="Rita Drumond segurando um microfone" />
           </div>
         </section>
 
-        <section className="section section--approach">
-          <div className="section__content">
-            <span className="section__label">Nossa forma de trabalhar</span>
-            <h2>Um processo colaborativo que respeita o ritmo do seu negócio.</h2>
-            <div className="approach__steps">
-              {approach.map((step, index) => (
-                <article key={step.title}>
-                  <span className="step__index">{String(index + 1).padStart(2, "0")}</span>
-                  <div>
-                    <h3>{step.title}</h3>
-                    <p>{step.description}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
+        <section className="journey">
+          <div className="journey__content">
+            <span className="journey__eyebrow">Curadoria sensível</span>
+            <h2>Momentos para sentir, pensar e agir</h2>
+            <p>
+              Dos bastidores ao palco, cada detalhe é planejado para ampliar a escuta ativa e abrir espaço para reflexões
+              honestas. O roteiro integra narrativa, música, recursos visuais e dinâmicas colaborativas para criar um clima de
+              confiança.
+            </p>
+            <p>
+              O objetivo é gerar movimento: provocar novas perspectivas, fortalecer vínculos e inspirar decisões que
+              reverberam além do evento.
+            </p>
+          </div>
+          <div className="journey__image">
+            <img src={stageImg} alt="Rita Drumond se apresentando no palco" />
           </div>
         </section>
 
-        <section className="section section--testimonials">
-          <div className="section__content">
-            <span className="section__label">O que dizem sobre nós</span>
-            <h2>Parcerias que continuam depois da entrega.</h2>
-            <div className="testimonials__grid">
+        <section className="testimonials" id="cases">
+          <div className="testimonials__image">
+            <img src={depoimentoImg} alt="Plateia aplaudindo Rita Drumond" />
+          </div>
+          <div className="testimonials__content">
+            <span className="testimonials__eyebrow">Depoimentos</span>
+            <h2>Quando a mensagem encontra o público certo</h2>
+            <div className="testimonials__list">
               {testimonials.map((testimonial) => (
                 <figure key={testimonial.author}>
-                  <blockquote>“{testimonial.quote}”</blockquote>
+                  <blockquote>
+                    <p>{testimonial.quote}</p>
+                  </blockquote>
                   <figcaption>
-                    <span>{testimonial.author}</span>
-                    <small>{testimonial.role}</small>
+                    <strong>{testimonial.author}</strong>
+                    <span>{testimonial.role}</span>
                   </figcaption>
                 </figure>
               ))}
@@ -300,46 +163,23 @@ function App() {
           </div>
         </section>
 
-        <section className="section section--cta" id="contato">
-          <div className="section__content">
-            <h2>Pronto para criar o próximo capítulo da sua marca?</h2>
+        <section className="cta" id="contato">
+          <div className="cta__content">
+            <span className="cta__eyebrow">Próximo passo</span>
+            <h2>Vamos cocriar uma experiência inesquecível?</h2>
             <p>
-              Conte mais sobre o momento do seu negócio e enviaremos uma proposta personalizada com roadmap, investimento e cronograma.
+              Envie uma mensagem com o contexto do seu evento, público e objetivos. Retorno com propostas de temas,
+              formatos e desdobramentos para continuarmos a conversa.
             </p>
-            <div className="cta__actions">
-              <a className="button" href="mailto:contato@ritadrumond.com">
-                contato@ritadrumond.com
-              </a>
-              <a
-                className="button button--ghost"
-                href="https://wa.me/5500000000000"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Conversar pelo WhatsApp
-              </a>
-            </div>
-            <small>Atendimento de segunda a sexta, das 9h às 18h (BRT).</small>
+            <a className="cta__button" href="mailto:contato@ritadrumond.com">
+              Escrever para a Rita
+            </a>
           </div>
         </section>
       </main>
 
       <footer className="footer">
-        <div className="footer__content">
-          <div>
-            <span className="logo">Rita Drumond Estúdio</span>
-            <p>
-              Branding, design e estratégia digital para negócios que querem liderar com propósito e consistência.
-            </p>
-          </div>
-          <div className="footer__links">
-            <a href="#sobre">Sobre</a>
-            <a href="#servicos">Soluções</a>
-            <a href="#cases">Projetos</a>
-            <a href="#contato">Contato</a>
-          </div>
-          <span className="footer__note">© {new Date().getFullYear()} Rita Drumond. Todos os direitos reservados.</span>
-        </div>
+        <p>© {new Date().getFullYear()} Rita Drumond. Todos os direitos reservados.</p>
       </footer>
     </div>
   );

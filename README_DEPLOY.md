@@ -21,4 +21,5 @@ Notes
 - The server maps `/assets/*` to `backend/dist/assets` and serves `backend/dist/index.html` for SPA routes.
 - If assets 404 or load as `text/html`, make sure the files exist in `backend/dist/assets` and that the Node process restarted.
 - Adjust CSP in `backend/index.js` if you add new external sources.
+- In Plesk → Node.js, choose Node 20.x or 22.x (these ship with `npm`). Other versions don't provide the `npm` binary and `npm run deploy` will fail.
 

@@ -28,6 +28,16 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  esbuild: {
+    // Avoid identifier minification collisions between catch parameters and
+    // block scoped variables emitted by dependencies (e.g. TanStack Query).
+    // When the identifiers get mangled to the same short name under strict
+    // mode the browser refuses to evaluate the bundle. Keeping identifiers
+    // intact during the build prevents the redeclaration error observed in
+    // production ("The catch binding parameter cannot be redeclared in strict
+    // mode").
+    minifyIdentifiers: false,
+  },
   build: {
     // Use root index.html as the entry so Vite can
     // transform it and inject the bundled assets correctly.

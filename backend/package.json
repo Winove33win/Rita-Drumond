@@ -10,7 +10,7 @@
     "prestart": "node scripts/build-and-sync.mjs",
     "migrate": "node scripts/migrate.mjs",
     "start": "node index.js",
-    "deploy": "bash ../deploy/deploy.sh",
+    "deploy": "sh ../deploy/deploy.sh",
     "sitemap": "node scripts/generate-sitemap.mjs",
     "importWixBlog": "node scripts/importWixBlog.js"
   },

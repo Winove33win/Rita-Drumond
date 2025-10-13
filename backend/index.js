@@ -25,16 +25,38 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const BASE_URL = (process.env.APP_BASE_URL || 'https://winove.com.br').replace(/\/$/, '');
-let canonicalUrl;
-try {
-  canonicalUrl = new URL(BASE_URL.includes('://') ? BASE_URL : `https://${BASE_URL}`);
-} catch (_err) {
-  canonicalUrl = new URL('https://winove.com.br');
+const BASE_URL = (process.env.APP_BASE_URL || '').replace(/\/$/, '');
+let canonicalUrl = null;
+if (BASE_URL) {
+  try {
+    canonicalUrl = new URL(BASE_URL.includes('://') ? BASE_URL : `https://${BASE_URL}`);
+  } catch (err) {
+    console.warn('Invalid APP_BASE_URL provided, canonical redirects disabled.', err);
+    canonicalUrl = null;
+  }
 }
-const canonicalHostname = canonicalUrl.hostname.toLowerCase();
-const canonicalPort = canonicalUrl.port;
-const canonicalProtocol = canonicalUrl.protocol.replace(':', '');
+
+const normalizeProto = (value) => value.split(',')[0]?.trim().toLowerCase() || '';
+
+const getForwardedProto = (req) => {
+  const protoHeader = req.headers['x-forwarded-proto'];
+  if (!protoHeader) return '';
+  if (Array.isArray(protoHeader)) {
+    return normalizeProto(protoHeader[0] || '');
+  }
+  if (typeof protoHeader === 'string') {
+    return normalizeProto(protoHeader);
+  }
+  return '';
+};
+
+const getRequestBaseUrl = (req) => {
+  if (BASE_URL) return BASE_URL;
+  const host = req.get('host');
+  if (!host) return '';
+  const proto = getForwardedProto(req) || req.protocol || 'https';
+  return `${proto.toLowerCase()}://${host}`.replace(/\/$/, '');
+};
 
 const getTemplate = () => {
   const initial = getBaseTemplate();
@@ -68,19 +90,27 @@ const isLocalRequest = (host) => {
 };
 
 app.use((req, res, next) => {
+  if (!canonicalUrl) {
+    return next();
+  }
+
+  const canonicalHostname = canonicalUrl.hostname.toLowerCase();
+  const canonicalPort = canonicalUrl.port;
+  const canonicalProtocol = canonicalUrl.protocol.replace(':', '').toLowerCase();
   const hostHeader = req.headers.host || '';
   if (isLocalRequest(hostHeader) || process.env.NODE_ENV === 'development') {
     return next();
   }
 
   const [requestHost, requestPort] = hostHeader.toLowerCase().split(':');
-  const forwardedProto = (req.headers['x-forwarded-proto'] || req.protocol || canonicalProtocol).toLowerCase();
+  const forwardedProto = getForwardedProto(req) || req.protocol || canonicalProtocol;
+  const normalizedForwardedProto = (forwardedProto || '').toLowerCase();
   const needsHostRedirect =
     requestHost !== canonicalHostname ||
     (!!canonicalPort && requestPort !== canonicalPort) ||
     (!canonicalPort && !!requestPort);
 
-  if (needsHostRedirect || forwardedProto !== canonicalProtocol) {
+  if (needsHostRedirect || normalizedForwardedProto !== canonicalProtocol) {
     const redirectUrl = `${canonicalUrl.protocol}//${canonicalUrl.host}${req.originalUrl}`;
     return res.redirect(301, redirectUrl);
   }
@@ -153,7 +183,8 @@ app.get('/blog/', (req, res, next) => {
     return next();
   }
 
-  const canonical = `${BASE_URL}/blog/`;
+  const baseUrl = getRequestBaseUrl(req);
+  const canonical = baseUrl ? `${baseUrl}/blog/` : '/blog/';
   const html = renderTemplateWithMeta(template, {
     title: 'Blog & Insights | Winove',
     description: BLOG_DESCRIPTION,
@@ -199,7 +230,8 @@ app.get('/', (req, res, next) => {
     return next();
   }
 
-  const canonical = `${BASE_URL}/`;
+  const baseUrl = getRequestBaseUrl(req);
+  const canonical = baseUrl ? `${baseUrl}/` : '/';
   const html = renderTemplateWithMeta(template, {
     title: 'Winove - Soluções Criativas e Resultados Reais',
     description: HOME_DESCRIPTION,

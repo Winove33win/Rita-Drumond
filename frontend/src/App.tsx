@@ -3,20 +3,20 @@ import "./App.css";
 
 const chipItems = [
   {
-    src: "./imgs/20.png",
-    alt: "Capa ilustrativa da palestra Receita do Legado",
+    src: "./imgs/Rita-drumond.jpg",
+    alt: "Rita no palco durante uma palestra",
     title: "A RECEITA DO LEGADO",
     text: "Descubra como construir e fortalecer sua marca pessoal, inspirando, motivando e criando vínculos que transcendem o dia a dia. Vamos abordar as práticas que líderes visionários utilizam para criar culturas organizacionais onde o legado é uma força propulsora, gerando resultados que vão além do lucro.",
   },
   {
-    src: "./imgs/IMG_6977.heic",
-    alt: "Palestra sobre excelência Disney",
+    src: "./imgs/Rita-drumond (2).jpg",
+    alt: "Rita conduzindo um encontro com o público",
     title: "QUAL É A MÁGICA?",
     text: "Nesta palestra envolvente e inspiradora, vamos desvendar os 7 segredos por trás da excelência na experiência dos clientes da Disney. Você vai descobrir como a magia vai além das atrações e personagens, transformando cada interação com o cliente em uma experiência inesquecível.",
   },
   {
-    src: "./imgs/572e08b5-79b5-4f6e-9377-284220d2aa8e.JPG",
-    alt: "Tema Rejuvelhecendo",
+    src: "./imgs/Rita-drumond (3).jpg",
+    alt: "Rita sorrindo e interagindo com a plateia",
     title: "REJUVELHECENDO",
     text: "Nesta palestra vamos abordar como abraçar a vida com atitude, inovação e vitalidade transformando a forma como você encara os desafios da conexão intergeracional nas equipes, desafiando a ideia do envelhecimento tradicional, mantendo a energia de um jovem e a sabedoria de um experiente e assim transcendendo a idade.",
   },
@@ -30,18 +30,18 @@ const leadershipParagraphs = [
 ];
 
 const leadershipGallery = [
-  { src: "./imgs/IMG_7422.HEIC", alt: "Líder em ação com equipe" },
-  { src: "./imgs/IMG_6967.heic", alt: "Time atento durante palestra" },
-  { src: "./imgs/IMG_6992.heic", alt: "Ambiente de evento corporativo" },
+  { src: "./imgs/Rita-drumond (4).jpg", alt: "Rita conduzindo líderes em treinamento" },
+  { src: "./imgs/Rita-drumond (5).jpg", alt: "Público atento durante a palestra" },
+  { src: "./imgs/Rita-drumond (6).jpg", alt: "Evento corporativo com participação ativa" },
 ];
 
 const experiencesGallery = [
-  { src: "./imgs/Rita-drumond.jpg", alt: "Rita no palco" },
-  { src: "./imgs/Rita-drumond (2).jpg", alt: "Close com microfone" },
-  { src: "./imgs/Rita-drumond (3).jpg", alt: "Público engajado" },
-  { src: "./imgs/Rita-drumond (5).jpg", alt: "Retrato alegre" },
-  { src: "./imgs/Rita-drumond (6).jpg", alt: "Ambiente de evento" },
-  { src: "./imgs/Rita-drumond (7).jpg", alt: "Rita braços abertos" },
+  { src: "./imgs/Rita-drumond (7).jpg", alt: "Rita celebrando com o público" },
+  { src: "./imgs/Rita-drumond (8).jpg", alt: "Registro descontraído após a palestra" },
+  { src: "./imgs/Rita drumond.png", alt: "Retrato de Rita com microfone" },
+  { src: "./imgs/rita drumond (6).png", alt: "Close de Rita sorrindo" },
+  { src: "./imgs/rita drumond (7).png", alt: "Rita em apresentação corporativa" },
+  { src: "./imgs/rita drumond (8).png", alt: "Momento inspirador no evento" },
 ];
 
 const App = () => {
@@ -127,7 +127,7 @@ const App = () => {
           </div>
         </div>
         <div className="card-portrait cutout-shadow">
-          <img src="./imgs/foto perfil Rita drumond.png" alt="Retrato de Rita Drumond sorrindo" />
+          <img src="./imgs/Rita-drumond (5).jpg" alt="Retrato de Rita Drumond sorrindo" />
         </div>
       </header>
       <div className="spacer" />
@@ -218,7 +218,7 @@ const App = () => {
             <p>Uma grande alegria é ser avó, experiência que permite conexão especial com as novas gerações.</p>
           </div>
           <div className="reveal">
-            <img src="./imgs/MIDIA KIT RITA (1440 x 1080 px).jpg" alt="Composição de mídia kit da Rita" />
+            <img src="./imgs/Rita-drumond (4).jpg" alt="Rita apresentando em evento" />
           </div>
         </div>
       </section>
@@ -226,7 +226,7 @@ const App = () => {
       <section className="container" style={{ padding: "30px 0 80px" }}>
         <div className="two" style={{ gridTemplateColumns: "1fr 1.1fr" }}>
           <div className="reveal">
-            <img src="./imgs/18.png" alt="Elemento de apoio visual" />
+            <img src="./imgs/Depoimentos 2.jpg" alt="Registro de palestra para equipes" />
           </div>
           <div className="reveal">
             <h3>Rita Drumond</h3>
@@ -243,7 +243,7 @@ const App = () => {
       <section className="container" style={{ paddingBottom: "70px" }}>
         <div className="panel-dark reveal shadow-1">
           <div className="row">
-            <img src="./imgs/Cópia de MIDIA KIT RITA.jpg" alt="Miniatura de apresentações" />
+            <img src="./imgs/Clientes.jpg" alt="Montagem com destaques de clientes" />
             <div>
               <h4 style={{ margin: "0 0 6px 0", fontSize: "18px" }}>Rita Drumond</h4>
               <p className="mute" style={{ margin: "0 0 10px 0" }}>

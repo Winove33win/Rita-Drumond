@@ -8,16 +8,25 @@
   color-scheme: only light;
 }
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
   font-family: "DM Sans", "Inter", "Segoe UI", sans-serif;
-  background: #faf7f0;
-  color: #2f2a28;
+  background: #fffdf6;
+  color: #16130f;
+}
+
+img {
+  display: block;
+  max-width: 100%;
 }
 
 #root {

@@ -19,7 +19,7 @@ If you want to work locally using your own IDE, you can clone this repo and push
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-This project uses Node.js **18.19.0**. Configure this version in Plesk and run `nvm use` locally (using the provided `.nvmrc`) to match the server environment.
+This project uses Node.js **22.x**. Configure this version in Plesk and run `nvm use` locally (the repository includes `.node-version` files for convenience) to match the server environment.
 
 Follow these steps:
 
@@ -86,6 +86,36 @@ Simply open [Winove](https://lovable.dev/projects/47e97737-0d5b-4617-a6fc-0cc3a9
 When building locally or running `deploy.sh`, make sure a `.env` file exists
 with `VITE_API_URL` defined. The provided `deploy.sh` script will create a
 minimal `.env` automatically.
+
+### Manual deploy with `deploy/deploy.sh`
+
+The repository includes `deploy/deploy.sh`, which configures the Node 22
+runtime expected in production before installing dependencies and running the
+build steps.
+
+To run the deploy pipeline locally from the project root:
+
+```sh
+bash ./deploy/deploy.sh
+```
+
+The script prints the detected `node` and `npm` versions, runs `npm ci` with a
+fallback to `npm install`, builds the frontend when the `build` script is
+present, copies the resulting `dist/` folder to `backend/dist`, and finally
+executes the backend `sitemap` script when available.
+
+### Running the deploy script from Plesk
+
+In the Plesk panel, configure your deployment task to execute the same command
+from the repository root:
+
+```sh
+bash ./deploy/deploy.sh
+```
+
+The script automatically prepends `/opt/plesk/node/22/bin` to `PATH` and sets
+`NODENV_VERSION=22`, ensuring the Node 22 toolchain is used during the build
+and preventing `npm` lookup failures.
 
 ### Automatic deploys
 

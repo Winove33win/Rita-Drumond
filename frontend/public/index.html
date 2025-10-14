@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rita Drumond — Palestrante e Consultora</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Caveat:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Poppins", "Inter", "system-ui", "sans-serif"],
+              script: ["Caveat", "cursive"],
+            },
+            colors: {
+              ink: "#0E0E0E",
+              muted: "#6B7280",
+              brand: {
+                amber: "#FACC15",
+                600: "#D97706",
+              },
+              panel: "#0F172A",
+              chip: "#D1D5DB",
+              chipTxt: "#F3F4F6",
+            },
+            boxShadow: {
+              elev1: "0 6px 18px rgba(0,0,0,.10)",
+              elev2: "0 16px 40px rgba(0,0,0,.12)",
+            },
+            borderRadius: {
+              smx: "10px",
+              mdx: "16px",
+              lgx: "20px",
+              xlx: "28px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      body {
+        background-color: #ffffff;
+      }
+      .hero-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(8, 9, 14, 0.72), rgba(8, 9, 14, 0.48));
+        z-index: 0;
+      }
+      .hero-section::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 55%);
+        clip-path: polygon(58% 0, 100% 0, 100% 100%, 42% 100%);
+        z-index: 1;
+      }
+      .hero-content,
+      .hero-cutout {
+        position: relative;
+        z-index: 2;
+      }
+      .hero-cutout img {
+        filter: drop-shadow(0 24px 48px rgba(15, 23, 42, 0.4));
+      }
+      .wave-band {
+        background: linear-gradient(180deg, #ffffff 0%, #fff7dc 45%, #fff06a 100%);
+        position: relative;
+        overflow: hidden;
+      }
+      .wave-band::before,
+      .wave-band::after {
+        content: "";
+        position: absolute;
+        width: 120%;
+        height: 140px;
+        left: -10%;
+        background: #ffffff;
+      }
+      .wave-band::before {
+        top: -70px;
+        border-bottom-left-radius: 50% 80%;
+        border-bottom-right-radius: 50% 80%;
+      }
+      .wave-band::after {
+        bottom: -70px;
+        border-top-left-radius: 50% 80%;
+        border-top-right-radius: 50% 80%;
+      }
+      .highlight-chip {
+        background: linear-gradient(90deg, rgba(250, 204, 21, 0.36), rgba(250, 204, 21, 0));
+      }
+      .pattern-dots {
+        background-image: radial-gradient(circle, rgba(250, 204, 21, 0.7) 2px, transparent 2px);
+        background-size: 18px 18px;
+      }
+      .play-button::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 9999px;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+      }
+      .play-button::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-35%, -50%);
+        border-style: solid;
+        border-width: 10px 0 10px 16px;
+        border-color: transparent transparent transparent rgba(255, 255, 255, 0.92);
+      }
+      .cta-diagonal {
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-diagonal::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(130deg, rgba(255, 255, 255, 0.12), transparent 55%);
+        pointer-events: none;
+      }
+      .shape-blob {
+        position: absolute;
+        inset: auto;
+        width: 220px;
+        height: 220px;
+        border-radius: 9999px;
+        background: radial-gradient(circle at 30% 30%, rgba(250, 204, 21, 0.65), rgba(217, 119, 6, 0.5));
+        filter: blur(0.5px);
+        opacity: 0.75;
+      }
+      .shape-blob.right {
+        right: -80px;
+        top: 20%;
+      }
+      .shape-blob.left {
+        left: -90px;
+        bottom: -30px;
+      }
+      .shape-ring {
+        position: absolute;
+        width: 160px;
+        height: 160px;
+        border-radius: 9999px;
+        border: 18px solid rgba(255, 255, 255, 0.8);
+        top: -48px;
+        right: -48px;
+        opacity: 0.65;
+      }
+      .shape-half {
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        border-radius: 0 0 140px 140px;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0));
+        left: -40px;
+        top: 40px;
+        opacity: 0.45;
+      }
+      @media (max-width: 1024px) {
+        .hero-section::after {
+          clip-path: polygon(0 0, 100% 0, 100% 60%, 0 100%);
+          opacity: 0.55;
+        }
+      }
+      @media (max-width: 768px) {
+        .wave-band::before,
+        .wave-band::after {
+          height: 100px;
+        }
+        .shape-ring {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="font-sans text-ink antialiased">
+    <!-- HERO -->
+    <header
+      class="hero-section relative flex min-h-[90vh] items-center overflow-hidden bg-cover bg-center"
+      style="background-image: url('/imgs/Rita-drumond (4).jpg');"
+    >
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-900/50 to-slate-900/10"></div>
+      <div class="container mx-auto flex w-full max-w-[1140px] flex-col gap-10 px-6 py-24 lg:flex-row lg:items-center">
+        <!-- HERO TEXT -->
+        <div class="hero-content max-w-xl space-y-6 text-white" data-aos="fade-up">
+          <p class="text-sm uppercase tracking-[0.3em] text-brand-amber">Conexões que transformam</p>
+          <h1 class="text-4xl font-semibold leading-[1.05] md:text-5xl xl:text-[60px]">
+            <span class="text-brand-amber">Rita</span> Drumond
+          </h1>
+          <h2 class="text-xl font-medium text-brand-amber md:text-2xl">
+            Palestrante e Consultora
+          </h2>
+          <p class="max-w-lg text-base text-gray-100 md:text-lg">
+            Humanizando a cultura de segurança, diversidade e liderança com empatia,
+            histórias reais e provocações que movem equipes a agir.
+          </p>
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a
+              href="#contato"
+              class="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xlx bg-brand-amber px-6 py-3 text-base font-semibold text-ink shadow-elev1 transition hover:-translate-y-0.5 hover:shadow-elev2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-amber-600"
+            >
+              Solicitar contato
+            </a>
+            <a
+              href="#sobre"
+              class="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xlx border border-white/40 px-6 py-3 text-base font-medium text-white transition hover:-translate-y-0.5 hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              Conheça a trajetória
+            </a>
+          </div>
+        </div>
+        <!-- HERO CUTOUT -->
+        <div class="hero-cutout relative mx-auto flex max-w-md justify-center lg:max-w-lg" data-aos="zoom-in" data-aos-delay="150">
+          <img
+            src="/imgs/rita drumond (7).png"
+            alt="Rita Drumond palestrando com microfone"
+            class="w-full object-contain"
+            data-asset
+          />
+        </div>
+      </div>
+    </header>
+
+    <main class="bg-white text-ink">
+      <!-- PLAQUINHAS -->
+      <section class="bg-white py-20">
+        <div class="container mx-auto max-w-[1140px] px-6">
+          <div class="grid gap-8 lg:grid-cols-3">
+            <article
+              class="flex items-center gap-5 rounded-xlx bg-slate-700/85 p-6 text-chipTxt shadow-elev1 transition hover:bg-gradient-to-r hover:from-slate-600/90 hover:to-slate-500/80"
+              data-aos="fade-up"
+            >
+              <div class="h-20 w-24 overflow-hidden rounded-lgx shadow-elev1">
+                <img
+                  src="/imgs/Rita-drumond (2).jpg"
+                  alt="Rita Drumond conversando com plateia"
+                  class="h-full w-full object-cover"
+                  data-asset
+                />
+              </div>
+              <div class="space-y-2 text-sm">
+                <h3 class="text-xs font-semibold uppercase tracking-[0.3em] text-white">A receita do legado</h3>
+                <p class="leading-relaxed text-slate-100">
+                  Cultura de segurança com <span class="rounded-full bg-brand-amber px-2 py-0.5 text-ink">protagonismo</span>
+                  e ações que se sustentam.
+                </p>
+              </div>
+            </article>
+            <article
+              class="flex items-center gap-5 rounded-xlx bg-slate-700/85 p-6 text-chipTxt shadow-elev1 transition hover:bg-gradient-to-r hover:from-slate-600/90 hover:to-slate-500/80"
+              data-aos="fade-up"
+              data-aos-delay="120"
+            >
+              <div class="h-20 w-24 overflow-hidden rounded-lgx shadow-elev1">
+                <img
+                  src="/imgs/Rita-drumond (3).jpg"
+                  alt="Rita Drumond liderando dinâmica com equipe"
+                  class="h-full w-full object-cover"
+                  data-asset
+                />
+              </div>
+              <div class="space-y-2 text-sm">
+                <h3 class="text-xs font-semibold uppercase tracking-[0.3em] text-white">Qual é a mágica?</h3>
+                <p class="leading-relaxed text-slate-100">
+                  Conversas francas que conectam gerações, inspiram <span class="rounded-full bg-brand-amber px-2 py-0.5 text-ink">confiança</span>
+                  e aceleram resultados.
+                </p>
+              </div>
+            </article>
+            <article
+              class="flex items-center gap-5 rounded-xlx bg-slate-700/85 p-6 text-chipTxt shadow-elev1 transition hover:bg-gradient-to-r hover:from-slate-600/90 hover:to-slate-500/80"
+              data-aos="fade-up"
+              data-aos-delay="240"
+            >
+              <div class="h-20 w-24 overflow-hidden rounded-lgx shadow-elev1">
+                <img
+                  src="/imgs/Rita-drumond (6).jpg"
+                  alt="Rita Drumond interagindo com público"
+                  class="h-full w-full object-cover"
+                  data-asset
+                />
+              </div>
+              <div class="space-y-2 text-sm">
+                <h3 class="text-xs font-semibold uppercase tracking-[0.3em] text-white">Resultados com leveza</h3>
+                <p class="leading-relaxed text-slate-100">
+                  Humor na medida para manter times alertas, engajados e com <span class="rounded-full bg-brand-amber px-2 py-0.5 text-ink">pertencimento</span>.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAIXA AMARELA -->
+      <section class="wave-band py-24">
+        <div class="container relative mx-auto max-w-[1140px] px-6 text-center" data-aos="fade-up">
+          <p class="text-sm font-semibold uppercase tracking-[0.4em] text-ink/70">
+            Liderando em segurança
+          </p>
+          <div class="mt-12 grid gap-6 md:grid-cols-3">
+            <div class="overflow-hidden rounded-xlx shadow-elev1">
+              <img
+                src="/imgs/Rita-drumond (2).jpg"
+                alt="Plateia atenta a palestra de Rita Drumond"
+                class="h-full w-full object-cover"
+                data-asset
+              />
+            </div>
+            <div class="overflow-hidden rounded-xlx shadow-elev1">
+              <img
+                src="/imgs/Rita-drumond (3).jpg"
+                alt="Equipe celebrando com Rita Drumond"
+                class="h-full w-full object-cover"
+                data-asset
+              />
+            </div>
+            <div class="overflow-hidden rounded-xlx shadow-elev1">
+              <img
+                src="/imgs/Rita-drumond (6).jpg"
+                alt="Momento descontraído em palestra de Rita Drumond"
+                class="h-full w-full object-cover"
+                data-asset
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOCO INSTITUCIONAL -->
+      <section id="sobre" class="py-24">
+        <div class="container mx-auto flex max-w-[1140px] flex-col items-start gap-12 px-6 lg:flex-row lg:items-stretch">
+          <div class="flex-1 space-y-8" data-aos="fade-right">
+            <h2 class="font-script text-4xl text-brand-amber">Rita Drumond</h2>
+            <p class="text-lg leading-relaxed text-muted">
+              Especialista em segurança comportamental e diversidade geracional, Rita conecta histórias
+              reais com estratégias que atravessam organogramas e chegam às pessoas. Sua jornada é
+              marcada por experiências em grandes indústrias, construção civil e ambientes de alto risco,
+              sempre com foco em gente.
+            </p>
+            <p class="text-lg leading-relaxed text-muted highlight-chip rounded-lgx p-5">
+              "Quando o cuidado vira hábito, a inovação floresce." A frase que guia seus projetos mostra
+              como prevenção e performance podem caminhar juntas, respeitando cada voz e cada ritmo.
+            </p>
+            <p class="text-lg leading-relaxed text-muted">
+              Mentorando líderes e equipes, Rita implementa programas que dão autonomia, criam rituais de
+              aprendizagem contínua e mantêm a cultura viva na prática.
+            </p>
+          </div>
+          <div class="flex-1" data-aos="fade-left">
+            <div class="relative h-full min-h-[420px] overflow-hidden rounded-xlx shadow-elev2">
+              <img
+                src="/imgs/Rita-drumond (5).jpg"
+                alt="Retrato de Rita Drumond"
+                class="h-full w-full object-cover"
+                data-asset
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA ESCURO COM VÍDEO -->
+      <section class="pb-24">
+        <div class="container mx-auto max-w-[1140px] px-6">
+          <div class="cta-diagonal flex flex-col gap-10 rounded-xlx bg-panel p-10 text-white shadow-elev2 lg:flex-row lg:items-center">
+            <div class="relative flex-1" data-aos="zoom-in">
+              <div class="pattern-dots absolute -left-10 -top-10 hidden h-24 w-24 rounded-full lg:block"></div>
+              <div class="relative overflow-hidden rounded-xlx shadow-elev1">
+                <img
+                  src="/imgs/Rita drumond.png"
+                  alt="Rita Drumond palestrando no palco"
+                  class="w-full object-cover"
+                  data-asset
+                />
+                <span
+                  class="play-button absolute left-6 top-6 inline-flex h-14 w-14 items-center justify-center rounded-full"
+                  aria-hidden="true"
+                ></span>
+              </div>
+            </div>
+            <div class="flex max-w-xl flex-1 flex-col gap-4" data-aos="fade-left" data-aos-delay="180">
+              <h3 class="text-2xl font-semibold">Vamos construir uma cultura que cuida e entrega resultados?</h3>
+              <p class="text-base text-slate-200">
+                Palestras, mentorias e consultorias com trilhas personalizadas para diferentes segmentos.
+                Conte com dinâmicas, storytelling e ferramentas práticas para virar a chave.
+              </p>
+              <a
+                id="contato"
+                href="mailto:contato@ritadrumond.com"
+                class="inline-flex min-h-[44px] min-w-[44px] items-center justify-center self-start rounded-xlx bg-brand-amber px-6 py-3 text-base font-semibold text-ink transition hover:-translate-y-0.5 hover:shadow-elev2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-amber-600"
+              >
+                Solicitar contato
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOCO ESTÉTICO -->
+      <section class="relative overflow-hidden bg-white py-24">
+        <div class="container mx-auto flex max-w-[1140px] flex-col gap-12 px-6 lg:flex-row lg:items-center">
+          <div class="relative flex-1" data-aos="fade-right">
+            <div class="shape-blob left"></div>
+            <div class="shape-blob right"></div>
+            <div class="shape-ring"></div>
+            <div class="shape-half"></div>
+            <div class="relative overflow-hidden rounded-xlx shadow-elev2">
+              <img
+                src="/imgs/Rita-drumond (6).jpg"
+                alt="Rita Drumond em momento descontraído"
+                class="w-full object-cover"
+                data-asset
+              />
+            </div>
+          </div>
+          <div class="flex-1 space-y-6" data-aos="fade-left" data-aos-delay="160">
+            <h3 class="text-3xl font-semibold leading-tight">
+              Palestras, workshops e treinamentos feitos sob medida
+            </h3>
+            <p class="text-lg leading-relaxed text-muted">
+              Experiências imersivas para provocar consciência, engajar equipes intergeracionais e gerar
+              resultados sustentáveis. Cada encontro é pensado para o contexto da sua empresa, com
+              construção colaborativa e métricas de impacto.
+            </p>
+            <div class="grid gap-4 text-base text-muted">
+              <div class="flex items-start gap-3">
+                <span class="mt-1 inline-flex h-3 w-3 rounded-full bg-brand-amber"></span>
+                <p>Diagnóstico e desenho de jornadas de cultura e segurança psicológica.</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="mt-1 inline-flex h-3 w-3 rounded-full bg-brand-amber"></span>
+                <p>Workshops de liderança inclusiva e comunicação entre gerações.</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="mt-1 inline-flex h-3 w-3 rounded-full bg-brand-amber"></span>
+                <p>Programas contínuos com acompanhamento e materiais customizados.</p>
+              </div>
+            </div>
+            <a
+              href="mailto:contato@ritadrumond.com"
+              class="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xlx border border-ink px-6 py-3 text-base font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-ink hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            >
+              Fale com Rita
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- EQUIPES INTERGERACIONAIS -->
+      <section class="bg-[#fff9ec] py-24">
+        <div class="container mx-auto max-w-[1140px] px-6 text-center" data-aos="fade-up">
+          <p class="text-sm font-semibold uppercase tracking-[0.4em] text-brand-amber">
+            Equipes intergeracionais e resultados sustentáveis
+          </p>
+          <h3 class="mt-6 text-3xl font-semibold text-ink">
+            Segurança, diversidade e pertencimento caminhando juntos
+          </h3>
+          <p class="mx-auto mt-4 max-w-2xl text-base text-muted">
+            O futuro da sua organização depende da capacidade de integrar saberes, dar voz às diferentes
+            gerações e manter o cuidado diário com as pessoas e com o negócio.
+          </p>
+          <div class="mx-auto mt-12 max-w-2xl" data-aos="zoom-in" data-aos-delay="150">
+            <div class="relative overflow-hidden rounded-xlx bg-white p-6 shadow-elev2">
+              <div class="overflow-hidden rounded-lgx">
+                <img
+                  src="/imgs/Rita-drumond (2).jpg"
+                  alt="Equipe reunida com Rita Drumond"
+                  class="h-80 w-full object-cover"
+                  data-asset
+                />
+              </div>
+              <div class="mt-6 space-y-3 text-left">
+                <h4 class="text-xl font-semibold text-ink">Programas para equipes intergeracionais</h4>
+                <p class="text-base leading-relaxed text-muted">
+                  Conte com a condução segura para promover conversas que ampliam o olhar e criam
+                  compromissos reais com a cultura de segurança.
+                </p>
+                <div class="inline-flex items-center gap-2 rounded-full border border-brand-amber bg-white px-4 py-2 text-sm font-semibold text-ink">
+                  <span class="inline-flex h-2 w-2 rounded-full bg-brand-amber"></span>
+                  trilhas personalizadas
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="bg-white py-14">
+      <div class="container mx-auto max-w-[1140px] px-6 text-center">
+        <p class="font-script text-3xl text-ink">Rita Drumond</p>
+        <p class="mt-2 text-sm text-muted">Palestrante &amp; Consultora — Cultura de Segurança e Diversidade</p>
+        <p class="mt-4 text-xs text-muted/70">© 2024 Rita Drumond. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="/script.js" defer></script>
+    <script>
+      AOS.init({
+        duration: 700,
+        easing: "ease-out-cubic",
+        once: true,
+        offset: 120,
+      });
+    </script>
+  </body>
+</html>

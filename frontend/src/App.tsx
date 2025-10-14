@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import palestraImage from "@repo-assets/palestra- Rita drumond.png";
 import "./App.css";
 
 const chipItems = [
@@ -226,7 +227,7 @@ const App = () => {
       <section className="container" style={{ padding: "30px 0 80px" }}>
         <div className="two" style={{ gridTemplateColumns: "1fr 1.1fr" }}>
           <div className="reveal">
-            <img src="./imgs/Depoimentos 2.jpg" alt="Registro de palestra para equipes" />
+            <img src={palestraImage} alt="Rita conduzindo palestra para equipes" />
           </div>
           <div className="reveal">
             <h3>Rita Drumond</h3>

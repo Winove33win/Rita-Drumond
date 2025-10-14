@@ -7,373 +7,497 @@ type ButtonProps = {
   href: string;
   children: ReactNode;
   variant?: ButtonVariant;
-  inHero?: boolean;
 };
 
-const impactStats = [
-  { value: "12+", label: "anos provocando viradas de chave" },
-  { value: "280+", label: "eventos cocriados com lideranças" },
-  { value: "98%", label: "dos clientes renovam o convite" },
-  { value: "100%", label: "das entregas com plano pós-evento" },
-];
+type PlaqueCard = {
+  thumb: string;
+  width: number;
+  height: number;
+  alt: string;
+  title: string;
+  text: string;
+};
 
-const storyBlocks = [
+type GalleryItem = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  caption?: string;
+};
+
+const plaqueCards: PlaqueCard[] = [
   {
-    id: "story-escuta",
-    title: "Escuta que transforma palco em conversa",
-    copy:
-      "Cada roteiro nasce da escuta ativa com o time. A partir das histórias reais, traduzimos o que o público precisa sentir, entender e decidir naquele momento estratégico.",
-    image: "/imgs/Rita-drumond (2).jpg",
-    alt:
-      "Rita Drumond sorrindo enquanto conversa com o público durante uma palestra, plateia desfocada ao fundo",
-    direction: "normal" as const,
+    thumb: "/imgs/clientes (2).png",
+    width: 1080,
+    height: 1080,
+    alt: "Selo visual com ícones que representam estratégias de legado",
+    title: "A RECEITA DO LEGADO",
+    text:
+      "Descubra como construir e fortalecer sua marca pessoal, inspirando, motivando e criando vínculos que transcendem o dia a dia. Vamos abordar as práticas que líderes visionários utilizam para criar culturas organizacionais onde o legado é uma força propulsora, gerando resultados que vão além do lucro.",
   },
   {
-    id: "story-acao",
-    title: "Narrativa que move para a ação",
-    copy:
-      "Conecto emoção e estratégia com provocações práticas. Cada encontro termina com compromissos claros e materiais que sustentam o movimento depois do evento.",
+    thumb: "/imgs/clientes (3).png",
+    width: 1080,
+    height: 1080,
+    alt: "Imagem abstrata com ilustração vibrante fazendo referência à magia da Disney",
+    title: "QUAL É A MÁGICA?",
+    text:
+      "Nesta palestra envolvente e inspiradora, vamos desvendar os 7 segredos por trás da excelência na experiência dos clientes da Disney. Você vai descobrir como a magia vai além das atrações e personagens, transformando cada interação com o cliente em uma experiência inesquecível.",
+  },
+  {
+    thumb: "/imgs/clientes (4).png",
+    width: 1080,
+    height: 1080,
+    alt: "Ilustração colorida simbolizando energia e vitalidade",
+    title: "REJUVELHECENDO",
+    text:
+      "Nesta palestra vamos abordar como abraçar a vida com atitude, inovação e vitalidade transformando a forma como você encara os desafios da conexão intergeracional nas equipes, desafiando a ideia do envelhecimento tradicional, mantendo a energia de um jovem e a sabedoria de um experiente e assim transcendendo a idade.",
+  },
+];
+
+const faixaParagrafos = [
+  "Essa palestra é para líderes que querem não só garantir que as regras de segurança sejam seguidas, mas também inspirar a equipe a adotar uma postura de cuidado e prevenção no dia a dia.",
+  "A ideia é mostrar que a segurança começa com a liderança e que, quando o líder dá o exemplo, todo mundo segue.",
+  "Vamos conversar sobre como o líder pode engajar sua equipe e ter atitudes seguras e como a comunicação clara e direta ajuda a evitar riscos.",
+  "Uma boa liderança é também cuidar da segurança de todos.",
+];
+
+const institucionalSections = [
+  {
+    id: "sobre-colaborativo",
     image: "/imgs/Rita-drumond (3).jpg",
-    alt:
-      "Rita Drumond em cena no palco, falando para o público com tela iluminada ao fundo",
-    direction: "reverse" as const,
+    width: 3584,
+    height: 4480,
+    alt: "Rita Drumond palestrando em palco com expressão vibrante",
+    accentImages: [
+      {
+        src: "/imgs/Rita drumond.png",
+        width: 1080,
+        height: 1080,
+        alt: "Retrato de Rita Drumond sorrindo para a câmera",
+      },
+      {
+        src: "/imgs/rita drumond (6).png",
+        width: 1080,
+        height: 1080,
+        alt: "Recorte PNG de Rita Drumond gesticulando durante apresentação",
+      },
+    ],
+    paragraphs: [
+      "Utiliza metodologias colaborativas para encontrar soluções inovadoras. Viajante incansável e leitora ávida, busca constantemente expandir seus conhecimentos e enriquecer sua visão de mundo.",
+      "Com paixão por aprender e compartilhar, utiliza metodologias colaborativas para impulsionar a inovação e a resolução de problemas complexos.",
+      "Com sólida experiência em coaching, acompanha líderes em suas jornadas de desenvolvimento, gerando resultados excepcionais e alinhados aos objetivos estratégicos das organizações.",
+    ],
+  },
+  {
+    id: "sobre-trajetoria",
+    image: "/imgs/Rita-drumond (6).jpg",
+    width: 896,
+    height: 1152,
+    alt: "Rita Drumond em dinâmica com peças coloridas de LEGO",
+    accentImages: [
+      {
+        src: "/imgs/rita drumond (7).png",
+        width: 1080,
+        height: 1080,
+        alt: "Recorte PNG de Rita Drumond animada com microfone",
+      },
+      {
+        src: "/imgs/rita drumond (8).png",
+        width: 1080,
+        height: 1080,
+        alt: "Recorte PNG de Rita Drumond acenando com alegria",
+      },
+    ],
+    paragraphs: [
+      "Fundadora e CEO da MatKa, orientada para transformar vidas e negócios através do desenvolvimento humano e organizacional.",
+      "Administradora com MBA em Gestão de Pessoas, especialista em metodologias inovadoras como LEGO® SERIOUS PLAY® e Estratégia Disney, promove o desenvolvimento de pessoas e a construção de organizações mais engajadas e resilientes.",
+      "Uma grande alegria é ser avó, experiência que permite conexão especial com as novas gerações.",
+    ],
   },
 ];
 
-const galleryItems = [
+const galleryItems: GalleryItem[] = [
   {
-    src: "/imgs/rita drumond (8).png",
-    alt: "Rita Drumond em recorte PNG sorrindo com os braços abertos",
-    caption: "Energia que acolhe",
-  },
-  {
-    src: "/imgs/Rita drumond.png",
-    alt: "Rita Drumond no palco com microfone e plateia iluminada",
-    caption: "Conexão em grandes palcos",
-  },
-  {
-    src: "/imgs/Rita-drumond (6).jpg",
-    alt: "Foto divertida de Rita Drumond com peças de LEGO coloridas",
-    caption: "Dinâmicas criativas",
+    src: "/imgs/Rita-drumond.jpg",
+    width: 4096,
+    height: 2296,
+    alt: "Rita Drumond no palco interagindo com o público",
+    caption: "Conexão em cada encontro",
   },
   {
     src: "/imgs/Rita-drumond (2).jpg",
-    alt: "Rita Drumond falando para o público com atenção total",
-    caption: "Experiências imersivas",
+    width: 2976,
+    height: 5280,
+    alt: "Rita Drumond em apresentação dinâmica com fundo iluminado",
+    caption: "Histórias que inspiram decisões",
   },
+  {
+    src: "/imgs/Rita-drumond (5).jpg",
+    width: 768,
+    height: 1344,
+    alt: "Retrato vertical de Rita Drumond em fundo neutro",
+    caption: "Presença que gera confiança",
+  },
+  {
+    src: "/imgs/Rita-drumond (7).jpg",
+    width: 1024,
+    height: 1024,
+    alt: "Rita Drumond sorrindo em close com fundo vibrante",
+    caption: "Energia que acolhe",
+  },
+  {
+    src: "/imgs/Clientes.jpg",
+    width: 1920,
+    height: 1080,
+    alt: "Foto de evento corporativo com plateia atenta",
+    caption: "Comunidades em movimento",
+  },
+  {
+    src: "/imgs/Depoimentos 2.jpg",
+    width: 1920,
+    height: 1080,
+    alt: "Visão geral de auditório iluminado durante palestra",
+    caption: "Resultados que ecoam",
+  },
+];
+
+const faixaImagens: GalleryItem[] = [
   {
     src: "/imgs/Rita-drumond (3).jpg",
-    alt: "Rita Drumond no palco gesticulando com entusiasmo",
-    caption: "Histórias que engajam",
+    width: 3584,
+    height: 4480,
+    alt: "Rita Drumond conversando com o público em auditório",
+  },
+  {
+    src: "/imgs/Rita-drumond (2).jpg",
+    width: 2976,
+    height: 5280,
+    alt: "Rita Drumond gesticulando durante palestra",
+  },
+  {
+    src: "/imgs/Rita-drumond (6).jpg",
+    width: 896,
+    height: 1152,
+    alt: "Detalhe de dinâmica com LEGO facilitada por Rita Drumond",
   },
 ];
 
-const formatCards = [
-  {
-    title: "Palestras assinatura",
-    description:
-      "Provocações sob medida para eventos corporativos que pedem presença marcante.",
-    bullets: [
-      "Coleta de briefing com lideranças",
-      "Roteiro cocriado com dados e histórias",
-      "Ativações de plateia ao vivo",
-      "CTA pós-evento enviado em até 24h",
-    ],
-    thumbnail: "/imgs/rita drumond (6).png",
-  },
-  {
-    title: "Experiências imersivas",
-    description:
-      "Workshops e jornadas de cocriação para alinhar cultura, estratégia e comportamento.",
-    bullets: [
-      "Diagnóstico rápido do contexto",
-      "Dinâmicas colaborativas",
-      "Ferramentas visuais exclusivas",
-      "Plano de continuidade guiado",
-    ],
-    thumbnail: "/imgs/rita drumond (7).png",
-  },
-  {
-    title: "Mentorias e keynotes",
-    description:
-      "Acompanhamento para lideranças que precisam de repertório e presença em cena.",
-    bullets: [
-      "Encontros online ou presenciais",
-      "Planos de ação acompanhados",
-      "Feedback personalizado a cada sessão",
-      "Suporte assíncrono entre encontros",
-    ],
-    thumbnail: "/imgs/rita drumond (8).png",
-  },
-];
-
-const Button = ({ href, children, variant = "primary", inHero = false }: ButtonProps) => (
-  <a
-    className={`button button--${variant}${inHero ? " button--hero" : ""}`}
-    href={href}
-  >
+const Button = ({ href, children, variant = "primary" }: ButtonProps) => (
+  <a className={`button button--${variant}`} href={href}>
     {children}
   </a>
 );
 
 function App() {
   useEffect(() => {
-    document.dispatchEvent(new Event("rita:hydrate"));
+    const layers = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-parallax-speed]")
+    );
+    let ticking = false;
+
+    const updateParallax = () => {
+      layers.forEach((layer) => {
+        const speed = Number(layer.dataset.parallaxSpeed ?? 0);
+        const offset = window.scrollY * speed * -1;
+        layer.style.transform = `translate3d(0, ${offset}px, 0)`;
+      });
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    };
+
+    updateParallax();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    const animated = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-animate]")
+    );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    animated.forEach((element) => observer.observe(element));
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      observer.disconnect();
+    };
   }, []);
 
   return (
     <div className="page">
-      <header className="hero layer-hero" id="inicio">
+      <header className="hero" id="inicio">
         <div
-          aria-hidden="true"
           className="hero__background"
-          data-parallax-layer
-          data-parallax-speed="0.22"
-          data-animate="fade"
+          data-parallax-speed="0.18"
+          style={{
+            backgroundImage:
+              'linear-gradient(180deg, rgba(10, 10, 10, 0.65), rgba(10, 10, 10, 0.35)), url("/imgs/Rita-drumond (4).jpg"), url("/imgs/Rita-drumond.jpg")',
+          }}
         />
-        <div className="hero__container container">
-          <p className="eyebrow" data-animate="fade" data-animate-delay="80">
-            Rita Drumond • Palestrante, facilitadora e estrategista
-          </p>
-          <h1 className="hero__title" data-animate="slide-up" data-animate-delay="120">
-            Histórias em camadas para destravar decisões corajosas
-          </h1>
-          <p className="hero__claim" data-animate="slide-up" data-animate-delay="160">
-            Experiências autorais que combinam emoção e estratégia para mobilizar lideranças, equipes e comunidades inteiras.
-          </p>
-          <div className="hero__actions" data-animate="fade" data-animate-delay="220">
-            <Button href="#contato" variant="primary" inHero>
-              Quero cocriar um evento
-            </Button>
-            <Button href="#formatos" variant="ghost" inHero>
-              Ver formatos disponíveis
-            </Button>
-          </div>
-        </div>
-        {/* PNG em camadas sobre a próxima seção */}
-        <img
-          alt="Recorte da Rita Drumond sorrindo de braços abertos"
-          className="hero__cutout rita-cutout"
-          data-asset
-          data-parallax-layer
-          data-parallax-speed="0.12"
-          height={1080}
-          loading="eager"
-          src="/imgs/rita drumond (7).png"
-          width={1080}
-        />
-      </header>
-
-      <div aria-hidden="true" className="curve-sep curve-sep--light" />
-
-      <section aria-labelledby="intro-heading" className="section intro" id="intro">
-        <div className="container intro__grid">
-          <div className="intro__portrait" data-animate="slide-up">
-            {/* Retrato clean para reforçar autoridade */}
-            <img
-              alt="Retrato clean de Rita Drumond em fundo claro"
-              data-asset
-              height={1344}
-              loading="lazy"
-              src="/imgs/Rita-drumond (5).jpg"
-              width={768}
-            />
-          </div>
-          <div className="intro__content">
-            <h2 id="intro-heading" data-animate="slide-up" data-animate-delay="80">
-              Presença que inspira, estratégia que entrega
-            </h2>
-            <p data-animate="fade" data-animate-delay="120">
-              Rita Drumond combina storytelling, facilitação e design de experiências para criar encontros que deixam marcas. Cada entrega é cocriada com o cliente para garantir relevância, acolhimento e impacto tangível.
+        <div className="hero__content container">
+          <div className="hero__text">
+            <p className="hero__kicker" data-animate="fade" data-animate-delay="80">
+              Rita Drumond
             </p>
-            <div className="intro__stats" role="list">
-              {impactStats.map((stat, index) => (
-                <article
-                  className="intro__stat-card"
-                  data-animate="fade"
-                  data-animate-delay={`${160 + index * 80}`}
-                  key={stat.label}
-                  role="listitem"
-                >
-                  <span className="intro__stat-value">{stat.value}</span>
-                  <span className="intro__stat-label">{stat.label}</span>
-                </article>
-              ))}
-            </div>
-            <div
-              className="intro__cta"
-              data-animate="slide-up"
-              data-animate-delay={`${160 + impactStats.length * 80}`}
-            >
-              <Button href="#story" variant="secondary">
-                Conheça a abordagem completa
+            <h1 className="hero__title" data-animate="slide-up" data-animate-delay="120">
+              Rita Drumond
+            </h1>
+            <p className="hero__subtitle" data-animate="slide-up" data-animate-delay="160">
+              PALESTRANTE E CONSULTORA
+            </p>
+            <p className="hero__description" data-animate="slide-up" data-animate-delay="200">
+              Inspirando empresas e pessoas a terem mais resultados com criatividade e leveza.
+            </p>
+            <div className="hero__actions" data-animate="fade" data-animate-delay="260">
+              <Button href="#contato" variant="primary">
+                Solicitar contato
+              </Button>
+              <Button href="#sobre" variant="ghost">
+                Conheça a trajetória
               </Button>
             </div>
           </div>
+          <div className="hero__card" data-animate="slide-left" data-animate-delay="200">
+            <img
+              src="/imgs/Rita-drumond (5).jpg"
+              alt="Retrato vertical de Rita Drumond com expressão acolhedora"
+              width={768}
+              height={1344}
+              loading="eager"
+            />
+          </div>
         </div>
-      </section>
+        <div className="wave wave-bottom" aria-hidden="true">
+          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" role="img">
+            <path d="M0,64L80,74.7C160,85,320,107,480,106.7C640,107,800,85,960,74.7C1120,64,1280,64,1360,64L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z" />
+          </svg>
+        </div>
+      </header>
 
-      <div aria-hidden="true" className="curve-sep curve-sep--amber" />
-
-      <section aria-labelledby="story-heading" className="section story" id="story">
-        <div className="container story__container">
-          <header className="story__header" data-animate="fade">
-            <p className="eyebrow">Storytelling em movimento</p>
-            <h2 id="story-heading">Da emoção à estratégia em cada curva</h2>
-            <p>
-              Dois capítulos que desenham a jornada do público: da escuta profunda à mobilização coletiva para agir com coragem.
-            </p>
-          </header>
-          <div className="story__blocks">
-            {storyBlocks.map((block, index) => (
-              <article
-                className={`story__block story__block--${block.direction}`}
-                data-animate={block.direction === "reverse" ? "slide-left" : "slide-right"}
-                data-animate-delay={`${80 + index * 80}`}
-                id={block.id}
-                key={block.id}
-              >
-                <div className="story__text">
-                  <h3>{block.title}</h3>
-                  <p>{block.copy}</p>
-                </div>
-                <div className="story__media">
-                  {/* Blocos em zig-zag para reforçar a narrativa */}
+      <section className="section plaquinhas" id="plaquinhas">
+        <div className="container">
+          <div className="section__header" data-animate="fade">
+            <h2>Palestras em destaque</h2>
+            <p>Temas para provocar ação imediata em eventos, convenções e jornadas corporativas.</p>
+          </div>
+          <div className="plaquinhas__grid">
+            {plaqueCards.map((card) => (
+              <article className="plaquinha" key={card.title} data-animate="slide-up">
+                <div className="plaquinha__media">
                   <img
-                    alt={block.alt}
-                    data-asset
-                    height={block.id === "story-escuta" ? 5280 : 4480}
+                    src={card.thumb}
+                    width={card.width}
+                    height={card.height}
+                    alt={card.alt}
                     loading="lazy"
-                    src={block.image}
-                    width={block.id === "story-escuta" ? 2976 : 3584}
                   />
+                </div>
+                <div className="plaquinha__body">
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
                 </div>
               </article>
             ))}
           </div>
         </div>
+        <div className="diag-mask diag-mask--amber" aria-hidden="true" />
       </section>
 
-      <section aria-labelledby="impact-heading" className="impact" id="impacto">
-        <div
-          aria-hidden="true"
-          className="impact__background"
-          data-parallax-layer
-          data-parallax-speed="0.18"
-        />
-        <div className="impact__content" data-animate="fade">
-          <h2 id="impact-heading">“Quando a história é viva, a mudança acontece ali mesmo.”</h2>
-          <Button href="#contato" variant="primary">
-            Quero sentir esse impacto
-          </Button>
-        </div>
-      </section>
-
-      <div aria-hidden="true" className="curve-sep curve-sep--soft" />
-
-      <section aria-labelledby="galeria-heading" className="section gallery" id="galeria">
+      <section className="section faixa-amarela" id="liderando">
         <div className="container">
-          <header className="gallery__header" data-animate="fade">
-            <p className="eyebrow">Momentos ao vivo</p>
-            <h2 id="galeria-heading">Camadas da Rita em cena</h2>
-            <p>
-              Um recorte rápido de encontros recentes — cada imagem revela uma energia diferente para inspirar o próximo evento.
-            </p>
-          </header>
-          <div className="gallery__grid" role="list">
-            {galleryItems.map((item, index) => (
-              <figure
-                className="gallery__item"
-                data-animate="fade"
-                data-animate-delay={`${80 + index * 40}`}
-                key={item.src}
-                role="listitem"
-              >
-                {/* Galeria dinâmica sem vibe de apresentação de slides */}
+          <div className="faixa-amarela__content" data-animate="fade">
+            <h2>LIDERANDO EM SEGURANÇA</h2>
+            <div className="faixa-amarela__copy">
+              {faixaParagrafos.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+          <div className="faixa-amarela__gallery">
+            {faixaImagens.map((item) => (
+              <figure key={item.src} data-animate="slide-up">
                 <img
-                  alt={item.alt}
-                  data-asset
-                  height={item.src.includes(".png") ? 1080 : item.src.includes("(6)") ? 1152 : item.src.includes("(2)") ? 5280 : 4480}
-                  loading="lazy"
                   src={item.src}
-                  width={item.src.includes(".png") ? 1080 : item.src.includes("(6)") ? 896 : item.src.includes("(2)") ? 2976 : 3584}
+                  alt={item.alt}
+                  width={item.width}
+                  height={item.height}
+                  loading="lazy"
                 />
-                <figcaption>{item.caption}</figcaption>
               </figure>
             ))}
           </div>
         </div>
-      </section>
-
-      <div aria-hidden="true" className="curve-sep curve-sep--amber" />
-
-      <section aria-labelledby="formatos-heading" className="section formats" id="formatos">
-        <div className="container">
-          <header className="formats__header" data-animate="fade">
-            <p className="eyebrow">Formatos de palestra</p>
-            <h2 id="formatos-heading">Escolha a experiência ideal para o seu momento</h2>
-            <p>
-              Cada formato é adaptado com repertório, dinâmicas e materiais que sustentam a transformação após o encontro.
-            </p>
-          </header>
-          <div className="formats__grid">
-            {formatCards.map((card, index) => (
-              <article
-                className="formats__card"
-                data-animate="slide-up"
-                data-animate-delay={`${80 + index * 80}`}
-                key={card.title}
-              >
-                <div className="formats__thumb" aria-hidden="true">
-                  <img
-                    alt=""
-                    data-asset
-                    height={1080}
-                    loading="lazy"
-                    src={card.thumbnail}
-                    width={1080}
-                  />
-                </div>
-                <div className="formats__body">
-                  <h3>{card.title}</h3>
-                  <p>{card.description}</p>
-                  <ul>
-                    {card.bullets.map((bullet) => (
-                      <li key={bullet}>{bullet}</li>
-                    ))}
-                  </ul>
-                  <Button href="#contato" variant="ghost">
-                    Quero esse formato
-                  </Button>
-                </div>
-              </article>
-            ))}
-          </div>
+        <div className="wave wave-bottom" aria-hidden="true">
+          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" role="img">
+            <path d="M0,96L80,85.3C160,75,320,53,480,58.7C640,64,800,96,960,112C1120,128,1280,128,1360,112L1440,96L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z" />
+          </svg>
         </div>
       </section>
 
-      <section aria-labelledby="cta-final-heading" className="cta-final" id="contato">
-        <div className="cta-final__container container">
-          <div className="cta-final__content" data-animate="fade">
-            <p className="eyebrow">Próximo passo</p>
-            <h2 id="cta-final-heading">Vamos desenhar uma experiência inesquecível?</h2>
+      <section className="section institucional" id="sobre">
+        <div className="container institucional__grid">
+          {institutionalSections.map((section, index) => (
+            <article
+              key={section.id}
+              className={`institucional__item institucional__item--${index % 2 === 0 ? "normal" : "reverse"}`}
+            >
+              <div className="institucional__media" data-animate={index % 2 === 0 ? "slide-right" : "slide-left"}>
+                <div className="institucional__frame">
+                  <img
+                    src={section.image}
+                    width={section.width}
+                    height={section.height}
+                    alt={section.alt}
+                    loading="lazy"
+                  />
+                  <div className="institucional__accents">
+                    {section.accentImages.map((accent) => (
+                      <img
+                        key={accent.src}
+                        src={accent.src}
+                        width={accent.width}
+                        height={accent.height}
+                        alt={accent.alt}
+                        loading="lazy"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="institucional__content" data-animate="fade">
+                <h2>Rita Drumond</h2>
+                {section.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="wave wave-top" aria-hidden="true">
+          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" role="img">
+            <path d="M0,0L80,10.7C160,21,320,43,480,58.7C640,75,800,85,960,74.7C1120,64,1280,32,1360,16L1440,0V120H1360C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120H0Z" />
+          </svg>
+        </div>
+      </section>
+
+      <section className="section cta-escuro" id="cta-escuro">
+        <div
+          className="cta-escuro__background"
+          data-parallax-speed="0.12"
+          style={{
+            backgroundImage:
+              'linear-gradient(180deg, rgba(12, 12, 12, 0.78), rgba(12, 12, 12, 0.92)), url("/imgs/Rita-drumond (8).jpg")',
+          }}
+        />
+        <div className="container cta-escuro__content" data-animate="fade">
+          <div>
+            <h2>Rita Drumond</h2>
             <p>
-              Envie sua proposta e cocriamos uma entrega com storytelling visual, participação ativa e planos de continuidade que deixam legado.
+              Rejuvenesça suas ideias, abrace a diversidade de pensamentos e crie um legado que transcenda o tempo.
             </p>
-            <Button href="mailto:contato@ritadrumond.com" variant="primary">
-              Solicitar proposta agora
+            <Button href="#contato" variant="secondary">
+              Solicitar contato
             </Button>
           </div>
-          {/* PNG breakout saltando para fora do container */}
-          <div className="cta-final__breakout" data-animate="slide-left" data-animate-delay="120">
+          <div className="cta-escuro__thumb" data-animate="slide-left">
             <img
-              alt="Rita Drumond em recorte PNG inclinada, convidando para conversar"
-              className="breakout"
-              data-asset
+              src="/imgs/Depoimentos 2.jpg"
+              alt="Auditório iluminado com destaque para o palco de Rita Drumond"
+              width={1920}
               height={1080}
               loading="lazy"
-              src="/imgs/rita drumond (6).png"
+            />
+          </div>
+        </div>
+        <div className="diag-mask diag-mask--dark" aria-hidden="true" />
+      </section>
+
+      <section className="section galeria" id="galeria">
+        <div className="container">
+          <div className="section__header" data-animate="fade">
+            <h2>Momentos que ficam na memória</h2>
+            <p>Uma seleção rápida de encontros que mostram a força da presença e da escuta ativa.</p>
+          </div>
+          <div className="galeria__grid">
+            {galleryItems.map((item) => (
+              <figure key={item.src} data-animate="fade">
+                <img
+                  src={item.src}
+                  width={item.width}
+                  height={item.height}
+                  alt={item.alt}
+                  loading="lazy"
+                />
+                {item.caption && <figcaption>{item.caption}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        </div>
+        <div className="diag-mask" aria-hidden="true" />
+      </section>
+
+      <section className="section palestras" id="palestras">
+        <div className="container palestras__content" data-animate="fade">
+          <div>
+            <h2>Rita Drumond</h2>
+            <p className="palestras__subtitle">Palestras, Workshop's e treinamentos</p>
+            <p>
+              Imagine uma experiência de aprendizagem que combina a ciência da andragogia, a criatividade do Lego Serious Play e a magia da Metodologia Disney de gestão da experiência do cliente. Nossas palestras e treinamentos são desenhados para envolver e transformar
+            </p>
+          </div>
+          <Button href="#contato" variant="primary">
+            Solicitar contato
+          </Button>
+        </div>
+        <div className="wave wave-bottom" aria-hidden="true">
+          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" role="img">
+            <path d="M0,96L80,96C160,96,320,96,480,96C640,96,800,96,960,106.7C1120,117,1280,139,1360,149.3L1440,160V0H1360C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0H0Z" />
+          </svg>
+        </div>
+      </section>
+
+      <section className="section equipes" id="contato">
+        <div
+          className="equipes__background"
+          data-parallax-speed="0.1"
+          style={{
+            backgroundImage:
+              'linear-gradient(180deg, rgba(14, 14, 14, 0.84), rgba(14, 14, 14, 0.84)), url("/imgs/Rita-drumond (7).jpg")',
+          }}
+        />
+        <div className="container equipes__content" data-animate="fade">
+          <div className="equipes__text">
+            <h2>EQUIPES INTERGERACIONAIS E RESULTADOS</h2>
+            <p>
+              Vamos conversar sobre como o líder pode engajar sua equipe e ter atitudes seguras e como a comunicação clara e direta ajuda a evitar riscos. Um boa liderança é também cuidar da segurança de todos.
+            </p>
+            <Button href="#inicio" variant="secondary">
+              Voltar ao topo
+            </Button>
+          </div>
+          <div className="equipes__cutout" data-animate="slide-left">
+            <img
+              src="/imgs/rita drumond (7).png"
+              alt="Recorte PNG de Rita Drumond sorrindo com os braços abertos"
               width={1080}
+              height={1080}
+              loading="lazy"
             />
           </div>
         </div>
@@ -381,8 +505,13 @@ function App() {
 
       <footer className="footer">
         <div className="container footer__content">
-          <span>© {new Date().getFullYear()} Rita Drumond Estúdio</span>
-          <a href="#inicio">Voltar ao topo</a>
+          <div>
+            <p className="footer__signature">Rita Drumond</p>
+            <p className="footer__social">Instagram</p>
+          </div>
+          <p className="footer__quote">
+            "Quando o desenvolvimento humano abraça a criatividade, as possibilidades de crescimento se tornam infinitas."
+          </p>
         </div>
       </footer>
     </div>

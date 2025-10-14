@@ -4,13 +4,13 @@
   "type": "module",
   "main": "index.js",
   "engines": {
-    "node": ">=18.19.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "prestart": "node scripts/build-and-sync.mjs",
     "migrate": "node scripts/migrate.mjs",
     "start": "node index.js",
-    "deploy": "sh ../deploy/deploy.sh",
+    "deploy": "bash ./deploy/deploy.sh",
     "sitemap": "node scripts/generate-sitemap.mjs",
     "importWixBlog": "node scripts/importWixBlog.js"
   },

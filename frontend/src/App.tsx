@@ -57,6 +57,60 @@ const signatureHighlights = [
   },
 ];
 
+const experienceOfferings = [
+  {
+    tag: "Palestra",
+    title: "Ao vivo, com plateia engajada",
+    description:
+      "Histórias, dados e dinâmicas que conectam pessoas e criam um ambiente seguro para conversas profundas e decisões corajosas.",
+    highlights: [
+      "Formatos de 30 a 90 minutos",
+      "Conteúdo cocriado com o cliente",
+      "Ritual de abertura para energizar a plateia",
+    ],
+  },
+  {
+    tag: "Experiência imersiva",
+    title: "A Receita do Legado",
+    description:
+      "Workshops e trilhas de aprendizagem que integram cultura, estratégia e protagonismo coletivo para gerar mudanças tangíveis.",
+    highlights: [
+      "Materiais complementares personalizados",
+      "Mapeamento de personas e expectativas",
+      "Dinâmicas colaborativas para consolidar decisões",
+    ],
+  },
+  {
+    tag: "Mentoria",
+    title: "Qual é a mágica?",
+    description:
+      "Programas contínuos para lideranças e equipes que desejam fortalecer repertório, comunicação e presença em cena.",
+    highlights: [
+      "Encontros online ou presenciais",
+      "Planos de ação acompanhados",
+      "Feedbacks personalizados por sessão",
+    ],
+  },
+];
+
+const liveMoments = [
+  {
+    title: "Plateia em ressonância",
+    description:
+      "Conexão genuína que dá espaço para escuta, participação ativa e construção coletiva de novos caminhos.",
+  },
+  {
+    title: "Conteúdo que mobiliza",
+    description:
+      "Slides criativos, trilhas sonoras e recursos narrativos que traduzem temas complexos em ações práticas.",
+  },
+  {
+    title: "Compromissos em cena",
+    description:
+      "Cada encontro termina com pactos reais, registrados e compartilhados para manter o movimento vivo depois do evento.",
+  },
+];
+
 const testimonials = [
   {
     quote:
@@ -180,6 +234,38 @@ function App() {
 
         <SectionDivider flip />
 
+        <section className="offerings" id="conteudo">
+          <div className="offerings__intro">
+            <span className="offerings__eyebrow">Conteúdo em movimento</span>
+            <h2>Formatos que potencializam o seu evento</h2>
+            <p>
+              Do grande palco aos encontros estratégicos, cocriamos experiências que combinam emoção, método e repertório. Cada
+              entrega é desenhada para gerar pertencimento imediato e resultados sustentáveis.
+            </p>
+          </div>
+          <div className="offerings__grid">
+            {experienceOfferings.map((offering) => (
+              <article className="offering-card" key={offering.title}>
+                <header className="offering-card__header">
+                  <span className="offering-card__tag">{offering.tag}</span>
+                  <h3>{offering.title}</h3>
+                </header>
+                <p>{offering.description}</p>
+                <ul>
+                  {offering.highlights.map((highlight) => (
+                    <li key={highlight}>{highlight}</li>
+                  ))}
+                </ul>
+                <a className="offering-card__cta" href="#contato">
+                  Falar sobre este formato
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <SectionDivider />
+
         <section className="signature" id="servicos">
           <div className="signature__header">
             <span className="signature__eyebrow">Entregas autorais</span>
@@ -234,6 +320,27 @@ function App() {
         </section>
 
         <SectionDivider flip />
+
+        <section className="live-experience">
+          <div className="live-experience__headline">
+            <span className="live-experience__eyebrow">Ao vivo</span>
+            <h2>Liderando em segurança</h2>
+            <p>
+              Momentos que mostram conexão real com a plateia, conteúdo aplicável e energia para transformar rotinas. Veja o que
+              acontece quando cocriamos experiências sob medida.
+            </p>
+          </div>
+          <div className="live-experience__grid">
+            {liveMoments.map((moment) => (
+              <article className="live-card" key={moment.title}>
+                <h3>{moment.title}</h3>
+                <p>{moment.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <SectionDivider />
 
         <section className="testimonials" id="cases">
           <div className="testimonials__media">

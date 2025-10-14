@@ -1,4 +1,4 @@
-import { ReactNode, useId } from "react";
+import { ReactNode, useEffect, useId } from "react";
 import "./App.css";
 import heroImg from "./assets/palestra.png";
 import portraitImg from "./assets/foto-perfil.png";
@@ -132,6 +132,27 @@ const testimonials = [
   },
 ];
 
+const emotionalFrames = [
+  {
+    src: portraitImg,
+    alt: "Retrato acolhedor de Rita Drumond sorrindo",
+    caption: "Presença que aproxima e acolhe",
+    offset: "-8%",
+  },
+  {
+    src: heroImg,
+    alt: "Plateia emocionada acompanhando Rita Drumond no palco",
+    caption: "Plateias mobilizadas em todo o Brasil",
+    offset: "6%",
+  },
+  {
+    src: ritaMicrofoneImg,
+    alt: "Rita Drumond no palco segurando o microfone",
+    caption: "Narrativas que despertam ação imediata",
+    offset: "-4%",
+  },
+];
+
 type ButtonProps = {
   href: string;
   children: ReactNode;
@@ -139,7 +160,7 @@ type ButtonProps = {
 };
 
 const Button = ({ href, children, variant = "primary" }: ButtonProps) => (
-  <a className={`button button--${variant}`} href={href}>
+  <a className={`button button--${variant}`} href={href} data-reveal="fade">
     <span>{children}</span>
   </a>
 );
@@ -152,7 +173,7 @@ type SectionHeaderProps = {
 };
 
 const SectionHeader = ({ eyebrow, title, description, alignment = "left" }: SectionHeaderProps) => (
-  <header className={`section-header section-header--${alignment}`}>
+  <header className={`section-header section-header--${alignment}`} data-reveal="fade-up">
     {eyebrow && <span className="eyebrow">{eyebrow}</span>}
     <h2>{title}</h2>
     {description && (typeof description === "string" ? <p>{description}</p> : description)}
@@ -165,7 +186,7 @@ type StatCardProps = {
 };
 
 const StatCard = ({ value, label }: StatCardProps) => (
-  <li className="stat-card">
+  <li className="stat-card" data-reveal="zoom-in">
     <strong>{value}</strong>
     <span>{label}</span>
   </li>
@@ -178,7 +199,7 @@ type PillarItemProps = {
 };
 
 const PillarItem = ({ index, title, description }: PillarItemProps) => (
-  <li className="pillar-card">
+  <li className="pillar-card" data-reveal="fade-up">
     <span className="pillar-card__index">{String(index + 1).padStart(2, "0")}</span>
     <div>
       <h3>{title}</h3>
@@ -190,7 +211,7 @@ const PillarItem = ({ index, title, description }: PillarItemProps) => (
 type OfferingCardProps = (typeof experienceOfferings)[number];
 
 const OfferingCard = ({ tag, title, description, highlights }: OfferingCardProps) => (
-  <article className="offering-card">
+  <article className="offering-card" data-reveal="float-up">
     <header>
       <span className="tag">{tag}</span>
       <h3>{title}</h3>
@@ -210,7 +231,7 @@ const OfferingCard = ({ tag, title, description, highlights }: OfferingCardProps
 type HighlightCardProps = (typeof signatureHighlights)[number];
 
 const HighlightCard = ({ heading, copy }: HighlightCardProps) => (
-  <article className="highlight-card">
+  <article className="highlight-card" data-reveal="fade-up">
     <h3>{heading}</h3>
     <p>{copy}</p>
   </article>
@@ -219,7 +240,7 @@ const HighlightCard = ({ heading, copy }: HighlightCardProps) => (
 type LiveCardProps = (typeof liveMoments)[number];
 
 const LiveCard = ({ title, description }: LiveCardProps) => (
-  <article className="live-card">
+  <article className="live-card" data-reveal="fade-up">
     <h3>{title}</h3>
     <p>{description}</p>
   </article>
@@ -228,7 +249,7 @@ const LiveCard = ({ title, description }: LiveCardProps) => (
 type TestimonialCardProps = (typeof testimonials)[number];
 
 const TestimonialCard = ({ quote, author, role }: TestimonialCardProps) => (
-  <figure className="testimonial-card" role="listitem">
+  <figure className="testimonial-card" role="listitem" data-reveal="fade-up">
     <blockquote>
       <p>{quote}</p>
     </blockquote>
@@ -250,6 +271,8 @@ type VisualSectionProps = {
     src: string;
     alt: string;
     note?: string;
+    parallax?: number;
+    offset?: string;
   };
   children?: ReactNode;
 };
@@ -267,13 +290,17 @@ const VisualSection = ({
   <section className={`section visual-section visual-section--${background}`} id={id}>
     <div className="container">
       <div className={`grid visual-section__grid visual-section__grid--${orientation}`}>
-        <figure className="visual-section__media grid-span-5">
-          <div className="visual-section__image">
+        <figure
+          className="visual-section__media grid-span-5"
+          data-reveal="float-up"
+          data-parallax={image.parallax}
+        >
+          <div className="visual-section__image" style={{ marginTop: image.offset }}>
             <img src={image.src} alt={image.alt} />
           </div>
           {image.note && <figcaption className="visual-section__note">{image.note}</figcaption>}
         </figure>
-        <div className="visual-section__content grid-span-7">
+        <div className="visual-section__content grid-span-7" data-reveal="fade-up">
           <SectionHeader eyebrow={eyebrow} title={title} description={description} />
           {children && <div className="visual-section__body">{children}</div>}
         </div>
@@ -305,25 +332,99 @@ const SectionDivider = ({ flip = false }: { flip?: boolean }) => {
 };
 
 function App() {
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((element) => {
+        element.classList.add("is-visible");
+      });
+      return;
+    }
+
+    const revealElements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    if (!revealElements.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -10% 0px",
+      }
+    );
+
+    revealElements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const parallaxElements = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-parallax]")
+    ).filter((element) => element.dataset.parallax);
+
+    if (!parallaxElements.length) return;
+
+    let rafId: number | null = null;
+
+    const update = () => {
+      parallaxElements.forEach((element) => {
+        const speed = Number(element.dataset.parallax || "0.15");
+        const rect = element.getBoundingClientRect();
+        const offset = rect.top - window.innerHeight / 2;
+        const translate = Math.max(-140, Math.min(140, -offset * speed));
+        element.style.setProperty("--parallax-translate", `${translate}px`);
+      });
+      rafId = null;
+    };
+
+    const requestTick = () => {
+      if (rafId != null) return;
+      rafId = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", requestTick, { passive: true });
+    window.addEventListener("resize", update);
+
+    return () => {
+      if (rafId != null) {
+        window.cancelAnimationFrame(rafId);
+      }
+      window.removeEventListener("scroll", requestTick);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
   return (
     <div className="site">
       <header className="hero" id="top">
-        <div className="hero__background" aria-hidden="true">
+        <div className="hero__background" aria-hidden="true" data-parallax="0.08">
           <img src={heroImg} alt="Plateia vibrando durante palestra de Rita Drumond" />
           <div className="hero__overlay" />
         </div>
         <div className="container">
           <div className="hero__content">
-            <div className="hero__badge">
+            <div className="hero__badge" data-reveal="fade">
               <img src={seloImg} alt="" aria-hidden="true" />
               <div>
                 <span className="eyebrow">Reconhecimento</span>
                 <strong>Top Speaker SAP 2023</strong>
               </div>
             </div>
-            <p className="hero__eyebrow">Palestrante e consultora</p>
-            <h1>Rita Drumond</h1>
-            <p className="lead">
+            <p className="hero__eyebrow" data-reveal="fade">Palestrante e consultora</p>
+            <h1 data-reveal="fade-up">Rita Drumond</h1>
+            <p className="lead" data-reveal="fade-up">
               Experiências que unem emoção, estratégia e ação para potencializar pessoas, marcas e comunidades. Uma jornada criativa
               que transforma conhecimento em legado.
             </p>
@@ -359,6 +460,8 @@ function App() {
             src: portraitImg,
             alt: "Retrato de Rita Drumond sorrindo",
             note: "Escuta ativa para cocriar cada momento",
+            parallax: 0.18,
+            offset: "-6%",
           }}
         >
           <div className="visual-section__stack">
@@ -375,6 +478,28 @@ function App() {
           </div>
         </VisualSection>
 
+        <section className="section section--gallery" aria-label="Emoções em cena">
+          <div className="container">
+            <div className="gallery" role="list">
+              {emotionalFrames.map((frame) => (
+                <figure
+                  key={frame.caption}
+                  className="gallery__item"
+                  role="listitem"
+                  data-reveal="float-up"
+                  data-parallax="0.12"
+                  style={{ marginTop: frame.offset }}
+                >
+                  <div className="gallery__image">
+                    <img src={frame.src} alt={frame.alt} />
+                  </div>
+                  <figcaption>{frame.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <SectionDivider flip />
 
         <VisualSection
@@ -388,6 +513,8 @@ function App() {
             src: ritaMicrofoneImg,
             alt: "Rita Drumond conduzindo palestra com microfone",
             note: "Palco como espaço de transformação",
+            parallax: 0.1,
+            offset: "2%",
           }}
         >
           <div className="visual-section__stack visual-section__stack--grid">
@@ -410,6 +537,8 @@ function App() {
             src: depoimentoImg,
             alt: "Plateia aplaudindo Rita Drumond",
             note: "Plateias inspiradas em todo o Brasil",
+            parallax: 0.16,
+            offset: "-4%",
           }}
         >
           <div className="testimonial-grid" role="list">
@@ -422,12 +551,12 @@ function App() {
         <SectionDivider />
 
         <section className="section mid-hero" aria-labelledby="mid-hero-title">
-          <div className="mid-hero__background" aria-hidden="true">
+          <div className="mid-hero__background" aria-hidden="true" data-parallax="0.08">
             <img src={heroImg} alt="" />
             <div className="mid-hero__overlay" />
           </div>
           <div className="container">
-            <div className="mid-hero__content">
+            <div className="mid-hero__content" data-reveal="fade-up">
               <p className="eyebrow">Convite</p>
               <h2 id="mid-hero-title">"O palco é só o começo. A transformação acontece quando seguimos juntos."</h2>
               <Button href="#contato" variant="ghost">
@@ -479,6 +608,8 @@ function App() {
             src: heroImg,
             alt: "Plateia vibrando com apresentação de Rita Drumond",
             note: "Experiências imersivas do início ao fim",
+            parallax: 0.1,
+            offset: "4%",
           }}
         />
 

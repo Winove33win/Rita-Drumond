@@ -26,6 +26,7 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "@repo-assets": path.resolve(__dirname, "../assets"),
     },
   },
   esbuild: {

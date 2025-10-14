@@ -4,19 +4,19 @@ import "./App.css";
 
 const chipItems = [
   {
-    src: "./imgs/Rita-drumond.jpg",
+    src: "./imgs/Rita-drumond (3).jpg",
     alt: "Rita no palco durante uma palestra",
     title: "A RECEITA DO LEGADO",
     text: "Descubra como construir e fortalecer sua marca pessoal, inspirando, motivando e criando vínculos que transcendem o dia a dia. Vamos abordar as práticas que líderes visionários utilizam para criar culturas organizacionais onde o legado é uma força propulsora, gerando resultados que vão além do lucro.",
   },
   {
-    src: "./imgs/Rita-drumond (2).jpg",
+    src: "./imgs/Rita-drumond (4).jpg",
     alt: "Rita conduzindo um encontro com o público",
     title: "QUAL É A MÁGICA?",
     text: "Nesta palestra envolvente e inspiradora, vamos desvendar os 7 segredos por trás da excelência na experiência dos clientes da Disney. Você vai descobrir como a magia vai além das atrações e personagens, transformando cada interação com o cliente em uma experiência inesquecível.",
   },
   {
-    src: "./imgs/Rita-drumond (3).jpg",
+    src: "./imgs/Rita-drumond (5).jpg",
     alt: "Rita sorrindo e interagindo com a plateia",
     title: "REJUVELHECENDO",
     text: "Nesta palestra vamos abordar como abraçar a vida com atitude, inovação e vitalidade transformando a forma como você encara os desafios da conexão intergeracional nas equipes, desafiando a ideia do envelhecimento tradicional, mantendo a energia de um jovem e a sabedoria de um experiente e assim transcendendo a idade.",
@@ -31,18 +31,18 @@ const leadershipParagraphs = [
 ];
 
 const leadershipGallery = [
-  { src: "./imgs/Rita-drumond (4).jpg", alt: "Rita conduzindo líderes em treinamento" },
-  { src: "./imgs/Rita-drumond (5).jpg", alt: "Público atento durante a palestra" },
-  { src: "./imgs/Rita-drumond (6).jpg", alt: "Evento corporativo com participação ativa" },
+  { src: "./imgs/Rita-drumond (6).jpg", alt: "Rita conduzindo líderes em treinamento" },
+  { src: "./imgs/Rita-drumond (7).jpg", alt: "Público atento durante a palestra" },
+  { src: "./imgs/Rita-drumond (8).jpg", alt: "Evento corporativo com participação ativa" },
 ];
 
 const experiencesGallery = [
-  { src: "./imgs/Rita-drumond (7).jpg", alt: "Rita celebrando com o público" },
-  { src: "./imgs/Rita-drumond (8).jpg", alt: "Registro descontraído após a palestra" },
-  { src: "./imgs/Rita drumond.png", alt: "Retrato de Rita com microfone" },
-  { src: "./imgs/rita drumond (6).png", alt: "Close de Rita sorrindo" },
-  { src: "./imgs/rita drumond (7).png", alt: "Rita em apresentação corporativa" },
-  { src: "./imgs/rita drumond (8).png", alt: "Momento inspirador no evento" },
+  { src: "./imgs/Rita-drumond (3).jpg", alt: "Rita celebrando com o público" },
+  { src: "./imgs/Rita-drumond (4).jpg", alt: "Registro descontraído após a palestra" },
+  { src: "./imgs/Rita-drumond (5).jpg", alt: "Retrato de Rita com microfone" },
+  { src: "./imgs/Rita-drumond (6).jpg", alt: "Close de Rita sorrindo" },
+  { src: "./imgs/Rita-drumond (7).jpg", alt: "Rita em apresentação corporativa" },
+  { src: "./imgs/Rita-drumond (8).jpg", alt: "Momento inspirador no evento" },
 ];
 
 const App = () => {
@@ -128,7 +128,7 @@ const App = () => {
           </div>
         </div>
         <div className="card-portrait cutout-shadow">
-          <img src="./imgs/Rita-drumond (5).jpg" alt="Retrato de Rita Drumond sorrindo" />
+          <img src="./imgs/Rita-drumond.jpg" alt="Retrato de Rita Drumond sorrindo" />
         </div>
       </header>
       <div className="spacer" />
@@ -241,25 +241,16 @@ const App = () => {
         </div>
       </section>
 
-      <section className="container" style={{ paddingBottom: "70px" }}>
-        <div className="panel-dark reveal shadow-1">
-          <div className="row">
-            <img src="./imgs/Clientes.jpg" alt="Montagem com destaques de clientes" />
-            <div>
-              <h4 style={{ margin: "0 0 6px 0", fontSize: "18px" }}>Rita Drumond</h4>
-              <p className="mute" style={{ margin: "0 0 10px 0" }}>
-                Palestras, Workshop&apos;s e treinamentos
-              </p>
-              <p className="mute" style={{ margin: "0 0 12px 0" }}>
-                Imagine uma experiência de aprendizagem que combina a ciência da andragogia, a criatividade do Lego Serious Play e
-                a magia da Metodologia Disney de gestão da experiência do cliente. Nossas palestras e treinamentos são desenhados
-                para envolver e transformar
-              </p>
-              <a className="btn btn-dark" href="#contato">
-                Solicitar contato
-              </a>
-            </div>
-          </div>
+      <section className="container clients-section" id="clientes">
+        <div className="reveal">
+          <h3>Clientes</h3>
+          <p className="mute" style={{ margin: "8px 0 0", maxWidth: "720px", lineHeight: 1.5 }}>
+            Empresas que já confiaram na experiência e na energia transformadora de Rita Drumond em eventos, workshops e
+            treinamentos pelo Brasil.
+          </p>
+        </div>
+        <div className="clients-gallery reveal shadow-1">
+          <img src="./imgs/Clientes.jpg" alt="Logos de clientes atendidos por Rita Drumond" />
         </div>
       </section>
 

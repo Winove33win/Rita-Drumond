@@ -239,6 +239,49 @@ const TestimonialCard = ({ quote, author, role }: TestimonialCardProps) => (
   </figure>
 );
 
+type VisualSectionProps = {
+  id?: string;
+  eyebrow: string;
+  title: string;
+  description: ReactNode;
+  orientation?: "left" | "right";
+  background?: "default" | "surface" | "muted";
+  image: {
+    src: string;
+    alt: string;
+    note?: string;
+  };
+  children?: ReactNode;
+};
+
+const VisualSection = ({
+  id,
+  eyebrow,
+  title,
+  description,
+  orientation = "left",
+  background = "default",
+  image,
+  children,
+}: VisualSectionProps) => (
+  <section className={`section visual-section visual-section--${background}`} id={id}>
+    <div className="container">
+      <div className={`grid visual-section__grid visual-section__grid--${orientation}`}>
+        <figure className="visual-section__media grid-span-5">
+          <div className="visual-section__image">
+            <img src={image.src} alt={image.alt} />
+          </div>
+          {image.note && <figcaption className="visual-section__note">{image.note}</figcaption>}
+        </figure>
+        <div className="visual-section__content grid-span-7">
+          <SectionHeader eyebrow={eyebrow} title={title} description={description} />
+          {children && <div className="visual-section__body">{children}</div>}
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
 const SectionDivider = ({ flip = false }: { flip?: boolean }) => {
   const gradientId = useId();
 
@@ -266,31 +309,25 @@ function App() {
     <div className="site">
       <header className="hero" id="top">
         <div className="hero__background" aria-hidden="true">
-          <img src={heroImg} alt="" />
+          <img src={heroImg} alt="Plateia vibrando durante palestra de Rita Drumond" />
           <div className="hero__overlay" />
         </div>
         <div className="container">
-          <div className="hero__layout grid">
-            <aside className="hero__figure grid-span-4">
-              <div className="hero__portrait">
-                <img src={portraitImg} alt="Retrato de Rita Drumond sorrindo" />
+          <div className="hero__content">
+            <div className="hero__badge">
+              <img src={seloImg} alt="" aria-hidden="true" />
+              <div>
+                <span className="eyebrow">Reconhecimento</span>
+                <strong>Top Speaker SAP 2023</strong>
               </div>
-              <span className="hero__figure-note">Energia e conexão em cada encontro</span>
-            </aside>
-            <div className="hero__content grid-span-8">
-              <div className="hero__badge">
-                <img src={seloImg} alt="" aria-hidden="true" />
-                <div>
-                  <span className="eyebrow">Reconhecimento</span>
-                  <strong>Top Speaker SAP 2023</strong>
-                </div>
-              </div>
-              <p className="hero__eyebrow">Palestrante e consultora</p>
-              <h1>Rita Drumond</h1>
-              <p className="lead">
-                Experiências que unem emoção, estratégia e ação para potencializar pessoas, marcas e comunidades. Uma jornada
-                criativa que transforma conhecimento em legado.
-              </p>
+            </div>
+            <p className="hero__eyebrow">Palestrante e consultora</p>
+            <h1>Rita Drumond</h1>
+            <p className="lead">
+              Experiências que unem emoção, estratégia e ação para potencializar pessoas, marcas e comunidades. Uma jornada criativa
+              que transforma conhecimento em legado.
+            </p>
+            <div className="hero__actions">
               <Button href="#contato">Quero a Rita no meu evento</Button>
             </div>
           </div>
@@ -300,49 +337,107 @@ function App() {
       <SectionDivider />
 
       <main>
-        <section className="section section--intro" id="sobre">
+        <VisualSection
+          id="sobre"
+          eyebrow="A receita do legado"
+          title="Uma experiência desenhada com e para o seu público"
+          description={
+            <>
+              <p>
+                O segredo está na combinação entre repertório criativo, curadoria afetiva e direcionamento estratégico. Cada apresentação é
+                cocriada para acolher diferentes trajetórias e direcionar energia para os objetivos que você deseja alcançar.
+              </p>
+              <p>
+                A jornada começa antes do palco, atravessa a entrega ao vivo e segue com materiais e rituais que sustentam o impacto. Assim, o
+                evento se transforma em movimento contínuo.
+              </p>
+            </>
+          }
+          orientation="left"
+          background="surface"
+          image={{
+            src: portraitImg,
+            alt: "Retrato de Rita Drumond sorrindo",
+            note: "Escuta ativa para cocriar cada momento",
+          }}
+        >
+          <div className="visual-section__stack">
+            <ul className="stat-grid" aria-label="Indicadores de impacto">
+              {impactStats.map((stat) => (
+                <StatCard key={stat.label} value={stat.value} label={stat.label} />
+              ))}
+            </ul>
+            <ol className="pillar-grid" aria-label="Etapas da jornada">
+              {magicPillars.map((pillar, index) => (
+                <PillarItem key={pillar.title} index={index} title={pillar.title} description={pillar.description} />
+              ))}
+            </ol>
+          </div>
+        </VisualSection>
+
+        <SectionDivider flip />
+
+        <VisualSection
+          id="servicos"
+          eyebrow="Em ação"
+          title="Roteiros que combinam emoção e estratégia"
+          description="No palco, cada elemento é pensado para mobilizar o público e transformar o conhecimento em compromissos reais."
+          orientation="right"
+          background="muted"
+          image={{
+            src: ritaMicrofoneImg,
+            alt: "Rita Drumond conduzindo palestra com microfone",
+            note: "Palco como espaço de transformação",
+          }}
+        >
+          <div className="visual-section__stack visual-section__stack--grid">
+            {signatureHighlights.map((item) => (
+              <HighlightCard key={item.heading} {...item} />
+            ))}
+          </div>
+        </VisualSection>
+
+        <SectionDivider />
+
+        <VisualSection
+          id="cases"
+          eyebrow="Depoimentos"
+          title="Experiências que deixam marcas duradouras"
+          description="Cada encontro é uma construção coletiva. Os relatos abaixo mostram como a presença da Rita transforma a energia da equipe e cria compromissos que seguem vivos após o evento."
+          orientation="left"
+          background="default"
+          image={{
+            src: depoimentoImg,
+            alt: "Plateia aplaudindo Rita Drumond",
+            note: "Plateias inspiradas em todo o Brasil",
+          }}
+        >
+          <div className="testimonial-grid" role="list">
+            {testimonials.map((testimonial) => (
+              <TestimonialCard key={testimonial.author} {...testimonial} />
+            ))}
+          </div>
+        </VisualSection>
+
+        <SectionDivider />
+
+        <section className="section mid-hero" aria-labelledby="mid-hero-title">
+          <div className="mid-hero__background" aria-hidden="true">
+            <img src={heroImg} alt="" />
+            <div className="mid-hero__overlay" />
+          </div>
           <div className="container">
-            <div className="grid intro__layout">
-              <div className="intro__visual grid-span-5">
-                <div className="intro__image">
-                  <img src={ritaMicrofoneImg} alt="Rita Drumond falando ao microfone" />
-                  <span className="intro__image-note">Metodologia centrada nas pessoas</span>
-                </div>
-                <ul className="stat-grid" aria-label="Indicadores de impacto">
-                  {impactStats.map((stat) => (
-                    <StatCard key={stat.label} value={stat.value} label={stat.label} />
-                  ))}
-                </ul>
-              </div>
-              <div className="intro__content grid-span-7">
-                <SectionHeader
-                  eyebrow="A receita do legado"
-                  title="Uma experiência desenhada com e para o seu público"
-                  description={
-                    <>
-                      <p>
-                        O segredo está na combinação entre repertório criativo, curadoria afetiva e direcionamento estratégico. Cada
-                        apresentação é cocriada para acolher diferentes trajetórias e direcionar energia para os objetivos que você deseja
-                        alcançar.
-                      </p>
-                      <p>
-                        A jornada começa antes do palco, atravessa a entrega ao vivo e segue com materiais e rituais que sustentam o impacto.
-                        Assim, o evento se transforma em movimento contínuo.
-                      </p>
-                    </>
-                  }
-                />
-                <ol className="pillar-grid" aria-label="Etapas da jornada">
-                  {magicPillars.map((pillar, index) => (
-                    <PillarItem key={pillar.title} index={index} title={pillar.title} description={pillar.description} />
-                  ))}
-                </ol>
-              </div>
+            <div className="mid-hero__content">
+              <p className="eyebrow">Convite</p>
+              <h2 id="mid-hero-title">"O palco é só o começo. A transformação acontece quando seguimos juntos."</h2>
+              <Button href="#contato" variant="ghost">
+                Construir a próxima experiência
+              </Button>
             </div>
           </div>
         </section>
 
-        <SectionDivider flip />
+        <SectionDivider />
 
         <section className="section section--offerings" id="conteudo">
           <div className="container">
@@ -360,70 +455,34 @@ function App() {
           </div>
         </section>
 
-        <SectionDivider />
-
-        <section className="section section--signature" id="servicos">
-          <div className="container">
-            <SectionHeader
-              eyebrow="Entregas autorais"
-              title="Roteiros que combinam emoção e estratégia"
-              description="Cada apresentação é construída com base em entrevistas, repertório original e ferramentas de facilitação que envolvem o público do começo ao fim. Assim, criamos experiências que reverberam na cultura da sua empresa."
-            />
-            <div className="grid signature__body">
-              <div className="signature__media grid-span-5">
-                <div className="media-card">
-                  <img src={ritaMicrofoneImg} alt="Rita Drumond conduzindo palestra com microfone" />
-                </div>
-                <span className="media-card__note">Cocriação e presença em cena</span>
-              </div>
-              <div className="signature__grid grid-span-7">
-                {signatureHighlights.map((item) => (
-                  <HighlightCard key={item.heading} {...item} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <SectionDivider />
-
-        <section className="section section--journey">
-          <div className="container">
-            <div className="grid journey__layout">
-              <div className="journey__content grid-span-6">
-                <SectionHeader
-                  eyebrow="Curadoria sensível"
-                  title="Momentos para sentir, pensar e agir"
-                  description={
-                    <>
-                      <p>
-                        Cada jornada é desenhada para que o público se reconheça nas histórias e saia com repertório aplicável. Do briefing à
-                        entrega, mapeio expectativas, rituais e linguagem para que a experiência faça sentido para cada grupo.
-                      </p>
-                      <ul className="list">
-                        <li>Dinâmicas de participação que transformam plateias em protagonistas.</li>
-                        <li>Conteúdo multimídia alinhado ao contexto e à identidade da sua marca.</li>
-                        <li>Planos de continuidade que prolongam o impacto e incentivam novas ações.</li>
-                      </ul>
-                    </>
-                  }
-                />
-              </div>
-              <div className="journey__gallery grid-span-6">
-                <figure className="gallery-card">
-                  <img src={heroImg} alt="Rita Drumond em destaque no palco durante apresentação" />
-                  <figcaption>Experiências que combinam emoção e estratégia</figcaption>
-                </figure>
-                <figure className="gallery-card gallery-card--accent">
-                  <img src={portraitImg} alt="Rita Drumond sorrindo próxima ao público" />
-                  <figcaption>Conexão genuína com diferentes públicos</figcaption>
-                </figure>
-              </div>
-            </div>
-          </div>
-        </section>
-
         <SectionDivider flip />
+
+        <VisualSection
+          eyebrow="Curadoria sensível"
+          title="Momentos para sentir, pensar e agir"
+          description={
+            <>
+              <p>
+                Cada jornada é desenhada para que o público se reconheça nas histórias e saia com repertório aplicável. Do briefing à entrega,
+                mapeio expectativas, rituais e linguagem para que a experiência faça sentido para cada grupo.
+              </p>
+              <ul className="list">
+                <li>Dinâmicas de participação que transformam plateias em protagonistas.</li>
+                <li>Conteúdo multimídia alinhado ao contexto e à identidade da sua marca.</li>
+                <li>Planos de continuidade que prolongam o impacto e incentivam novas ações.</li>
+              </ul>
+            </>
+          }
+          orientation="right"
+          background="default"
+          image={{
+            src: heroImg,
+            alt: "Plateia vibrando com apresentação de Rita Drumond",
+            note: "Experiências imersivas do início ao fim",
+          }}
+        />
+
+        <SectionDivider />
 
         <section className="section section--live">
           <div className="container">
@@ -437,33 +496,6 @@ function App() {
               {liveMoments.map((moment) => (
                 <LiveCard key={moment.title} {...moment} />
               ))}
-            </div>
-          </div>
-        </section>
-
-        <SectionDivider />
-
-        <section className="section section--testimonials" id="cases">
-          <div className="container">
-            <div className="grid testimonials__layout">
-              <div className="testimonials__media grid-span-5">
-                <div className="media-card media-card--accent">
-                  <img src={depoimentoImg} alt="Plateia aplaudindo Rita Drumond" />
-                </div>
-                <span className="media-card__note">Plateias inspiradas em todo o Brasil</span>
-              </div>
-              <div className="testimonials__content grid-span-7">
-                <SectionHeader
-                  eyebrow="Depoimentos"
-                  title="Experiências que deixam marcas duradouras"
-                  description="Cada encontro é uma construção coletiva. Os relatos abaixo mostram como a presença da Rita transforma a energia da equipe e cria compromissos que seguem vivos após o evento."
-                />
-                <div className="testimonial-grid" role="list">
-                  {testimonials.map((testimonial) => (
-                    <TestimonialCard key={testimonial.author} {...testimonial} />
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
         </section>

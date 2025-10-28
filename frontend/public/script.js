@@ -92,6 +92,62 @@ const scanTree = (root) => {
 document.addEventListener("DOMContentLoaded", () => {
   scanTree(document);
 
+  const accordionItems = Array.from(document.querySelectorAll("[data-accordion-item]"));
+  if (accordionItems.length > 0) {
+    accordionItems.forEach((item, index) => {
+      if (!(item instanceof HTMLElement)) return;
+      const button = item.querySelector("[data-accordion-button]");
+      const content = item.querySelector("[data-accordion-content]");
+      if (!(button instanceof HTMLElement) || !(content instanceof HTMLElement)) return;
+
+      if (!content.id) {
+        content.id = `accordion-item-${index + 1}`;
+        button.setAttribute("aria-controls", content.id);
+      }
+
+      button.addEventListener("click", () => {
+        const isOpen = item.classList.contains("is-open");
+
+        accordionItems.forEach((other) => {
+          if (!(other instanceof HTMLElement)) return;
+          if (other === item) return;
+          const otherButton = other.querySelector("[data-accordion-button]");
+          const otherContent = other.querySelector("[data-accordion-content]");
+          other.classList.remove("is-open");
+          if (otherButton instanceof HTMLElement) {
+            otherButton.setAttribute("aria-expanded", "false");
+          }
+          if (otherContent instanceof HTMLElement && !otherContent.classList.contains("hidden")) {
+            otherContent.classList.add("hidden");
+          }
+        });
+
+        if (isOpen) {
+          item.classList.remove("is-open");
+          button.setAttribute("aria-expanded", "false");
+          if (!content.classList.contains("hidden")) {
+            content.classList.add("hidden");
+          }
+        } else {
+          item.classList.add("is-open");
+          button.setAttribute("aria-expanded", "true");
+          content.classList.remove("hidden");
+        }
+      });
+    });
+
+    const firstItem = accordionItems[0];
+    if (firstItem instanceof HTMLElement) {
+      const firstButton = firstItem.querySelector("[data-accordion-button]");
+      const firstContent = firstItem.querySelector("[data-accordion-content]");
+      if (firstButton instanceof HTMLElement && firstContent instanceof HTMLElement) {
+        firstItem.classList.add("is-open");
+        firstButton.setAttribute("aria-expanded", "true");
+        firstContent.classList.remove("hidden");
+      }
+    }
+  }
+
   const observer = new MutationObserver((records) => {
     records.forEach((record) => {
       record.addedNodes.forEach((node) => {

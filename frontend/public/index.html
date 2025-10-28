@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Caveat:wght@600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Allura&family=Poppins:wght@400;500;600;700&family=Caveat:wght@600&display=swap"
       rel="stylesheet"
     />
     <link
@@ -22,10 +22,18 @@
             fontFamily: {
               sans: ["Poppins", "Inter", "system-ui", "sans-serif"],
               script: ["Caveat", "cursive"],
+              allura: ["Allura", "cursive"],
             },
             colors: {
               ink: "#0E0E0E",
+              foreground: "#0E0E0E",
+              background: "#FFFFFF",
               muted: "#6B7280",
+              "muted-foreground": "#4B5563",
+              primary: {
+                DEFAULT: "#FACC15",
+                foreground: "#0F172A",
+              },
               brand: {
                 amber: "#FACC15",
                 600: "#D97706",
@@ -137,6 +145,14 @@
         background: linear-gradient(130deg, rgba(255, 255, 255, 0.12), transparent 55%);
         pointer-events: none;
       }
+      .prose p {
+        margin: 0;
+      }
+      [data-accordion-item].is-open {
+        background-color: rgba(250, 204, 21, 0.16);
+        border-color: rgba(250, 204, 21, 0.4);
+        box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+      }
       .shape-blob {
         position: absolute;
         inset: auto;
@@ -221,7 +237,7 @@
               Solicitar contato
             </a>
             <a
-              href="#sobre"
+              href="#secao-06"
               class="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xlx border border-white/40 px-6 py-3 text-base font-medium text-white transition hover:-translate-y-0.5 hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Conheça a trajetória
@@ -241,73 +257,121 @@
     </header>
 
     <main class="bg-white text-ink">
-      <!-- PLAQUINHAS -->
-      <section class="bg-white py-20">
-        <div class="container mx-auto max-w-[1140px] px-6">
-          <div class="grid gap-8 lg:grid-cols-3">
-            <article
-              class="flex items-center gap-5 rounded-xlx bg-slate-700/85 p-6 text-chipTxt shadow-elev1 transition hover:bg-gradient-to-r hover:from-slate-600/90 hover:to-slate-500/80"
-              data-aos="fade-up"
+      <!-- SEÇÃO 07: LISTA DE PALESTRAS -->
+      <section
+        id="secao-07"
+        class="relative bg-gradient-to-b from-background to-background py-8 sm:py-12 md:py-16"
+      >
+        <div class="mx-auto w-full max-w-[780px] px-4 sm:px-6">
+          <header class="mb-5 sm:mb-8" data-aos="fade-up">
+            <p class="text-[11px] font-semibold uppercase tracking-[0.22em] text-primary sm:text-xs">
+              Equipes intergeracionais e resultados
+            </p>
+            <h3 class="mt-2 text-[20px] font-extrabold leading-tight text-foreground sm:text-3xl md:text-4xl">
+              Palestras, workshops e treinamentos
+            </h3>
+            <p class="mt-2 text-[14px] text-muted-foreground sm:text-base">
+              Imagine experiências de aprendizagem que combinam histórias reais, provocações inteligentes e
+              ferramentas práticas para transformar equipes.
+            </p>
+          </header>
+
+          <ul class="space-y-3 sm:space-y-4" data-aos="fade-up" data-aos-delay="120">
+            <li
+              class="rounded-2xl border border-primary/20 bg-primary/8 shadow-sm transition-shadow duration-200"
+              data-accordion-item
             >
-              <div class="h-20 w-24 overflow-hidden rounded-lgx shadow-elev1">
-                <img
-                  src="/imgs/Rita-drumond (2).jpg"
-                  alt="Rita Drumond conversando com plateia"
-                  class="h-full w-full object-cover"
-                  data-asset
-                />
+              <button
+                type="button"
+                class="flex w-full items-center gap-3 text-left"
+                data-accordion-button
+                aria-expanded="false"
+                aria-controls="secao-07-item-1"
+              >
+                <span
+                  class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[12px] font-semibold tracking-[0.18em] text-primary-foreground sm:h-10 sm:w-10 sm:text-[13px]"
+                >
+                  01
+                </span>
+                <span class="text-[15px] font-semibold text-foreground sm:text-base">A receita do legado</span>
+              </button>
+              <div
+                id="secao-07-item-1"
+                class="hidden mt-2 text-[14px] leading-relaxed text-muted-foreground sm:text-[15px]"
+                data-accordion-content
+              >
+                Cultura de segurança com
+                <span class="inline-block rounded-md bg-yellow-300/60 px-1.5 py-[1px] text-foreground sm:px-2 sm:py-[2px]">
+                  protagonismo
+                </span>
+                e ações que se sustentam no dia a dia. Provoca líderes e times a criarem rituais que mantêm o cuidado vivo e
+                mensurável.
               </div>
-              <div class="space-y-2 text-sm">
-                <h3 class="text-xs font-semibold uppercase tracking-[0.3em] text-white">A receita do legado</h3>
-                <p class="leading-relaxed text-slate-100">
-                  Cultura de segurança com <span class="rounded-full bg-brand-amber px-2 py-0.5 text-ink">protagonismo</span>
-                  e ações que se sustentam.
-                </p>
-              </div>
-            </article>
-            <article
-              class="flex items-center gap-5 rounded-xlx bg-slate-700/85 p-6 text-chipTxt shadow-elev1 transition hover:bg-gradient-to-r hover:from-slate-600/90 hover:to-slate-500/80"
-              data-aos="fade-up"
-              data-aos-delay="120"
+            </li>
+            <li
+              class="rounded-2xl border border-primary/20 bg-primary/8 shadow-sm transition-shadow duration-200"
+              data-accordion-item
             >
-              <div class="h-20 w-24 overflow-hidden rounded-lgx shadow-elev1">
-                <img
-                  src="/imgs/Rita-drumond (3).jpg"
-                  alt="Rita Drumond liderando dinâmica com equipe"
-                  class="h-full w-full object-cover"
-                  data-asset
-                />
+              <button
+                type="button"
+                class="flex w-full items-center gap-3 text-left"
+                data-accordion-button
+                aria-expanded="false"
+                aria-controls="secao-07-item-2"
+              >
+                <span
+                  class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[12px] font-semibold tracking-[0.18em] text-primary-foreground sm:h-10 sm:w-10 sm:text-[13px]"
+                >
+                  02
+                </span>
+                <span class="text-[15px] font-semibold text-foreground sm:text-base">Qual é a mágica?</span>
+              </button>
+              <div
+                id="secao-07-item-2"
+                class="hidden mt-2 text-[14px] leading-relaxed text-muted-foreground sm:text-[15px]"
+                data-accordion-content
+              >
+                Conversas francas que conectam gerações, despertam
+                <span class="inline-block rounded-md bg-yellow-300/60 px-1.5 py-[1px] text-foreground sm:px-2 sm:py-[2px]">
+                  confiança
+                </span>
+                e aceleram decisões estratégicas. A palestra mostra como transformar encantamento em indicadores reais de
+                performance.
               </div>
-              <div class="space-y-2 text-sm">
-                <h3 class="text-xs font-semibold uppercase tracking-[0.3em] text-white">Qual é a mágica?</h3>
-                <p class="leading-relaxed text-slate-100">
-                  Conversas francas que conectam gerações, inspiram <span class="rounded-full bg-brand-amber px-2 py-0.5 text-ink">confiança</span>
-                  e aceleram resultados.
-                </p>
-              </div>
-            </article>
-            <article
-              class="flex items-center gap-5 rounded-xlx bg-slate-700/85 p-6 text-chipTxt shadow-elev1 transition hover:bg-gradient-to-r hover:from-slate-600/90 hover:to-slate-500/80"
-              data-aos="fade-up"
-              data-aos-delay="240"
+            </li>
+            <li
+              class="rounded-2xl border border-primary/20 bg-primary/8 shadow-sm transition-shadow duration-200"
+              data-accordion-item
             >
-              <div class="h-20 w-24 overflow-hidden rounded-lgx shadow-elev1">
-                <img
-                  src="/imgs/Rita-drumond (6).jpg"
-                  alt="Rita Drumond interagindo com público"
-                  class="h-full w-full object-cover"
-                  data-asset
-                />
+              <button
+                type="button"
+                class="flex w-full items-center gap-3 text-left"
+                data-accordion-button
+                aria-expanded="false"
+                aria-controls="secao-07-item-3"
+              >
+                <span
+                  class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[12px] font-semibold tracking-[0.18em] text-primary-foreground sm:h-10 sm:w-10 sm:text-[13px]"
+                >
+                  03
+                </span>
+                <span class="text-[15px] font-semibold text-foreground sm:text-base">Resultados com leveza</span>
+              </button>
+              <div
+                id="secao-07-item-3"
+                class="hidden mt-2 text-[14px] leading-relaxed text-muted-foreground sm:text-[15px]"
+                data-accordion-content
+              >
+                Humor na medida para manter times alertas, engajados e com
+                <span class="inline-block rounded-md bg-yellow-300/60 px-1.5 py-[1px] text-foreground sm:px-2 sm:py-[2px]">
+                  pertencimento
+                </span>. Traz ferramentas práticas para reduzir tensões, ampliar a empatia e criar ambientes seguros para aprender.
               </div>
-              <div class="space-y-2 text-sm">
-                <h3 class="text-xs font-semibold uppercase tracking-[0.3em] text-white">Resultados com leveza</h3>
-                <p class="leading-relaxed text-slate-100">
-                  Humor na medida para manter times alertas, engajados e com <span class="rounded-full bg-brand-amber px-2 py-0.5 text-ink">pertencimento</span>.
-                </p>
-              </div>
-            </article>
-          </div>
+            </li>
+          </ul>
         </div>
+
+        <div class="hidden h-8 sm:block"></div>
       </section>
 
       <!-- FAIXA AMARELA -->
@@ -345,36 +409,64 @@
         </div>
       </section>
 
-      <!-- BLOCO INSTITUCIONAL -->
-      <section id="sobre" class="py-24">
-        <div class="container mx-auto flex max-w-[1140px] flex-col items-start gap-12 px-6 lg:flex-row lg:items-stretch">
-          <div class="flex-1 space-y-8" data-aos="fade-right">
-            <h2 class="font-script text-4xl text-brand-amber">Rita Drumond</h2>
-            <p class="text-lg leading-relaxed text-muted">
-              Especialista em segurança comportamental e diversidade geracional, Rita conecta histórias
-              reais com estratégias que atravessam organogramas e chegam às pessoas. Sua jornada é
-              marcada por experiências em grandes indústrias, construção civil e ambientes de alto risco,
-              sempre com foco em gente.
+      <!-- SEÇÃO 06: BIO -->
+      <section
+        id="secao-06"
+        class="relative overflow-visible py-8 sm:py-12 md:py-16"
+      >
+        <div id="sobre" class="sr-only" aria-hidden="true"></div>
+        <div class="mx-auto w-full max-w-[740px] px-4 sm:px-6">
+          <h2
+            class="mb-3 font-allura text-[26px] font-normal leading-[1.1] text-foreground sm:text-4xl md:text-5xl"
+            data-aos="fade-up"
+          >
+            Rita Drumond
+          </h2>
+
+          <div
+            class="prose max-w-none text-[15px] leading-[1.55] text-muted-foreground space-y-3 sm:space-y-4 sm:text-base md:text-[18px]"
+            data-aos="fade-up"
+            data-aos-delay="120"
+          >
+            <p>
+              <span class="inline-block rounded-md bg-yellow-300/60 px-1.5 py-[1px] text-foreground sm:px-2 sm:py-[2px]">
+                Segurança comportamental
+              </span>
+              e diversidade geracional orientam Rita a conectar histórias reais com estratégias que atravessam
+              organogramas e chegam às pessoas.
             </p>
-            <p class="text-lg leading-relaxed text-muted highlight-chip rounded-lgx p-5">
-              "Quando o cuidado vira hábito, a inovação floresce." A frase que guia seus projetos mostra
-              como prevenção e performance podem caminhar juntas, respeitando cada voz e cada ritmo.
+            <p>
+              <span class="inline-block rounded-md bg-yellow-300/60 px-1.5 py-[1px] text-foreground sm:px-2 sm:py-[2px]">
+                Viajante incansável
+              </span>
+              e leitora ávida, coleciona referências que ampliam sua visão e tornam cada encontro uma experiência prática,
+              humana e acolhedora.
             </p>
-            <p class="text-lg leading-relaxed text-muted">
-              Mentorando líderes e equipes, Rita implementa programas que dão autonomia, criam rituais de
-              aprendizagem contínua e mantêm a cultura viva na prática.
+            <p>
+              Mentorando líderes e equipes, Rita implementa programas que dão autonomia, criam rituais de aprendizagem contínua
+              e mantêm a cultura viva na prática.
+            </p>
+            <p>
+              <span class="inline-block rounded-md bg-yellow-300/60 px-1.5 py-[1px] text-foreground sm:px-2 sm:py-[2px]">
+                "Quando o cuidado vira hábito, a inovação floresce."
+              </span>
+              A frase que guia seus projetos mostra como prevenção e performance podem caminhar juntas, respeitando cada voz e
+              cada ritmo.
             </p>
           </div>
-          <div class="flex-1" data-aos="fade-left">
-            <div class="relative h-full min-h-[420px] overflow-hidden rounded-xlx shadow-elev2">
-              <img
-                src="/imgs/Rita-drumond (5).jpg"
-                alt="Retrato de Rita Drumond"
-                class="h-full w-full object-cover"
-                data-asset
-              />
-            </div>
-          </div>
+
+          <figure
+            class="mt-6 overflow-hidden rounded-3xl shadow-lg sm:mt-8"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <img
+              src="/imgs/Rita-drumond (5).jpg"
+              alt="Retrato de Rita Drumond"
+              class="h-auto w-full max-h-[520px] object-cover object-center sm:max-h-none"
+              data-asset
+            />
+          </figure>
         </div>
       </section>
 
